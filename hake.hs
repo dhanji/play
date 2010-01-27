@@ -9,15 +9,28 @@ main = do
           contents <- hGetContents buildFile
           
           -- strip comment lines
-          print $ map mavenize (map stripComments (lines contents))
+          print $ (glomify (map stripComments (lines contents)))
           hClose buildFile
           
--- removes any line that begins with '#'  
+-- removes any line that begins with '#' and removes leading whitespace
 stripComments [] = []
-stripComments (x:xs) 
+stripComments (x:xs)
     | x == '#' = [] 
-    | otherwise = x:xs
+    | otherwise = trim (x:xs)
+    -- should probably use a library func hehe
+    where trim [] = []
+          trim (x:xs)
+              | x == ' ' = xs
+              | otherwise = x:xs
 
+
+-- gloms sequences of non-empty lines into a single string
+glomify :: [String] -> [String]
+glomify ls = glom ls []
+  where glom [] out = out
+        glom (x:xs) out
+          | null x = glom xs (out ++ [""])
+          | otherwise = glom xs (init out ++ [last out ++ x])
 
 -- turns a list of hake lines into maven pom.xml fragments
 mavenize line 
