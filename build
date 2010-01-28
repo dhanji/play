@@ -1,14 +1,16 @@
 #hake buildfile
 
-repositories << http://repository.codehaus.org, http://maven.org/central
+repositories << http://repository.codehaus.org http://maven.org/central
 
 
-project(guice)
+project "Google Guice" @ http://maven.apache.org
   id: com.google.inject:guice:2.0-SNAPSHOT
-  name: Google Guice
-  url: http://maven.apache.org
-  deps: [ junit:junit:3.8.1 ]
-  scm: ( connection: scm:svn:http://..., 
+  deps: [ junit:junit:3.8.1
+          junit:junit:4.0
+          kunit:org.kunit:SNAPSHOT-1.0b 
+        ]
+
+scm(connection: scm:svn:http://..., 
          developerConnection: ..., 
          url: ... )
       
@@ -23,3 +25,4 @@ plugins(org.apache.maven.plugins)
 # example fqn plugin import  
 plugins
   org.apache.maven.plugins:maven-compiler-plugin: (source: 1.5, target: 1.5)
+
