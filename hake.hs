@@ -77,7 +77,7 @@ parseDeps st = xmlTag "dependencies" (concat [ depTag dep | dep <- deps, dep /= 
 
 
 -- parsing rule for plugins by group id
-parsePlugins st = xmlTag "plugins" (concat [ plg | plg <- plugs ])
+parsePlugins st = xmlTag "build" $ xmlTag "plugins" (concat [ plg | plg <- plugs ])
     where plugs = words st
 
 -- Wraps a tag name and content in xml lingo
