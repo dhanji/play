@@ -7,3 +7,4 @@ alphabet x1 x2 = if x1 == x2
 
 
 main = puts (alphabet 'a' 'z')
+

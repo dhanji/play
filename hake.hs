@@ -5,17 +5,29 @@ import Text.Regex.Posix
 
 
 main = do
-          buildFile <- openFile "build" ReadMode
+          buildFile <- openFile "hakefile" ReadMode
           contents <- hGetContents buildFile
           
+          -- todo output: pom.hake.xml and invoke mvn -f
+          
           -- strip comment lines
-          print $ map mavenize (glomify (map stripComments (lines contents)))
+          writeFile "pom.hake.xml" $ root $ concat $ map mavenize (glomify (map stripComments (lines contents)))
+                                  ++ [defaultBuild, defaultModel]
           hClose buildFile
+    where defaultBuild = xmlTag "build" $ (xmlTag "sourceDirectory" "src") ++ (xmlTag "testSourceDirectory" "test")
+                                        ++ (xmlTag "plugins" $ (xmlTag "plugin" $
+                                                artifactDescriptorTag ["org.apache.maven.plugins",
+                                                                      "maven-compiler-plugin",
+                                                                       (xmlTag "configuration" 
+                                                                            (concat [xmlTag "source" "1.5",
+                                                                                    xmlTag "target" "1.5"]))]))
+          defaultModel = xmlTag "modelVersion" "4.0.0"
+          root = xmlTag "project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\""
           
 -- removes any line that begins with '#' and removes leading whitespace
 stripComments [] = []
 stripComments (x:xs)
-    | x == '#' = [] 
+    | x == '#' = []
     | otherwise = trim (x:xs)
     -- should probably use a library func hehe
     where trim [] = []
@@ -49,7 +61,8 @@ mavenize line
 parseRepositories st = xmlTag "repositories" (concat 
                           [ repo url | url <- urls, url /= "repositories", url /= "<<" ])
     where urls = words st
-          repo url = xmlTag "repository" (concat [(xmlTag "url" url), 
+          repo url = xmlTag "repository" (concat [(xmlTag "id" url), -- use URL as ID for now
+                                                    (xmlTag "url" url), 
                                                     (xmlTag "releases" enabled),
                                                     (xmlTag "snapshots" enabled)])
               where enabled = xmlTag "enabled" "true"
@@ -58,10 +71,7 @@ parseRepositories st = xmlTag "repositories" (concat
 -- parsing rule for project metadata
 parseProject st = concat [xmlTag "name" $ mid $ name st,
                           xmlTag "url" $ url st,
-                          let i = ident st in
-                              (concat [xmlTag "groupId" (i !! 0),
-                                       xmlTag "artifactId" (i !! 1),
-                                       xmlTag "version" (i !! 2)])]
+                          let i = ident st in artifactDescriptorTag (init i ++ [xmlTag "version" (i !! 2)])]
     where name = ( =~ "\\\".*\\\"")
           url u = head $ words ( u =~ "(http).*" )  -- not super efficient =(
           ident i = colonSplit $ words (i =~ "id: .*") !! 1 -- pick the second word after "id:"
@@ -81,7 +91,7 @@ parsePlugins st = xmlTag "build" $ xmlTag "plugins" (concat [ plg | plg <- plugs
     where plugs = words st
 
 -- Wraps a tag name and content in xml lingo
-xmlTag name content = '<' : name ++ ">" ++ content ++ ( "</" ++ name ++ ">")
+xmlTag name content = '<' : name ++ ">" ++ content ++ ( "</" ++ (head $ words name) ++ ">")
 
 -- strips first and last character from a list
 mid [] = []
@@ -90,3 +100,10 @@ mid st = init $ tail st
 -- turns xx:xx:xx.. into [xx, xx, xx, ..]
 colonSplit :: String -> [String]
 colonSplit = (=~ "[^:]+")
+
+
+
+-- produces an xml glob with the three bits set
+artifactDescriptorTag i = (concat [xmlTag "groupId" (i !! 0),
+                                   xmlTag "artifactId" (i !! 1),
+                                   i !! 2])
