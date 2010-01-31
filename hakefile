@@ -1,0 +1,25 @@
+#hake buildfile
+
+repositories << http://repository.codehaus.org http://maven.org/central
+
+
+project "Google Guice" @ http://maven.apache.org
+  id: com.google.inject:guice:2.0-SNAPSHOT
+  deps: [ junit:junit:3.8.1
+          junit:junit:4.0
+          kunit:org.kunit:SNAPSHOT-1.0b 
+        ]
+
+#scm(connection: scm:svn:http://..., 
+#         developerConnection: ..., 
+#         url: ... )
+      
+
+# example plugin import by namespace
+#build(src: src, test: test)
+#build assumes src, test
+
+
+#  plugins(org.apache.maven.plugins) << maven-compiler-plugin: (source: 1.5, target: 1.5)
+#  maven-release-plugin:2.0-beta-9:
+#        (tagBase: https://google-sitebricks.googlecode.com/svn/tags)]
