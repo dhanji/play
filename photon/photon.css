@@ -6,7 +6,7 @@ body {
 
 #leftmenu {
   float: left;
-  width: 25%;
+  width: 21%;
   height: 100%;
 }
 
@@ -14,15 +14,48 @@ body {
   
 }
 
+.tweet-box {
+  overflow: hidden;
+}
+
+.tweet-box .avatar {
+  float: left;
+  padding: 9px 18px 0 0;
+}
+
+.tweet-box .avatar img {
+  width: 48px;
+  height: 48px;
+  -webkit-border-radius: 4px;
+  /*
+    -webkit-box-reflect:below 2px
+      -webkit-gradient(linear,
+        left top,
+        left bottom,
+        from(transparent),
+        color-stop(0.7, transparent),
+        color-stop(1.0, rgba(255, 255, 255, 255))
+      );*/
+}
+
 .tweet {
   overflow: hidden;
-  width: 50%;
+  width: 570px;
   padding: 6px;
   margin: 8px 0px;
-  background-color: #FFF; /** TODO:gradient for safari4/chrome**/
+  background:
+   -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(0.0, #FFF),
+      color-stop(0.58, #FEFEFE),
+      color-stop(0.8, #EDEDED),
+      color-stop(1.0, #DFDFDF)
+  );
+  /** TODO:gradient for safari4/chrome**/
   -webkit-border-radius: 4px;
   -webkit-box-shadow: 1px 1px 3px #666;
-
 }
 
 .title {
@@ -32,45 +65,62 @@ body {
   text-shadow: 1px 1px 3px #666;
 }
 
-.author {
-  float: left;
-  color: #99F;
-  font-weight: bold;
+.tweet .topline {
+  padding: 2px 0 0 0;
 }
 
-.text {
+.tweet .topline .author {
+  float: left;
+  color: #000;
+  font-weight: bold;
+  padding: 0 0 0 3px;
+}
+
+.tweet .text {
+  width: 100%;
   float: left;
   padding: 4px;
+  color: #333;
+}
+
+.tweet .meta {
+  margin-top: -12px;
+  width: 100%;
+  float: left;
+  font-size: 10px;
+  color: #CACACA;
+}
+
+.tweet .topline .icons {
+  float: right;
 }
 
 .label-container {
   float: right;
-  padding: 4px 8px 6px 0px;
+  padding: 4px 6px 2px 0px;
 }
 
 .label-container span {
   font-family: 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif;
-  padding: 1px 10px;
+  padding: 0 10px;
   margin-left: 4px;
-  font-size: 11px;
+  font-size: 9px;
   border: 1px #BBF solid;
   -webkit-border-radius: 8px;
   background-color: #EAEAFF;
+  color: #555;
 }
 
 /** popovers **/
 .popover {
-  padding: 8px;
+  padding: 10px;
   position: absolute;
   
   /** arbitrary positioning and sizing **/
-  top: 140px;
-  left: 400px;
+  top: 240px;
+  left: 600px;
   
-  width: 280px;
-  
-  
-  border: 6px solid #EAEAFA;
+  width: 340px;
   
   -webkit-border-radius: 8px;
   
@@ -78,13 +128,62 @@ body {
   -webkit-box-shadow: 3px 6px 15px #444;
 }
 
+/** CSS transitions for popover **/
+.popover .zoom-fade {
+    -webkit-transition-property: -webkit-transform, opacity;
+    -webkit-transition-duration: 4s, 2s;
+    -webkit-transition-delay: 2s, 0;
+}
+
 .popover .line {
   padding: 4px 0;
   border-bottom: 1px dashed #EDEDED;
+  height: 50px;
 }
 
 .popover .line .author {
+  width: 100%;
   padding: 0 2px 0 0;
-  font-size: 12px;
-  color: #;
+  font-size: 13px;
+  font-weight: bold;
+  color: #000;
+}
+
+.popover .line .author .time {
+  font-weight: normal;
+  font-size: 11px;
+  float: right;
+  
+  color: #68aaf0;
+}
+
+.popover .line .text {
+  width: 100%;
+  padding: 2px 0 0 0;
+  color: #C0C0C0;
+}
+
+.popover .line .meta {
+  position: relative;
+  bottom: -3px;
+  padding: 0 0 0 2px;
+  font-size: 11px;
+  color: #AAA;
+}
+
+.popover .line .meta .icons {
+  float: right;
+}
+
+/** info icons **/
+.icon-pic {
+  width: 16px;
+  height: 16px;
+  background: #FFF url("images/pictures.png") no-repeat;
+}
+
+.icon-replies {
+  width: 16px;
+  height: 16px;
+  background: #FFF url("images/comments.png") no-repeat;  
 }
