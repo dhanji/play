@@ -1,10 +1,17 @@
 <html>
 <head>
   <link rel="stylesheet" href="photon.css"/>
+  <link rel="stylesheet" href="dialog.css"/>
 </head>
 <body>
   <div id="leftmenu">
-    <span class="title">photon</span>
+    <div class="title">nano</div>
+    <div id="menubar">
+      <div>Mentions</div>
+      <div>Sent</div>
+      <div>Favorites</div>
+      
+    </div>
   </div>
   
   <!-- example conversation non-modal popover -->
@@ -21,9 +28,22 @@
       <div class="line"><div class="author">oneluvgurl:</div><div class="text"> Sometimes I wish homicide was legal.</div></div>
       <div class="line"><div class="author">JonasSKarlsson:</div><div class="text"> Bing shanghaid my firefox.</div></div>
   </div>
+  
+  
+  <div class="dialog">
+    <div class="background"></div>
+    <div class="input">
+      <div class="topregion" contentEditable="true"></div>
+      <div class="botregion"></div>
+    </div>
+    <div class="button-container">
+      
+      <div class="button">Post</div>
+      <div class="button">Discard</div>
+    </div>
+  </div>
 
   <div id="content">
-    
     <div class="tweet-box">
       <div class="avatar"><img src="dj.jpg"/></div>
       

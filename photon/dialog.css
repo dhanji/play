@@ -1,0 +1,87 @@
+
+.dialog {
+  position: absolute;  
+  top: 360px;
+  left: 400px;
+  
+  height: 145px;
+  width: 600px;
+  /*
+    -webkit-box-reflect: below 3px -webkit-gradient(linear,
+      left bottom,
+      left top,
+      from(#FFFFFF),
+      color-stop(0.2, #FFFFFF),
+      to(#FFFFFF));*/
+}
+
+
+.dialog .input {
+  position: relative;
+  margin: 14px 10px 10px 10px;
+  height: 65%;
+  
+  background: #fbfbfb;
+  -webkit-box-shadow: 0 0 6px #222;
+  -webkit-border-radius: 6px;
+}
+
+.dialog .input .topregion {
+  height: 45%;
+  padding: 10px;
+  -webkit-border-radius: 6px;
+  
+  font-size: 12px;
+  border-top: 1px solid #BBB;
+}
+
+.dialog .input .botregion {
+  height: 15%;
+  padding: 10px;
+/*  background: #f4f3e7;*/
+  -webkit-border-radius: 6px;
+  
+  font-size: 12px;
+  border-top: 1px solid #EDEDED;
+}
+
+.dialog .background {
+  position: absolute;
+  top: 0;
+  
+  height: 100%;
+  width: 100%;
+  
+  color: white;
+  background: #414141;
+  opacity: 0.88;
+  -webkit-border-radius: 26px 18px;
+}
+
+.dialog .button-container {
+  position: relative;
+  padding: 0 14px 0 0;
+}
+
+.dialog .button-container .button {
+  float: right;
+  font-family: 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  
+  cursor: pointer;
+  
+  padding: 2px 18px;
+  margin: 0 6px 0 12px;
+  border: 1px #efefef solid;
+  -webkit-border-radius: 8px;
+  background-color: #313131;
+  -webkit-box-shadow: 1px 1px 3px #222;
+  background-image: -webkit-gradient(linear,
+    left top,
+    left bottom,
+    from(#616161),
+    color-stop(0.78, #444444),
+    to(#313131));
+    
+  color: #efefef;
+}
