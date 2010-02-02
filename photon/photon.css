@@ -129,11 +129,32 @@ body {
 }
 
 /** CSS transitions for popover **/
-.popover .zoom-fade {
-    -webkit-transition-property: -webkit-transform, opacity;
-    -webkit-transition-duration: 4s, 2s;
-    -webkit-transition-delay: 2s, 0;
+.popin:hover {
+  -webkit-animation-name: pulse; 
+  -webkit-animation-duration: 0.35s; 
+  -webkit-animation-iteration-count: 1;
 }
+
+
+/** a pulse animation **/
+@-webkit-keyframes pulse {
+  from {
+    -webkit-transform: scale(1.0);
+  }
+  35% {
+    -webkit-transform: scale(1.10);
+  }
+  65% {
+    -webkit-transform: scale(1.00);
+  }
+  90% {
+    -webkit-transform: scale(1.02);
+  }
+  to { 
+    -webkit-transform: scale(1.0);
+  }
+}
+
 
 .popover .line {
   padding: 4px 0;

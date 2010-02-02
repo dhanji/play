@@ -1,4 +1,28 @@
 
+.title {
+  float: left;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+   
+   -webkit-transform: rotate(-4deg);
+}
+
+.button {
+  padding: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  background-image: -webkit-gradient(linear,
+    left bottom,
+    left top,
+    from(#1e89db),
+    color-stop(0.5, #339ced),
+    to(#056bb9));
+    
+  color: white;
+  -webkit-border-radius: 3px;
+  -webkit-box-shadow: 0 0 5px #111;
+}
+
 #box {
   position: absolute;
   
@@ -17,9 +41,28 @@
 }
 
 #box:hover {
-  -webkit-animation-name: pulse; 
+  -webkit-animation-name: fade-out; 
   -webkit-animation-duration: 0.35s; 
   -webkit-animation-iteration-count: 1;
+  opacity: 0;
+}
+
+.dialog {
+  position: absolute;
+  top: 260px;
+  left: 300px;
+  
+  color: white;
+  height: 120px;
+  width: 600px;
+  background: #414141;
+  -webkit-border-radius: 18px;
+/*  -webkit-box-reflect: below 3px -webkit-gradient(linear,
+    left bottom,
+    left top,
+    from(#FFFFFF),
+    color-stop(0.2, #FFFFFF),
+    to(#FFFFFF)); */
 }
 
 /** a pulse animation **/
@@ -46,9 +89,15 @@
   }
 }
 
-img.pulse { opacity: 0.75; }
-img.pulse:hover { 
-  -webkit-animation-name: pulse; 
-  -webkit-animation-duration: 0.5s; 
-  -webkit-animation-iteration-count: 10; 
+
+/** a pulse animation **/
+@-webkit-keyframes fade-out {
+  from {
+    -webkit-transform: scale(1.0);
+    opacity: 1.0;
+  }
+  to { 
+    -webkit-transform: scale(1.05);
+    opacity: 0.0;
+  }
 }
