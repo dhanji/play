@@ -1,5 +1,6 @@
 body {
   font-family: 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif;
+  background: #CCC;
 }
  
 .title {
@@ -15,15 +16,36 @@ body {
   font-family: Arial, sans-serif;
   font-size: 12px;
   background-image: -webkit-gradient(linear,
-    left bottom,
     left top,
-    from(#1e89db),
-    color-stop(0.5, #339ced),
+    left bottom,
+    from(#339ced),
+    color-stop(0.5, #1e89db),
     to(#056bb9));
     
   color: white;
   -webkit-border-radius: 3px;
-  -webkit-box-shadow: 0 0 5px #111;
+/*  -webkit-box-shadow: 0 0 5px #111;*/
+}
+
+.topcrawl {
+  overflow: hidden;
+}
+
+.crawltext {
+  white-space: nowrap;
+  color: #292929;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0.9;
+ 
+  text-shadow: 2px 3px 3px #EEE; 
+}
+
+.crawltext:hover {
+  -webkit-animation-name: crawl; 
+  -webkit-animation-duration: 80.0s; 
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: linear;
 }
 
 #box {
@@ -58,6 +80,17 @@ body {
   }
   to { 
   -webkit-transform: rotate3d(0, 1, 0, 180deg);
+  }
+}
+
+
+/** a flip card animation **/
+@-webkit-keyframes crawl {
+  from {
+  -webkit-transform: translateX(0);
+  }
+  to { 
+  -webkit-transform: translateX(-100%);
   }
 }
 
