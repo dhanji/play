@@ -1,16 +1,27 @@
 <html>
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="stylesheet" href="photon.css"/>
   <link rel="stylesheet" href="dialog.css"/>
 </head>
 <body>
+  
+  <div id="plastictabs">
+    <div class="highlight"></div>
+    <div id="top-selected-item"></div>
+    <div class="tab-item">@</div>
+    <div class="tab-item">&#9993;</div>
+    <div class="tab-item">#</div>
+  </div>
+  
   <div id="leftmenu">
     <div class="title">nano</div>
     <div id="menubar">
-      <div>Mentions</div>
-      <div>Sent</div>
-      <div>Favorites</div>
-      
+      <ul>
+        <li>timeline</li>
+        <li>mentions</li>
+        <li>direct</li>
+      </ul>
     </div>
   </div>
   
@@ -44,6 +55,7 @@
   </div>
 
   <div id="content">
+    
     <div class="tweet-box">
       <div class="avatar"><img src="dj.jpg"/></div>
       
@@ -60,10 +72,39 @@
             <span>tennis</span>
             <span>cool</span>
           </div>
-          
           </div>
       </div>
     </div>
+    
+    <!-- expanded tweet box -->
+    <div class="tweet-box">
+      <div class="avatar"><img src="dj.jpg"/></div>
+      
+      <div class="tweet">
+        <div class="topline"><span class="author">The Dude</span>
+          <div class="icons">
+            <a href="#"><div class="icon-replies"></div></a>
+          </div>
+        </div>
+      
+        <div class="text">Watch as the evil decepticons battle the valiant autobots for control of their home planet of cybertron
+          and eventually the universe!</div>
+        <div class="meta">
+          <div class="label-container">
+            <span>transformers</span>
+            <span>cool</span>
+            <span>thingsilike</span>
+          </div>
+          </div>
+          
+          <div class="more">
+            <a href="#"><div class="icon-retweet"></div></a>
+            <a href="#">http://www.youtube.com/watch?v=_EBUXVZcb2M</a>
+            <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/_EBUXVZcb2M&hl=en_US&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/_EBUXVZcb2M&hl=en_US&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
+          </div>
+      </div>
+    </div>
+    
     
     
     <div class="tweet-box">

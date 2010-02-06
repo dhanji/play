@@ -4,11 +4,64 @@ font-family: Arial, sans-serif;
   background-color: #CCC;
 }
 
+/** black plastic tabs menu **/
+#plastictabs {
+  position: absolute;
+  top: -12; /** coz we dont want to show the top rounded corners */
+  left: 42%;
+  overflow: hidden;
+  
+  width: 220px;
+  height: 60px;
+  
+  background: #000;
+  
+  -webkit-border-radius: 12px;
+  -webkit-box-shadow: 0 0 16px #000;
+}
+
+#plastictabs .tab-item {
+  float: left;
+  padding: 12px 0 0 14px;
+  font-size: 32px;
+
+  background-image: -webkit-gradient(
+      linear,
+      0% 0%,
+      0% 100%,
+      from(#FFF),
+      to(#333)
+    );
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/** TODO(dhanji): Convert this into an applied class **/
+#top-selected-item {
+  position: absolute;
+  top: 14;
+  left: 8;
+  height: 68%;
+  width: 46px;
+  
+  -webkit-border-radius: 4px;
+  background: white;
+  opacity: 0.12;
+}
+
+.highlight {
+  position: absolute;
+  background: white;
+  height: 58%;
+  width: 100%;
+  opacity: 0.1;
+}
+
 #leftmenu {
   margin-top: -10px;
   padding: 0 25px 0 10px;
   float: left;
-  width: 18%;
+  width: 260px;
   height: 100%;
 }
 
@@ -19,17 +72,25 @@ font-family: Arial, sans-serif;
   color: white;
   font-size: 40px;
   text-shadow: 1px 1px 5px #666;
-  -webkit-transform: rotate(-4deg) translateX(50px) translateY(10px);
+  -webkit-transform: rotate(-4deg) translateX(65px) translateY(15px);
 }
 
 #menubar {
-  width: 65%;
-  padding: 10px 18px 18px 18px;
-  background: #343434;
+  width: 165px;
+  padding: 10px 18px 18px 48px;
   -webkit-border-radius: 24px;
-  height: 92%;
-  margin-bottom: -25px;
-  color: white;
+  height: 200px;
+  color: white;  
+}
+
+#menubar ul {
+  padding: 14px 0 0 24px;
+  list-style-type: none;
+}
+
+#menubar ul li {
+  padding: 1px;
+  color: #8e8e8e;
 }
 
 #content {
@@ -107,6 +168,7 @@ font-family: Arial, sans-serif;
 }
 
 .tweet .topline .icons {
+  margin: -6px -3px 0 0;
   float: right;
 }
 
@@ -133,14 +195,23 @@ font-family: Arial, sans-serif;
   color: #999;
 }
 
+.tweet div.more {
+  float: left;
+  padding: 20px 0 0 75px;
+  width: 100%;
+  margin-top: 16px;
+  
+  border-top: 1px dashed #EAEAEA;
+}
+
 /** popovers **/
 .popover {
   padding: 10px;
   position: absolute;
   
   /** arbitrary positioning and sizing **/
-  top: 240px;
-  left: 600px;
+  top: 40px;
+  left: 1000px;
   
   width: 340px;
   
@@ -226,7 +297,36 @@ font-family: Arial, sans-serif;
 }
 
 .icon-replies {
-  width: 16px;
-  height: 16px;
-  background: #FFF url("images/comments.png") no-repeat;  
+  width: 24px;
+  height: 24px;
+  opacity: 0.35;
+  background: #FFF url("images/reply.png") no-repeat;
+}
+
+.icon-replies:hover {
+  opacity: 0.8;
+  background: #FFF url("images/reply.png") no-repeat;  
+  
+  -webkit-animation-name: icon-fade-in;
+  -webkit-animation-duration: 0.5s; 
+  -webkit-animation-iteration-count: 1;
+}
+
+.icon-retweet {
+  width: 24px;
+  height: 24px;
+  opacity: 0.35;
+  background: #FFF url("images/retweet.png") no-repeat;
+}
+
+
+
+/** a fade-in animation **/
+@-webkit-keyframes icon-fade-in {
+  from {
+    opacity: 0.35;
+  }
+  to { 
+    opacity: 0.8;
+  }
 }
