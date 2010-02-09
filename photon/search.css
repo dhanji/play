@@ -1,0 +1,69 @@
+/** Search box left hand side CSS */
+
+#searchbox {
+  overflow: hidden;
+  width: 190px;
+  height: 100px;
+  padding: 30px 0 0 10px;
+}
+
+
+#search {
+  padding: 2px 0 2px 8px;
+  width: 160px;
+  font-size: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  
+  -webkit-border-radius: 16px;
+  color: #CCC;
+  
+  background:  
+   -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(#EFEFEF),
+      color-stop(0.4, #FEFEFE),
+      to(#FFF)
+  );
+  
+  -webkit-box-shadow: 0 0 8px #999;
+}
+
+#search-icon {
+  float: left;
+  margin-left: -3px;
+  padding-right: 4px;
+  width: 16px;
+  height: 16px;
+  background: url("images/search_icon.png") no-repeat;
+}
+
+#search-input {
+  outline: none;
+}
+
+.newtweet {
+  height: 50px;
+  width: 50px;
+  background: url("images/newtweet_btn.png");
+
+  opacity: 0.6;
+  font-family: 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif;
+  padding: 18px 0 0 12px;
+  font-size: 18px;
+  margin-top: -4px;
+  font-weight: bold;
+  float: left;
+}
+
+.followers {
+  font-family: 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif;
+  padding: 18px 0 0 12px;
+  font-size: 18px;
+  margin-top: -4px;
+  font-weight: bold;
+  float: left;
+  color: #999;
+}

@@ -1,0 +1,100 @@
+
+/** black plastic tabs menu **/
+#plastictabs {
+  position: absolute;
+  top: -12; /** coz we dont want to show the top rounded corners */
+  left: 520px;
+  overflow: hidden;
+  
+  padding: 12px 0 0 10px;
+  width: 314px;
+  height: 50px;
+  
+  background: #000;
+  
+  -webkit-border-radius: 12px;
+  -webkit-box-shadow: 0 0 16px #000;
+  -webkit-transform: scale(0.88);
+}
+
+.highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  
+  background: white;
+  height: 50%;
+  width: 100%;
+  opacity: 0.1;
+}
+
+#plastictabs .tab-item {
+  float: left;
+  font-size: 32px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+#plastictabs .tab-item:last-child {
+  margin-right: 0;
+}
+
+#plastictabs .tab-item .text {
+  margin-top: -7px;
+
+  text-align: center;
+  font-size: 10px;
+  color: #666;
+  opacity: 0.7;
+}
+
+.home-up {
+  height: 43px;
+  width: 43px;
+  background-image: url("images/home_up.png");
+}
+
+.home-dn {
+  height: 43px;
+  width: 43px;
+  background-image: url("images/home_dn.png");
+}
+
+.mentions-up {
+  height: 43px;
+  width: 43px;
+  background-image: url("images/mentions_up.png");
+}
+
+.dm-up {
+  height: 43px;
+  width: 43px;
+  background-image: url("images/mail_up.png");
+}
+
+.faves-up {
+  height: 43px;
+  width: 43px;
+  background-image: url("images/faves_up.png");
+}
+
+.check-up {
+  height: 43px;
+  width: 43px;
+  background-image: url("images/check_up.png");
+}
+
+/** TODO(dhanji): Convert this into an applied class **/
+#top-selected-item {
+  position: absolute;
+  top: 14;
+  left: 9;
+  z-index: 1;
+  height: 68%;
+  width: 46px;
+  
+  -webkit-border-radius: 4px;
+  background: white;
+  opacity: 0.12;
+}

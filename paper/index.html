@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="todo.css"/>
   
   <script type="text/javascript" src="js/jquery-1.4.1.min.js"></script>
-  <script type="text/javascript" src="js/nano.js"></script>
+  <script type="text/javascript" src="js/paper.js"></script>
 </head>
 <body>
   
@@ -47,7 +47,7 @@
   </div>
   
   <div id="leftmenu">
-    <div class="title">nano</div>
+    <div class="title">paper</div>
     <div id="searchbox">
       <div id="search">
         <span id="search-icon"></span>
@@ -91,46 +91,17 @@
 
   <div id="content">
     
-    <!-- expanded tweet box -->
-    <div id="tweet-template" class="tweet-box">
-      <div class="avatar"><img src="dj.jpg"/></div>
-      
-      <div class="tweet">
-        
-        <div class="topline"><span class="author">The Dude</span>
-          <div class="icons">
-            <a class="tweet-reply" href="#"><div class="icon-replies"></div></a>
-          </div>
-        </div>
-      
-        <div class="text">Watch as the evil decepticons battle the valiant autobots for control of their home planet of cybertron
-          and eventually the universe!</div>
-        <div class="meta">
-          <div class="label-container">
-            <span>transformers</span>
-            <span>cool</span>
-            <span>thingsilike</span>
-          </div>
-        </div>
-          
-        <div class="slider"></div>
-        <div class="gutter">
-            <!-- am embedded/inline video or image -->
-            <a href="#">http://www.youtube.com/watch?v=_EBUXVZcb2M</a>
-            <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/_EBUXVZcb2M&hl=en_US&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/_EBUXVZcb2M&hl=en_US&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
-        </div>
-        
-        <!-- tweet metadata and actions bar -->
-        <div class="more">
-          <div class="info">From Tweetie.</div>
-          <div class="action"><img src="images/comments.png"/><a href="#">Conversation</a></div>
-          <div class="action"><img src="images/comments.png"/><a href="#">Retweet</a></div>
-          <div class="action"><img src="images/star.png"/><a href="#">Favorite</a></div>
-        </div>
-      </div>
-      
-      <div class="sticker-fave"></div>
-    </div>  
+    <div class="todo tweet">
+      <input type="checkbox"/>
+      <span>Get some vodka from the Russians.</span>
+      <div class="due">Feb 23</div>
+    </div>
+    <div class="todo tweet">
+      <input type="checkbox"/>
+      <span>Get some Schnaps from the Swedes.</span>
+    </div>
+    
+    <div class="sticker-fave"></div>
     
     
     

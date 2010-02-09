@@ -1,14 +1,34 @@
-UI
+Nano Plan
 
-- menu items (decide what and style)
-- slide out to reveal inline content, links, snippet(?)
-- Reply and retweet icons (gray/recessed) x
-- new tweet button
-- search box
-- don't steal too much of things UI (change label style?) x
-- iPhone style black tab menu at bottom? Left Side?
+- UI Bonus: get the faves sticker working using jquery
+- UI Bonus: try out a background watermark with the current tab name
+- UI: Conversation aligned to appropriate tweet, if smaller than window, then overlay
+- UI: popovers and dialogs are modal
+- UI: Transition effect when switching tabs (mentions, private, etc.)
+- Basic functionality milestone:
+  - ajax polling receives new tweets
+  - post new tweets, replies
+  - favoriting
+  - 
+  
+Future feature ideas:
+  - Replies to this tweet/conv (Tweetie only finds history)
+  - Replacement for twitlonger with our own service
+  - URL shortening (via another service?)
+  - 
+
+Other (Braindump)
+
+- Do a Things clone later =)
+  - tasks are thing rows, projects are cards (mingle style)
+  - Use Google Calendar as a storage backend
+  - Sexy calendaring tied into todos
+  - Send emails for notifications
 
 
-Other
-
-- Do a Things clone =)
+- Do a wave connector based email (wave) client
+  - Do what mail gateway failed to do
+  - goal: high level word processing replacement to word
+  - nongoal: everything to everyone, extreme liveness
+  - goal: pretty
+  - goal: speed over everything
