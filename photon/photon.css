@@ -4,65 +4,16 @@ font-family: Arial, sans-serif;
   background-color: #CCC;
 }
 
-/** black plastic tabs menu **/
-#plastictabs {
-  position: absolute;
-  top: -12; /** coz we dont want to show the top rounded corners */
-  left: 42%;
-  overflow: hidden;
-  
-  width: 220px;
-  height: 60px;
-  
-  background: #000;
-  
-  -webkit-border-radius: 12px;
-  -webkit-box-shadow: 0 0 16px #000;
-}
-
-#plastictabs .tab-item {
-  float: left;
-  padding: 12px 0 0 14px;
-  font-size: 32px;
-
-  background-image: -webkit-gradient(
-      linear,
-      0% 0%,
-      0% 100%,
-      from(#FFF),
-      to(#333)
-    );
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-/** TODO(dhanji): Convert this into an applied class **/
-#top-selected-item {
-  position: absolute;
-  top: 14;
-  left: 8;
-  height: 68%;
-  width: 46px;
-  
-  -webkit-border-radius: 4px;
-  background: white;
-  opacity: 0.12;
-}
-
-.highlight {
-  position: absolute;
-  background: white;
-  height: 58%;
-  width: 100%;
-  opacity: 0.1;
-}
-
 #leftmenu {
   margin-top: -10px;
   padding: 0 25px 0 10px;
   float: left;
   width: 260px;
   height: 100%;
+}
+
+a:link, a:visited {
+  color: #1a9bfe;
 }
 
 
@@ -72,7 +23,7 @@ font-family: Arial, sans-serif;
   color: white;
   font-size: 40px;
   text-shadow: 1px 1px 5px #666;
-  -webkit-transform: rotate(-4deg) translateX(65px) translateY(15px);
+  -webkit-transform: rotate(-4deg) translateX(45px) translateY(15px);
 }
 
 #menubar {
@@ -94,16 +45,15 @@ font-family: Arial, sans-serif;
 }
 
 #content {
-  padding-top: 30px;
+  padding-top: 50px;
 }
 
 .tweet-box {
-  overflow: hidden;
 }
 
 .tweet-box .avatar {
   float: left;
-  padding: 9px 18px 0 0;
+  padding: 2px 18px 0 0;
 }
 
 .tweet-box .avatar img {
@@ -121,11 +71,11 @@ font-family: Arial, sans-serif;
       );*/
 }
 
-.tweet {
+div.tweet {
   overflow: hidden;
-  width: 570px;
   padding: 6px;
-  margin: 8px 0px;
+  width: 570px;
+  margin: 16px 0px;
   background:
    -webkit-gradient(
       linear,
@@ -195,13 +145,101 @@ font-family: Arial, sans-serif;
   color: #999;
 }
 
-.tweet div.more {
+.tweet div.slider {
   float: left;
-  padding: 20px 0 0 75px;
   width: 100%;
-  margin-top: 16px;
+  padding-bottom: 6px;
+  margin-bottom: -8px;
   
-  border-top: 1px dashed #EAEAEA;
+  cursor: pointer;
+}
+
+/** Indicate that the slider is available **/
+.tweet div.sliderhover {
+  opacity: 0.2;
+  background-image: -webkit-gradient(
+       linear,
+       left top,
+       left bottom,
+       color-stop(0.0, #FFF),
+       color-stop(0.7, #000),
+       to(#000)
+     );
+}
+
+
+.tweet div.gutter {
+  display: none;
+  float: left;
+  width: 100%;
+  
+/*  font-weight: bold;*/
+  color: #999;
+  
+  margin-left: -6px;
+  margin-top: 10px;
+  padding: 6px 8px 9px 75px;
+  border-top: 1px solid #DADADA;
+  
+  background-image: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      
+      from(#efefef),
+      color-stop(0.2, #fefcf3),
+      color-stop(0.5, #fefefe),
+      color-stop(0.8, #fff),
+      to(#efefef)
+    );
+    
+  -webkit-box-shadow: 0 0 14px #CECECE;
+}
+
+.tweet div.more {
+  display: none;
+  float: left;
+  padding: 6px 10px 2px 6px;
+  width: 100%;
+
+  
+  font-size: 11px;
+  margin: 0 0 0 -6px;
+  
+  border-top: 1px solid #e3e3e3;
+
+  background:
+   -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(0.0, #EDEDED),
+      color-stop(0.28, #FEFEFE),
+      color-stop(0.8, #EDEDED),
+      color-stop(1.0, #DFDFDF)
+  );
+}
+
+.tweet .more .action {
+  float: right;
+  height: 16px;
+  padding-left: 8px;
+  padding-right: 4px;
+}
+
+.tweet .more div.info {
+  float: left;
+  
+  padding: 2px;
+  color: #777;
+}
+
+/** icons for action links */
+.tweet .more .action img {
+  padding: 0 4px;
+  width: 12px;
+  height: 12px;
+  opacity: 0.5;
 }
 
 /** popovers **/
@@ -229,24 +267,6 @@ font-family: Arial, sans-serif;
 }
 
 
-/** a pulse animation **/
-@-webkit-keyframes pulse {
-  from {
-    -webkit-transform: scale(1.0);
-  }
-  35% {
-    -webkit-transform: scale(1.10);
-  }
-  65% {
-    -webkit-transform: scale(1.00);
-  }
-  90% {
-    -webkit-transform: scale(1.02);
-  }
-  to { 
-    -webkit-transform: scale(1.0);
-  }
-}
 
 
 .popover .line {
@@ -312,21 +332,10 @@ font-family: Arial, sans-serif;
   -webkit-animation-iteration-count: 1;
 }
 
-.icon-retweet {
-  width: 24px;
-  height: 24px;
-  opacity: 0.35;
-  background: #FFF url("images/retweet.png") no-repeat;
-}
-
-
-
-/** a fade-in animation **/
-@-webkit-keyframes icon-fade-in {
-  from {
-    opacity: 0.35;
-  }
-  to { 
-    opacity: 0.8;
-  }
+.tweet-box div.sticker-fave {
+  display: none;
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: url("images/fave_sticker.png") no-repeat;
 }
