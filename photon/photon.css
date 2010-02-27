@@ -12,6 +12,17 @@ font-family: Arial, sans-serif;
   height: 100%;
 }
 
+.leftmenu-background {
+  margin-left: -20px;
+  padding: 16px 22px;
+  
+  background: #bacdeb;
+  width: 70%;
+  height: 100%;
+  
+  -webkit-box-shadow: 0 0 4px #000;
+}
+
 a:link, a:visited {
   color: #1a9bfe;
 }
