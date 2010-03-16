@@ -11,7 +11,7 @@ val URL = "http://www.newzbin.com/search/?go=1&ss=425562&fpn=p&feed=rss&hauth=1"
 val response = Guice.createInjector()
      .getInstance(classOf[Web])
      .clientOf(URL)
-     .auth(Web.Auth.BASIC, "dhanji@gmail.com", "Z|P81P+e%-x*0rEar~yDDApxo")
+     .auth(Web.Auth.BASIC, "dhanji@gmail.com", "")
      .transports(classOf[String])
      .over(classOf[Text])
      .get()
