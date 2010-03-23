@@ -1,0 +1,12 @@
+/**
+ * Example of a hosted MVEL script.
+ * request parameters expected: name
+ */
+
+import com.wideplay.webthings.data.*;
+
+store = global(TaskStore);
+
+def get() {
+  ["tasks" : store.listAll() ]
+}

@@ -1,0 +1,18 @@
+/*
+ * Site Engine config, is just an mvel script.
+ *
+ */
+
+application = "Webthings";
+
+mappings = [
+            "/"        : ["home.mvel", "home.mt"],
+            "/pump"    : ["pump.mvel", "ajax_reply.mt"]
+           ];
+
+rpcs = [ 
+          "new_todo"   : "new_todo.mvel",
+          "edit_task"  : "edit_task.mvel",
+          "done"       : "edit_task.mvel",
+          "undone"     : "edit_task.mvel"
+       ];

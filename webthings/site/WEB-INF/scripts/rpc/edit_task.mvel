@@ -1,0 +1,14 @@
+/**
+ * Edit task RPC end point script.
+ */
+import com.wideplay.webthings.data.*;
+
+store = global(TaskStore);
+
+task = store.fetch(id);
+task.completedOn = ('done' == rpc) ? new java.util.Date() : null;
+if ('edit_task' == rpc) {
+  task.text = text;
+}
+
+store.store(task);

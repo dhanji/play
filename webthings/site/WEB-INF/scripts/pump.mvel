@@ -1,0 +1,37 @@
+/**
+ * The ajax RPC pump. The client sends up a stream of
+ * rpc ops all at once, and this script pumps them to
+ * the appropriate endpoints.
+ */
+
+def post() {
+  ops = [:]; // empty map
+
+  foreach(param : params.entrySet()) {
+
+    // Poor man's namespace-grouping =)
+    pair = param.key.split('_', 2);
+    rpcId = pair[1];
+    prop = pair[0];
+
+    // create the op if necessary
+    op = ops[rpcId];
+    if (op == null) {
+      op = [:];
+      ops[rpcId] = op;
+    }
+
+    // store the property/value pair in the relevant op
+    op[prop] = param.value;
+  }
+
+  // Fire all the incoming rpcs...
+  for (rpc : ops.entrySet()) {
+    //print("invoking... " + rpc.value);
+    invokeRpc(rpc.value);
+  }
+
+  // TODO we need to return any push messages from the server too...
+
+  [ 'text' : 'ok.']
+}

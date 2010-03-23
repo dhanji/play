@@ -1,0 +1,78 @@
+9
+
+dir
+0
+https://google-sitebricks.googlecode.com/svn/trunk/sitebricks/src/main/java/com/google/sitebricks/rendering/hosted
+https://google-sitebricks.googlecode.com/svn
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+c7392d14-1f41-11de-a108-cd2f117ce590
+
+
+
+
+
+
+
+empty
+
+ExecutableScript.java
+file
+
+
+
+add
+
+HostedModule.java
+file
+
+
+
+add
+
+HostedScriptService.java
+file
+
+
+
+add
+
+InMemoryScriptLoader.java
+file
+
+
+
+add
+
+ScriptDescriptor.java
+file
+
+
+
+add
+
+ScriptLoader.java
+file
+
+
+
+add
+

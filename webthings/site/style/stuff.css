@@ -1,0 +1,466 @@
+body {
+  font-family: Arial, sans-serif;
+  font-size: 10pt;
+  background-color: #CCC;
+}
+
+.todo {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+/** offset the text a bit from the checkbox **/
+div.todo span {
+  padding-left: 6px;
+}
+
+div.todo div.due {
+  padding: 8px 18px;
+  float: right;
+  border-left: 1px solid #DDD;
+  margin: -4px 0;
+  
+  color: #AAA;
+  font-size: 9px;
+}
+
+
+/** a completed to-do is grayed out **/
+div.done {
+  background: #DDD !important;
+  -webkit-box-shadow: none !important;
+  color: #777;
+}
+
+/** Basic styling for webkit browsers **/
+
+.header {
+}
+
+.header .titlebar {
+  position: relative;
+  top: -22px;
+
+  padding: 6px;
+
+  -webkit-border-radius: 16px;
+  background:  -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(0.0, #111),
+      color-stop(1.0, #444)
+  );;
+
+  -webkit-box-shadow: 0 0px 6px #777;
+}
+
+.header .titlebar .title {
+  font-size: 36px;
+  font-weight: bold;
+  font-family: Verdana, Arial, sans-serif;
+  color: white;
+
+  text-shadow: 2px 2px 8px #000;
+  -webkit-transform: rotateZ(-4deg) translateX(20px) translateY(-12px);
+}
+
+.header .titlebar .slogan {
+  position: absolute;
+  bottom: 10px;
+  right: 26px;
+
+  color: #EFEFEF;
+  font-size: 13px;
+  font-weight: bold;
+  font-style: italic;
+  font-family: 'Lucida Cursive', serif;
+  text-shadow: #000;
+}
+
+.mascot {
+  padding: 6px;
+  width: 160px;
+  margin: 0 10px 12px 10px;
+  background:
+   -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(0.0, #FFF),
+      color-stop(0.58, #FEFEFE),
+      color-stop(0.8, #EDEDED),
+      color-stop(1.0, #DFDFDF)
+  );
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: 1px 1px 3px #666;
+}
+
+.mascot img { display: inline; }
+.mascot div {
+  display: inline;
+  position: relative;
+  top: -20px;
+  padding: 6px 4px;
+}
+
+/*** search related stuff **/
+
+.big-label {
+  display: block;
+  padding: 4px 16px;
+
+  font-size: 12px;
+  margin: 6px 0;
+  cursor: pointer;
+
+  -webkit-border-radius: 6px;
+  -webkit-box-shadow: 0 0 3px #444;
+}
+
+.column .big-label:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.blue {
+  color: white;
+  /**background: rgb(142, 193, 255); **/
+  -webkit-box-shadow: none !important;
+
+  background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(rgb(162, 213, 255)),
+      to(rgb(142, 193, 255))
+  );
+}
+
+.orange {
+  color: white;
+  /**background: rgb(142, 193, 255); **/
+  -webkit-box-shadow: none !important;
+
+  background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(rgb(255, 187, 83)),
+      to(rgb(255, 167, 63))
+  );
+}
+
+h1 {
+  font-family: 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif;
+  padding: 0 0 4px 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #EEE;
+}
+
+h2 {
+  font-family: 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif;
+  padding: 0 0 2px 6px;
+  margin-top: 2px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+
+  text-shadow: 1px 1px 2px #FFF;
+}
+
+.tasklabel {
+  padding: 0 0 12px 104px;
+}
+
+.plus-btn {
+  padding: 14px 0 0 4px;
+  overflow: hidden;
+}
+
+.plus-btn img {
+  float: left;
+  margin: 0 16px;
+  cursor: pointer;
+}
+
+.plus-btn div:hover {
+  cursor: pointer;
+}
+
+.searchbox {
+  float: left;
+  padding: 24px 0 0 28px;
+}
+
+.search-border {
+  background: #444;
+  padding: 18px 26px;
+  margin-bottom: 24px;
+
+  -webkit-border-radius: 18px;
+}
+
+.labels-border {
+  width: 140px;
+  background: #EEE;
+}
+
+#search {
+  padding: 2px 8px;
+  
+  font-size: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+
+  border: 0px solid #AAA;
+  -webkit-border-radius: 16px;
+  color: #CCC;
+
+  background:
+   -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(#EFEFEF),
+      color-stop(0.4, #FEFEFE),
+      to(#FFF)
+  );
+
+  -webkit-box-shadow: 0 0 8px #222;
+}
+
+#search-icon {
+  float: left;
+  margin-left: -3px;
+  padding-right: 4px;
+  width: 16px;
+  height: 16px;
+  background: url("../images/search_icon.png") no-repeat;
+  opacity: 0.7;
+}
+
+#search-input {
+  outline: none;
+  border: none;
+  width: 110px;
+
+  background: transparent;
+  color: #777;
+}
+
+
+/** content **/
+
+#content {
+  float: left;
+  padding: 8px 20px 20px 60px;
+
+  height: 90%;
+}
+
+div.tweet {
+  overflow: hidden;
+  padding: 6px;
+  width: 660px;
+  margin: 2px 0;
+  background:
+   -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(0.0, #FFF),
+      color-stop(0.58, #FEFEFE),
+      color-stop(0.8, #EDEDED),
+      color-stop(1.0, #DFDFDF)
+  );
+  /** TODO:gradient for safari4/chrome**/
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: 1px 1px 3px #666;
+}
+
+.label-container {
+  float: right;
+  padding: 4px 6px 2px 0px;
+}
+
+.label-container span {
+  font-family: 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif;
+  padding: 0 10px;
+  margin-left: 4px;
+  font-size: 9px;
+  border: 1px #CCC solid;
+  -webkit-border-radius: 4px;
+  background-image: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(0.0, #FFF),
+      color-stop(0.7, #DDD),
+      to(#DDD)
+    );
+  color: #999;
+}
+
+/** dialog **/
+
+.dialog {
+  display: none; /* start out invisible */
+  position: absolute;
+  top: 180px;
+  left: 21%;
+
+  height: 145px;
+  width: 600px;
+  /*
+    -webkit-box-reflect: below 3px -webkit-gradient(linear,
+      left bottom,
+      left top,
+      from(#FFFFFF),
+      color-stop(0.2, #FFFFFF),
+      to(#FFFFFF));*/
+}
+
+
+.dialog .input {
+  position: relative;
+  margin: 14px 10px 10px 10px;
+  height: 65%;
+
+  overflow-x: hidden;
+  background: #fbfbfb;
+  -webkit-box-shadow: 0 0 6px #222;
+  -webkit-border-radius: 6px;
+}
+
+.dialog .input .topregion {
+  height: 45%;
+  padding: 10px;
+  -webkit-border-radius: 6px;
+
+  font-size: 12px;
+  border-top: 1px solid #BBB;
+  outline: none;
+  overflow: hidden;
+}
+
+.dialog .input .botregion {
+  height: 15%;
+  padding: 6px 10px 10px 10px;
+/*  background: #f4f3e7;*/
+  width: 6000px;
+  overflow: hidden;
+  -webkit-border-radius: 6px;
+
+  font-size: 12px;
+  border-top: 1px solid #EDEDED;
+}
+
+.label-label {
+  float: left;
+  color: #BBB;
+  padding: 1px 4px 0 0;
+}
+
+.dlg-label-container {
+  padding: 0;
+}
+
+.dlg-label-text {
+  width: 500px;
+  outline: none;
+  border: none;
+  background: transparent;
+}
+
+.slurped-label {
+  float: left;
+  font-size: 11px;
+  padding: 2px 4px;
+  margin-right: 4px;
+  border: 0px solid #CCC;
+
+  color: white;
+  background: rgb(197, 212, 255);
+
+  -webkit-border-radius: 4px;
+}
+
+.dialog .background {
+  position: absolute;
+  top: 0;
+
+  height: 100%;
+  width: 100%;
+
+  color: white;
+  background: #414141;
+  opacity: 0.78;
+  -webkit-border-radius: 26px 18px;
+}
+
+.dialog .button-container {
+  position: relative;
+  padding: 0 14px 0 0;
+}
+
+.dialog .button-container .counter {
+  font-family: 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif;
+  padding: 0 0 0 18px;
+  font-size: 18px;
+  margin-top: -4px;
+  font-weight: bold;
+  float: left;
+  color: #AAA;
+}
+
+.dialog .button-container .button {
+  float: right;
+  font-family: 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif;
+  font-size: 10px;
+
+  cursor: pointer;
+
+  padding: 2px 18px;
+  margin: 0 6px 0 12px;
+  border: 1px #efefef solid;
+  -webkit-border-radius: 8px;
+  background-color: #313131;
+  -webkit-box-shadow: 1px 1px 3px #222;
+  background-image: -webkit-gradient(linear,
+    left top,
+    left bottom,
+    from(#616161),
+    color-stop(0.78, #444444),
+    to(#313131));
+
+  color: #efefef;
+}
+
+
+/** a pulse animation **/
+@-webkit-keyframes pulse {
+  from {
+    -webkit-transform: scale(1.0);
+  }
+  35% {
+    -webkit-transform: scale(1.10);
+  }
+  65% {
+    -webkit-transform: scale(1.00);
+  }
+  90% {
+    -webkit-transform: scale(1.02);
+  }
+  to {
+    -webkit-transform: scale(1.0);
+  }
+}
+
+/** this is how you add the pulse anim */
+.anim-pulse {
+  -webkit-animation-name: pulse;
+  -webkit-animation-duration: 0.4s;
+  -webkit-animation-iteration-count: 1;
+}

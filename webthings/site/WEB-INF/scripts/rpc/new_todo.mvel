@@ -1,0 +1,15 @@
+/**
+ * New task RPC end point script.
+ */
+import com.wideplay.webthings.data.*;
+
+store = global(TaskStore);
+
+task = new Task();
+task.id = id;
+task.text = text;
+task.createdOn = new java.util.Date();
+
+store.store(task);
+
+print("saved: " + task.text);
