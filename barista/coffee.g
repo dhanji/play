@@ -158,4 +158,29 @@ COMMENT
 	|	{startPos > 0}? => '#' (~'\n')*
 	;
 
+LEADING_WS
+@init {
+    int spaces = 0;
+}
+    :   {startPos==0}?=>
+    	(   {implicitLineJoiningLevel>0}? ( ' ' | '\t' )+ {$channel=HIDDEN;}
+       	|	( 	' '  { spaces++; }
+        	|	'\t' { spaces += 8; spaces -= (spaces \% 8); }
+       		)+
+        	{
+            // make a string of n spaces where n is column number - 1
+            char[] indentation = new char[spaces];
+            for (int i=0; i<spaces; i++) {
+                indentation[i] = ' ';
+            }
+            String s = new String(indentation);
+            emit(new ClassicToken(LEADING_WS,new String(indentation)));
+        	}
+        	// kill trailing newline if present and then ignore
+        	( ('\r')? '\n' {if (state.token!=null) state.token.setChannel(HIDDEN); else $channel=HIDDEN;})*
+           // {token.setChannel(99); }
+        )
+    ;
+
+
 WS    :    (' '|'\t') {$channel=HIDDEN;}; 
