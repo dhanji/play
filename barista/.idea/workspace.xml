@@ -5,8 +5,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/barista/TokenizerTest.java" afterPath="$PROJECT_DIR$/test/barista/TokenizerTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/barista.iml" afterPath="$PROJECT_DIR$/barista.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/Tokenizer.java" afterPath="$PROJECT_DIR$/src/barista/Tokenizer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/Token.java" afterPath="$PROJECT_DIR$/src/barista/Token.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/Token.java" afterPath="$PROJECT_DIR$/src/barista/Token.java" />
     </list>
     <ignored path=".idea/workspace.xml" />
     <ignored path="barista.iws" />
@@ -66,19 +66,19 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TokenizerTest.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="TokenizerTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/barista/TokenizerTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="24" selection-start="862" selection-end="862" vertical-scroll-proportion="0.65822786">
+            <state line="39" column="26" selection-start="1420" selection-end="1420" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tokenizer.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Tokenizer.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/barista/Tokenizer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="111" column="21" selection-start="2977" selection-end="2977" vertical-scroll-proportion="0.0">
+            <state line="110" column="0" selection-start="2985" selection-end="2985" vertical-scroll-proportion="0.33333334">
               <folding />
             </state>
           </provider>
@@ -87,8 +87,10 @@
       <file leaf-file-name="Token.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/barista/Token.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="55" selection-start="43" selection-end="43" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="60" column="10" selection-start="722" selection-end="722" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -109,8 +111,8 @@
         <option value="$PROJECT_DIR$/test/barista/ParserTest.java" />
         <option value="$PROJECT_DIR$/coffee.g" />
         <option value="$PROJECT_DIR$/src/barista/Token.java" />
-        <option value="$PROJECT_DIR$/src/barista/Tokenizer.java" />
         <option value="$PROJECT_DIR$/test/barista/TokenizerTest.java" />
+        <option value="$PROJECT_DIR$/src/barista/Tokenizer.java" />
       </list>
     </option>
   </component>
@@ -588,21 +590,23 @@
     <entry file="file://$PROJECT_DIR$/coffee.g" />
     <entry file="file://$PROJECT_DIR$/src/barista/Token.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="55" selection-start="43" selection-end="43" vertical-scroll-proportion="0.0">
+        <state line="60" column="10" selection-start="722" selection-end="722" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/barista/TokenizerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="26" selection-start="1420" selection-end="1420" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/barista/Tokenizer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="21" selection-start="2977" selection-end="2977" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/barista/TokenizerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="24" selection-start="862" selection-end="862" vertical-scroll-proportion="0.65822786">
+        <state line="110" column="0" selection-start="2985" selection-end="2985" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>

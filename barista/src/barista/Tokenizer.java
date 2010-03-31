@@ -45,7 +45,6 @@ public class Tokenizer {
 
     STRING_TERMINATORS['"'] = true;
     STRING_TERMINATORS['\''] = true;
-    STRING_TERMINATORS['/'] = true;
     STRING_TERMINATORS['`'] = true;
   }
 
@@ -54,13 +53,13 @@ public class Tokenizer {
     char[] input = this.input.toCharArray();
 
     int i = 0, start = 0;
-    boolean inWhitespace = false, inDelimiter = false;
+    boolean inWhitespace = false, inDelimiter = false, inComment = false, leading = true;
     char inStringSequence = 0;
     for (; i < input.length; i++) {
       char c = input[i];
 
       // strings and sequences
-      if ('"' == c) {
+      if (STRING_TERMINATORS[c]) {
 
         if (inStringSequence > 0) {
 
@@ -83,6 +82,20 @@ public class Tokenizer {
       if (inStringSequence > 0)
         continue;
 
+      // Comments beginning with #
+      if (c == '#') {
+        inComment = true;
+      }
+
+      // We run the comment until the end of the line
+      if (inComment) {
+        if (c == '\n')
+          inComment = false;
+        start = i;
+        continue;
+      }
+
+      // whitespace is ignored unless it is leading...
       if (isWhitespace(c)) {
         inDelimiter = false;
 
@@ -107,8 +120,6 @@ public class Tokenizer {
 
           bakeToken(tokens, input, i, start);
           start = i;
-//          i++;
-//          continue;
         }
 
 
@@ -130,7 +141,7 @@ public class Tokenizer {
     }
 
     // collect residual token
-    if (i > start) {
+    if (i > start && !inComment) {
       // we don't want trailing whitespace
       bakeToken(tokens, input, i, start);
     }

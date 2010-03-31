@@ -43,6 +43,7 @@ public class Token {
     RBRACKET,
 
     // keywords
+    CLASS,
     CONSTRUCTOR,
     OR,
     AND,
@@ -57,7 +58,7 @@ public class Token {
 
     // specials
     EOL,
-    ;
+    INDENT;
 
     private static final Map<String, Kind> TOKEN_MAP = new HashMap<String, Kind>();
 
@@ -90,6 +91,7 @@ public class Token {
       TOKEN_MAP.put("when", WHEN);
       TOKEN_MAP.put("unless", UNLESS);
       TOKEN_MAP.put("constructor", CONSTRUCTOR);
+      TOKEN_MAP.put("class", CLASS);
 
 
       TOKEN_MAP.put("||", OR);
