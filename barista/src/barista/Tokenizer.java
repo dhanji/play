@@ -30,9 +30,9 @@ public class Tokenizer {
     DELIMITERS['<'] = SEQUENCE_TOKEN;
     DELIMITERS['!'] = SEQUENCE_TOKEN;
     DELIMITERS['?'] = SEQUENCE_TOKEN;
-    DELIMITERS['\n'] = SEQUENCE_TOKEN;
 
     // SINGLE token delimiters are one char in length in any context
+    DELIMITERS['\n'] = SINGLE_TOKEN;
     DELIMITERS['.'] = SINGLE_TOKEN;
     DELIMITERS[','] = SINGLE_TOKEN;
     DELIMITERS[':'] = SINGLE_TOKEN;
@@ -83,7 +83,7 @@ public class Tokenizer {
       if (inStringSequence > 0)
         continue;
 
-      if (Character.isWhitespace(c)) {
+      if (isWhitespace(c)) {
         inDelimiter = false;
 
         if (!inWhitespace) {
@@ -100,6 +100,18 @@ public class Tokenizer {
 
       // is delimiter
       if (isDelimiter(c)) {
+
+        // For delimiters that are 1-char long in all contexts,
+        // break early.
+        if (isSingleTokenDelimiter(c)) {
+
+          bakeToken(tokens, input, i, start);
+          start = i;
+//          i++;
+//          continue;
+        }
+
+
         if (!inDelimiter) {
           bakeToken(tokens, input, i, start);
           inDelimiter = true;
@@ -127,6 +139,10 @@ public class Tokenizer {
     return tokens;
   }
 
+  private static boolean isWhitespace(char c) {
+    return '\n' != c && Character.isWhitespace(c);
+  }
+
   private static boolean isSingleTokenDelimiter(char c) {
     return DELIMITERS[c] == SINGLE_TOKEN;
   }
@@ -149,6 +165,8 @@ public class Tokenizer {
   private static void bakeToken(List<Token> tokens, char[] input, int i, int start) {
     if (i > start) {
       String value = new String(input, start, i - start);
+
+      // remove this disgusting hack when you can fix the lexer.
       tokens.add(new Token(value, Token.Kind.determine(value)));
     }
   }

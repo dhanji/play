@@ -1,7 +1,5 @@
 package barista;
 
-import com.sun.tools.internal.ws.wsdl.framework.Kind;
-
 import java.util.HashMap;
 import java.util.Map;
 
