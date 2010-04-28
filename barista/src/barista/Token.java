@@ -19,6 +19,8 @@ public class Token {
     PRIVATE_FIELD,
     IDENT,
     INTEGER,
+    STRING,
+    REGEX,
     DOT,
 
     PLUS,
@@ -106,8 +108,12 @@ public class Token {
      * from token text, determines kind.
      */
     public static Kind determine(String value) {
-      if (value.charAt(0) == '@')
+      char first = value.charAt(0);
+      if (first == '@')
         return PRIVATE_FIELD;
+
+      if (first == '"' || first == '\'')
+        return STRING;
 
       Kind knownKind = TOKEN_MAP.get(value);
       if (null != knownKind)

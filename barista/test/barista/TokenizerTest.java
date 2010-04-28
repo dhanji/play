@@ -29,24 +29,42 @@ public class TokenizerTest {
     compare("a : ++ 1", "a: ++1 # pound");
     compare("func : ( x , y , z ) -> 'hi #d'", "func: (x, y, z) -> 'hi #d'");
     compare("", "# + 2");
-    compare("", " # soikdokdpoaksd### 3aoskdoaksd\n ###");
+    compare("~ ~", " # soikdokdpoaksd### 3aoskdoaksd\n ###");
   }
 
   @Test
   public final void simpleMultilineStatements() {
-    compare("func : ( ) -> \n 'hi'", "func: () -> \n 'hi'");
-    compare("func : ( ) -> \n 'hi'", "func: () ->\n 'hi'");
-    compare("func : ( x , y ) -> \n 'hi' \n 2", "func: (x,y) ->\n 'hi'\n 2");
-    compare("func : -> \n 'hi'", "func: -> \n 'hi'");
+    compare("func : ( ) -> \n ~ 'hi'", "func: () -> \n 'hi'");
+    compare("func : ( ) -> \n ~ 'hi'", "func: () ->\n 'hi'");
+    compare("func : ( x , y ) -> \n ~ 'hi' \n ~ 2", "func: (x,y) ->\n 'hi'\n 2");
+    compare("func : -> \n ~ 'hi'", "func: -> \n 'hi'");
   }
 
   @Test
   public final void compoundMultilineStatements() {
-    compare("class Me \n talk : -> \n 'hi'", "class Me \n  talk: ->\n  'hi'");
-    compare("class Me \n constructor : -> \n @my : your \n talk : -> \n 'hi'",
+    compare("class Me \n ~ ~ talk : -> \n ~ ~ 'hi'", "class Me \n  talk: ->\n  'hi'");
+    compare("class Me \n ~ ~ constructor : -> \n ~ ~ @my : your \n ~ ~ talk : -> \n ~ 'hi'",
             "class Me\n  constructor: ->\n  @my: your\n  talk : -> \n 'hi'");
+    compare("class Me \n ~ ~ talk : -> \n ~ ~ 'hi' . to_i 15 , true", 
+            "class Me \n  talk: ->\n  'hi'.to_i 15, true");
+    compare("class Me extends You , Him \n ~ ~ talk : -> \n ~ ~ 'hi' . to_i ( 15 , true )", 
+            "class Me extends You, Him \n  talk: ->\n  'hi'.to_i(15,true)");
   }
 
+  /**
+   * COMPARISON LEGEND:
+   * <pre>
+   * '~' represents leading whitespace.
+   * a space on the LHS is a token separator. Everything on the RHS (input arg) is raw input.
+   * New lines are rendered as is and only '\n' is treated as newline.
+   * '\r' is considered common whitespace.
+   * <pre>
+   *
+   * @param expected the string representation of a tokenized form of the raw string
+   * @param input the raw string to be tokenized
+   * @throws AssertionError if the tokenized string representation was not an exact match
+   *  of the {@code expected} form.
+   */
   private static void compare(String expected, String input) {
     Assert.assertEquals(expected, Tokenizer.detokenize(new Tokenizer(input).tokenize()));
   }

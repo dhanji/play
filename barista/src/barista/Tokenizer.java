@@ -48,7 +48,7 @@ public class Tokenizer {
     STRING_TERMINATORS['`'] = true;
   }
 
-  public List<Token> tokenize() {
+  public Token[] tokenize() {
     List<Token> tokens = new ArrayList<Token>();
     char[] input = this.input.toCharArray();
 
@@ -82,6 +82,10 @@ public class Tokenizer {
       if (inStringSequence > 0)
         continue;
 
+      if (c == '\n') {
+        leading = true;
+      }
+
       // Comments beginning with #
       if (c == '#') {
         inComment = true;
@@ -104,12 +108,23 @@ public class Tokenizer {
           bakeToken(tokens, input, i, start);
           inWhitespace = true;
         }
+
+        // leading whitespace is a special token...
+        if (leading) {
+          tokens.add(new Token(" ", Token.Kind.INDENT));
+//          start = i;
+//          continue;
+        }        
+
         // skip whitespace
         start = i + 1;
         continue;
       }
 
+      // any non-whitespace character encountered
       inWhitespace = false;
+      if (c != '\n')
+        leading = false;
 
       // is delimiter
       if (isDelimiter(c)) {
@@ -146,8 +161,7 @@ public class Tokenizer {
       bakeToken(tokens, input, i, start);
     }
 
-    System.out.println(tokens);
-    return tokens;
+    return tokens.toArray(new Token[tokens.size()]);
   }
 
   private static boolean isWhitespace(char c) {
@@ -158,11 +172,14 @@ public class Tokenizer {
     return DELIMITERS[c] == SINGLE_TOKEN;
   }
 
-  public static String detokenize(List<Token> tokens) {
+  public static String detokenize(Token[] tokens) {
     StringBuilder builder = new StringBuilder();
 
     for (Token token : tokens) {
-      builder.append(token.value);
+      if (Token.Kind.INDENT == token.kind)
+        builder.append("~");
+      else
+        builder.append(token.value);
       builder.append(' ');
     }
 
