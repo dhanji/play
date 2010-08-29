@@ -87,15 +87,11 @@ public class ParserTest {
   }
 
   @Test
-  public final void conditionalAssignment() {
-    compare("(=if(comput (. starcraft)) (comput (. me)) (comput (. happy)))", "me = happy if starcraft");
-    compare("(=if(comput (. starcraft playing())) (comput (. me)) (comput (. happy) (+ (. 1))))",
-        "me = happy + 1 if starcraft.playing()");
-
-    // Repeat test with COLON as assign operator
-    compare("(=if(comput (. starcraft)) (comput (. me)) (comput (. happy)))", "me : happy if starcraft");
-    compare("(=if(comput (. starcraft playing())) (comput (. me)) (comput (. happy) (+ (. 1))))",
-        "me: happy + 1 if starcraft.playing()");
+  public final void ternaryIfInFunction() {
+    compare("(comput (. func(()= (comput (. 1)) (comput (if-then-else (comput (. x)) (comput (. y)) (comput (. z)))))))",
+        "func(1, if x then y else z)");
+    compare("(comput (map (comput (. 1)) (comput (if-then-else (comput (. x)) (comput (. y)) (comput (. z)))) (comput (. 2)) (comput (. 12) (+ (. 1)))))",
+        "[1 => if x then y else z, 2 => 12 + 1]");
   }
 
   @Test
@@ -112,7 +108,19 @@ public class ParserTest {
   }
 
   @Test
-  public final void freeStandingIf() {
+  public final void conditionalAssignment() {
+    compare("(=if(comput (. starcraft)) (comput (. me)) (comput (. happy)))", "me = happy if starcraft");
+    compare("(=if(comput (. starcraft playing())) (comput (. me)) (comput (. happy) (+ (. 1))))",
+        "me = happy + 1 if starcraft.playing()");
+
+    // Repeat test with COLON as assign operator
+    compare("(=if(comput (. starcraft)) (comput (. me)) (comput (. happy)))", "me : happy if starcraft");
+    compare("(=if(comput (. starcraft playing())) (comput (. me)) (comput (. happy) (+ (. 1))))",
+        "me: happy + 1 if starcraft.playing()");
+  }
+
+  @Test
+  public final void freeStandingIfThenElse() {
     compare("(comput (if-then-else (comput (. x) (> (. 2))) (comput (. do())) (comput (. dont()))))",
         "if x > 2 then do() else dont()");
 

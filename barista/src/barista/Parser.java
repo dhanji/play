@@ -347,7 +347,7 @@ public class Parser {
   }
 
   /**
-   * computation := (group | chain) (rightOp (group | chain))*
+   * computation := (group | chain) ( (rightOp (group | chain)) )*
    */
   public Node computation() {
     Node node = group();
@@ -606,7 +606,7 @@ public class Parser {
   /**
    * A method call production rule.
    *
-   * call := DOT IDENT (LPAREN (computation COMMA)* RPAREN)?
+   * call := DOT IDENT arglist?
    */
   private Node call() {
     List<Token> call = match(Token.Kind.DOT, Token.Kind.IDENT);

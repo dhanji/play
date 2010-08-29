@@ -65,10 +65,10 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Parser.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Parser.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/barista/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="388" column="0" selection-start="9336" selection-end="9336" vertical-scroll-proportion="0.0">
+            <state line="349" column="37" selection-start="8574" selection-end="8574" vertical-scroll-proportion="0.20930232">
               <folding />
             </state>
           </provider>
@@ -101,10 +101,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ParserTest.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ParserTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/barista/ParserTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="120" column="37" selection-start="5129" selection-end="5129" vertical-scroll-proportion="0.40425533">
+            <state line="92" column="0" selection-start="3730" selection-end="3730" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -143,8 +143,8 @@
         <option value="$PROJECT_DIR$/test/thing.js" />
         <option value="$PROJECT_DIR$/src/barista/ast/Arglist.java" />
         <option value="$PROJECT_DIR$/Changes" />
-        <option value="$PROJECT_DIR$/src/barista/Parser.java" />
         <option value="$PROJECT_DIR$/test/barista/ParserTest.java" />
+        <option value="$PROJECT_DIR$/src/barista/Parser.java" />
       </list>
     </option>
   </component>
@@ -905,16 +905,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/Parser.java">
+    <entry file="file://$PROJECT_DIR$/test/barista/ParserTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="388" column="0" selection-start="9336" selection-end="9336" vertical-scroll-proportion="0.0">
+        <state line="92" column="0" selection-start="3730" selection-end="3730" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/barista/ParserTest.java">
+    <entry file="file://$PROJECT_DIR$/src/barista/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="37" selection-start="5129" selection-end="5129" vertical-scroll-proportion="0.40425533">
+        <state line="349" column="37" selection-start="8574" selection-end="8574" vertical-scroll-proportion="0.20930232">
           <folding />
         </state>
       </provider>
