@@ -1,25 +1,23 @@
 package barista.ast;
 
-import barista.Token;
-
 /**
  * @author dhanji@google.com (Dhanji R. Prasanna)
  */
-public class Variable extends Node {
-  public final String name;
+public class PrivateField extends Node {
+  private final String name;
 
-  public Variable(String name) {
-    this.name = name;
+  public PrivateField(String name) {
+    this.name = name.substring(1);
   }
 
   @Override
   public String toSymbol() {
-    return name;
+    return "@" + name;
   }
 
   @Override
   public String toString() {
-    return "Variable{" +
+    return "PrivateField{" +
         "name='" + name + '\'' +
         '}';
   }

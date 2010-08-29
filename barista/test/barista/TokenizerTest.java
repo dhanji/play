@@ -3,6 +3,9 @@ package barista;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Dhanji R. Prasanna
  */
@@ -30,6 +33,20 @@ public class TokenizerTest {
     compare("func : ( x , y , z ) -> 'hi #d'", "func: (x, y, z) -> 'hi #d'");
     compare("", "# + 2");
     compare("~ ~", " # soikdokdpoaksd### 3aoskdoaksd\n ###");
+  }
+
+  @Test
+  public final void typeNames() {
+    List<Token> tokens = new Tokenizer("class MyClass").tokenize();
+    Assert.assertEquals(Arrays.asList(
+        new Token("class", Token.Kind.CLASS),
+        new Token("MyClass", Token.Kind.TYPE_IDENT)),
+        tokens);
+
+    tokens = new Tokenizer("class aClass").tokenize();
+    Assert.assertFalse(Arrays.asList(
+        new Token("class", Token.Kind.CLASS),
+        new Token("aClass", Token.Kind.TYPE_IDENT)).equals(tokens));
   }
 
   @Test

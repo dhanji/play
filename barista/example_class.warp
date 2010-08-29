@@ -1,0 +1,20 @@
+
+class Person
+  constructor: (@name) ->
+    @age: 0
+    @children: []
+
+  pmatch: (ls) ->
+    []  => "empty"
+    [x] => "single"
+    _   => "error"
+
+  drive: () ->
+    person: Person("dude")
+    person.send(gift())
+
+    where
+      gift: ->
+        "starcraft"
+
+      have: -> "more"

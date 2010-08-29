@@ -18,6 +18,7 @@ public class Token {
   public static enum Kind {
     PRIVATE_FIELD,
     IDENT,
+    TYPE_IDENT,
     INTEGER,
     STRING,
     REGEX,
@@ -29,13 +30,18 @@ public class Token {
     STAR,
     MODULUS,
 
-    COLON,
     COMMA,
 
-
+    ASSIGN,
     ARROW,
-    FAT_ARROW,
+    HASHROCKET,
+
+    // Comparison operators
     EQUALS,
+    LESSER,
+    GREATER,
+    LEQ,
+    GEQ,
 
     LPAREN,
     RPAREN,
@@ -45,15 +51,21 @@ public class Token {
     RBRACKET,
 
     // keywords
+    REQUIRE,
+    MODULE,
+
     CLASS,
     CONSTRUCTOR,
     OR,
     AND,
     NOT,
+    FOR,
+    IN,
     IF,
     THEN,
     ELSE,
     UNLESS,
+    WHERE,
 
     WHEN,
     SWITCH,
@@ -66,18 +78,23 @@ public class Token {
 
     static {
       // can we optimize with chars?
+      TOKEN_MAP.put("=", ASSIGN);
       TOKEN_MAP.put(".", DOT);
       TOKEN_MAP.put("+", PLUS);
       TOKEN_MAP.put("-", MINUS);
       TOKEN_MAP.put("/", DIVIDE);
       TOKEN_MAP.put("*", STAR);
       TOKEN_MAP.put("%", MODULUS);
-      TOKEN_MAP.put(":", COLON);
+      TOKEN_MAP.put(":", ASSIGN);
       TOKEN_MAP.put(",", COMMA);
       TOKEN_MAP.put("->", ARROW);
-      TOKEN_MAP.put("=>", FAT_ARROW);
 
       TOKEN_MAP.put("==", EQUALS);
+      TOKEN_MAP.put("<=", LEQ);
+      TOKEN_MAP.put(">=", GEQ);
+      TOKEN_MAP.put("<", LESSER);
+      TOKEN_MAP.put(">", GREATER);
+      TOKEN_MAP.put("=>", HASHROCKET);
 
       TOKEN_MAP.put("(", LPAREN);
       TOKEN_MAP.put(")", RPAREN);
@@ -92,8 +109,14 @@ public class Token {
       TOKEN_MAP.put("else", ELSE);
       TOKEN_MAP.put("when", WHEN);
       TOKEN_MAP.put("unless", UNLESS);
+      TOKEN_MAP.put("where", WHERE);
+      TOKEN_MAP.put("for", FOR);
+      TOKEN_MAP.put("in", IN);
       TOKEN_MAP.put("constructor", CONSTRUCTOR);
       TOKEN_MAP.put("class", CLASS);
+
+      TOKEN_MAP.put("require", REQUIRE);
+      TOKEN_MAP.put("module", MODULE);
 
 
       TOKEN_MAP.put("||", OR);
@@ -119,13 +142,35 @@ public class Token {
       if (null != knownKind)
         return knownKind;
 
-      // integers
+      // Integers (can this be more efficient?)
       if (value.matches("[0-9]+")) {
         return INTEGER;
       }
 
+      if (Character.isUpperCase(first)) {
+        return TYPE_IDENT;
+      }
       return IDENT;
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Token token = (Token) o;
+
+    return (kind == token.kind)
+        && !(value != null ? !value.equals(token.value) : token.value != null);
+
+  }
+
+  @Override
+  public int hashCode() {
+    int result = value != null ? value.hashCode() : 0;
+    result = 31 * result + (kind != null ? kind.hashCode() : 0);
+    return result;
   }
 
   @Override

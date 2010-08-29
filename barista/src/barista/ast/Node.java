@@ -12,8 +12,9 @@ public abstract class Node {
   // the rest of the tree under this node
   protected final List<Node> children = new ArrayList<Node>();
 
-  public void add(Node child) {
+  public Node add(Node child) {
     children.add(child);
+    return this;
   }
 
   public List<Node> children() {
@@ -24,5 +25,11 @@ public abstract class Node {
 
   public void insert(Node current) {
     children.add(0, current);
+  }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "{" +
+        children + '}';
   }
 }

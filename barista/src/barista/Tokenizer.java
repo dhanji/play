@@ -42,13 +42,14 @@ public class Tokenizer {
     DELIMITERS[']'] = SINGLE_TOKEN;
     DELIMITERS['{'] = SINGLE_TOKEN;
     DELIMITERS['}'] = SINGLE_TOKEN;
+    DELIMITERS['='] = SINGLE_TOKEN;
 
     STRING_TERMINATORS['"'] = true;
     STRING_TERMINATORS['\''] = true;
     STRING_TERMINATORS['`'] = true;
   }
 
-  public Token[] tokenize() {
+  public List<Token> tokenize() {
     List<Token> tokens = new ArrayList<Token>();
     char[] input = this.input.toCharArray();
 
@@ -161,7 +162,7 @@ public class Tokenizer {
       bakeToken(tokens, input, i, start);
     }
 
-    return tokens.toArray(new Token[tokens.size()]);
+    return tokens;
   }
 
   private static boolean isWhitespace(char c) {
@@ -172,7 +173,7 @@ public class Tokenizer {
     return DELIMITERS[c] == SINGLE_TOKEN;
   }
 
-  public static String detokenize(Token[] tokens) {
+  public static String detokenize(List<Token> tokens) {
     StringBuilder builder = new StringBuilder();
 
     for (Token token : tokens) {
