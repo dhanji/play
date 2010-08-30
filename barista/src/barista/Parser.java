@@ -1,13 +1,9 @@
 package barista;
 
 import barista.ast.*;
-import barista.ast.script.ModuleDecl;
-import barista.ast.script.RequireDecl;
+import barista.ast.script.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Takes the tokenized form of a raw string and converts it
@@ -91,12 +87,153 @@ public class Parser {
     return last = parsed;
   }
 
+  /**
+   * The top level parsing rule. Do not use parse() to parse entire programs,
+   * it is more for one-line expressions.
+   *
+   * script := module?
+   *           require*
+   *           (functionDecl | classDecl)*
+   */
+  public Unit script() {
+    chewEols();
+    
+    ModuleDecl module = module();
+    chewEols();
+
+    Unit unit = new Unit(module);
+    RequireDecl require;
+    do {
+      require = require();
+      chewEols();
+
+      if (null != require) {
+        unit.add(require);
+      }
+    } while (require != null);
+
+    FunctionDecl function;
+    do {
+      function = functionDecl();
+      chewEols();
+
+      if (null != function) {
+        unit.add(function);
+      }
+    } while (function != null);
+
+    return unit;
+  }
+
+  private void chewEols() {
+    // Chew up end-of-lines.
+    while (match(Token.Kind.EOL) != null);
+  }
+
   /*** Class parsing rules ***/
+
+  /**
+   * functionDecl := IDENT ASSIGN argDeclList? ARROW EOL
+   *                 (INDENT+ line EOL)*
+   */
+  private FunctionDecl functionDecl() {
+    List<Token> funcName = match(Token.Kind.IDENT, Token.Kind.ASSIGN);
+
+    // Not a function
+    if (null == funcName) {
+      return null;
+    }
+
+    Node arguments = argDeclList();
+
+    // If it doesn't have an arrow, then it's not a function either.
+    if (match(Token.Kind.ARROW, Token.Kind.EOL) == null) {
+      return null;
+    }
+
+    String name = funcName.get(0).value;
+
+    // Slurp lines into an imperative block. This will form the function body.
+    FunctionDecl functionDecl = new FunctionDecl(name, arguments);
+    Node line;
+
+    // Absorb indentation level.
+    boolean shouldContinue = true;
+    do {
+
+      int indent = withIndent();
+
+      boolean eol = match(Token.Kind.EOL) != null;
+      if (indent == 0 && !eol) {
+        break;
+      } else if (eol) {
+        // Chew up any blank lines, even those than have indents.
+        continue;
+      }
+
+      line = line();
+      if (line == null) {
+        break;
+      }
+
+      if (match(Token.Kind.EOL) == null) {
+        throw new RuntimeException("Expected newline after statement");
+      }
+
+      // TODO: Do something useful with the indent level...
+      functionDecl.add(line);
+    } while (shouldContinue);
+
+    return functionDecl;
+  }
+
+  /**
+   * argDeclList := LPAREN
+   *                  IDENT (ASSIGN TYPE_IDENT)?
+   *                     (COMMA IDENT (ASSIGN TYPE_IDENT)? )*
+   *                RPAREN
+   */
+  private Node argDeclList() {
+    if (match(Token.Kind.LPAREN) == null) {
+      return null;
+    }
+
+    List<Token> first = match(Token.Kind.IDENT);
+    if (null == first) {
+      if (null == match(Token.Kind.RPAREN)) {
+        throw new RuntimeException("Expected ')'");
+      }
+      return new ArgDeclList();
+    }
+
+    List<Token> optionalType = match(Token.Kind.ASSIGN, Token.Kind.TYPE_IDENT);
+    ArgDeclList arguments = new ArgDeclList();
+
+    String firstTypeName = optionalType == null ? null : optionalType.get(1).value;
+    arguments.add(new ArgDeclList.Argument(first.get(0).value, firstTypeName));
+
+    while (match(Token.Kind.COMMA) != null) {
+      List<Token> nextArg = match(Token.Kind.IDENT);
+      if (null == nextArg) {
+        throw new RuntimeException("Expected identifier after ','");
+      }
+      optionalType = match(Token.Kind.ASSIGN, Token.Kind.TYPE_IDENT);
+      firstTypeName = optionalType == null ? null : optionalType.get(1).value;
+
+      arguments.add(new ArgDeclList.Argument(nextArg.get(0).value, firstTypeName));
+    }
+
+    if (match(Token.Kind.RPAREN) == null) {
+      throw new RuntimeException("Expected ')' at end of argument declaration list");
+    }
+
+    return arguments;
+  }
 
   /**
    * require := REQUIRE IDENT (DOT IDENT)* EOL
    */
-  private Node require() {
+  private RequireDecl require() {
     if (match(Token.Kind.REQUIRE) == null) {
       return null;
     }
@@ -128,7 +265,7 @@ public class Parser {
   /**
    * module := MODULE IDENT (DOT IDENT)* EOL
    */
-  private Node module() {
+  private ModuleDecl module() {
     if (match(Token.Kind.MODULE) == null) {
       return null;
     }
@@ -161,60 +298,13 @@ public class Parser {
   /*** In-function instruction parsing rules ***/
 
   /**
-   * parse := assign | statement
+   * line := assign
    */
   private Node line() {
     Node parsed = assign();
     if (null == parsed) {
-      parsed = statement();
     }
     return parsed;
-  }
-
-  /**
-   * Any non-assignment, single-evaluative statement. In other words the result produces
-   * a single value that is not an assingment.
-   *
-   * Keep in mind that this MUST complement the assign rule, and not step on its toes
-   * (under NO circumstance should computation be the first segment of this rule).
-   *
-   * statement := (comprehension | IF computation)
-   */
-  private Node statement() {
-    Node comprehension = comprehension();
-    if (null != comprehension) {
-      return comprehension;
-    }
-
-    if (match(Token.Kind.IF) == null) {
-      return null;
-    }
-
-    // Must be an if.
-    Node ifPart = computation();
-    if (null == ifPart) {
-      throw new RuntimeException("Expected boolean expression after IF");
-    }
-
-    if (match(Token.Kind.THEN) == null) {
-      throw new RuntimeException("IF missing THEN clause");
-    }
-
-    // TODO(dhanji): Refactor to multiline block when we support that.
-    Node thenPart = line();
-    if (null == thenPart) {
-      throw new RuntimeException("Expected statement after THEN");
-    }
-
-    if (match(Token.Kind.ELSE) == null) {
-      return new IfStatement(ifPart, thenPart);
-    }
-    Node elsePart = line();
-    if (null == elsePart) {
-      throw new RuntimeException("Expected statement after ELSE");
-    }
-
-    return new IfStatement(ifPart, thenPart, elsePart);
   }
 
   /**
@@ -257,7 +347,7 @@ public class Parser {
        // Is this a list comprehension?
       Node comprehension = comprehension();
       if (null != comprehension) {
-        return new Assignment().add(left).add(comprehension);
+        return new Assignment().add(left).add(right);
       }
     }
 
@@ -347,7 +437,7 @@ public class Parser {
   }
 
   /**
-   * computation := (group | chain) ( (rightOp (group | chain)) )*
+   * computation := (group | chain) (comprehension | (rightOp (group | chain)) )*
    */
   public Node computation() {
     Node node = group();
@@ -364,8 +454,14 @@ public class Parser {
     computation.add(node);
 
     Node rightOp;
+    Node comprehension = null;
     Node operand;
-    while ((rightOp = rightOp()) != null) {
+    while ((rightOp = rightOp()) != null || (comprehension = comprehension()) != null) {
+      if (comprehension != null) {
+        computation.add(comprehension);
+        continue;
+      }
+
       operand = group();
       if (null == operand) {
         operand = chain();
@@ -691,6 +787,9 @@ public class Parser {
 
   // Production tools.
   private Token anyOf(Token.Kind... ident) {
+    if (i >= tokens.size()) {
+      return null;
+    }
     for (Token.Kind kind : ident) {
       Token token = tokens.get(i);
       if (kind == token.kind) {
@@ -725,6 +824,18 @@ public class Parser {
     i = cursor;
     return tokens.subList(start, i);
   }
+
+  /**
+   * Slurps any leading whitespace and returns the count.
+   */
+  private int withIndent() {
+    int indent = 0;
+    while (match(Token.Kind.INDENT) != null) {
+      indent++;
+    }
+    return indent;
+  }
+
 
   public Node ast() {
     return last;

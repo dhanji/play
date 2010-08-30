@@ -11,18 +11,17 @@ Completed
 - Parsing module decl
 - Parse expressions grouped by ()
 - Parse named method calls
+- Parse function decl
+- Parse type annotations for func arguments (optional)
 
 To be done
 ----------
-
-- function decl
 
 Parsing Classes
 - class declaration
 - function declaration in class
 - enumeration type
 - class constants?
-- Parse type annotations for func arguments (optional)
 
 - Reducer
 - Compiler/Emitter
