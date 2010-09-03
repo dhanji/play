@@ -38,6 +38,16 @@ public class FreeFunctionsParsingTest {
   }
 
   @Test
+  public final void manyFunctionsWithInternalGaps() {
+    String twoFunctionScript = "\n\n\nfunc : () ->\n  x + 2\n  \n  x = x - 2 \nfunc2: () ->\n\n\n  \n\n  y.call()\n";
+
+    compareFunction("func", "(func: () -> (comput (. x) (+ (. 2))) (= (comput (. x)) (comput (. x) (- (. 2)))))",
+        twoFunctionScript);
+    compareFunction("func2", "(func2: () -> (comput (. y call())))",
+        twoFunctionScript);
+  }
+
+  @Test
   public final void functionDeclarationWithArgs() {
     compareFunction("func", "(func: (()= x y z) -> (comput (. x) (+ (. 1))))", "func : (x, y, z) ->\n  x + 1\n");
     compareFunction("func", "(func: (()= x:Integer y:String z) -> (comput (. x) (+ (. 1))))",

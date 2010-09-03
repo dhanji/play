@@ -7,8 +7,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/Token.java" afterPath="$PROJECT_DIR$/src/barista/Token.java" />
     </list>
-    <ignored path=".idea/workspace.xml" />
     <ignored path="barista.iws" />
+    <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,45 +83,7 @@
       <file leaf-file-name="FreeFunctionsParsingTest.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/barista/FreeFunctionsParsingTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="57" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.5813953">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Parser.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/barista/Parser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="166" column="0" selection-start="3687" selection-end="3687" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FunctionDecl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/barista/ast/script/FunctionDecl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="17" selection-start="386" selection-end="386" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Unit.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/barista/ast/script/Unit.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="0" selection-start="561" selection-end="561" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Changes" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Changes">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="0" selection-start="531" selection-end="531" vertical-scroll-proportion="0.0">
+            <state line="10" column="13" selection-start="230" selection-end="230" vertical-scroll-proportion="0.15613383">
               <folding />
             </state>
           </provider>
@@ -137,22 +99,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/barista/ast/script/RequireDecl.java" />
-        <option value="$PROJECT_DIR$/src/barista/ast/ComputationGroup.java" />
-        <option value="$PROJECT_DIR$/test/thing.warp" />
         <option value="$PROJECT_DIR$/test/thing.js" />
         <option value="$PROJECT_DIR$/src/barista/ast/Arglist.java" />
-        <option value="$PROJECT_DIR$/src/barista/ast/Comprehension.java" />
-        <option value="$PROJECT_DIR$/test/barista/ParserTest.java" />
         <option value="$PROJECT_DIR$/test/barista/GlobalFunctionsTest.java" />
         <option value="$PROJECT_DIR$/src/barista/ast/script/Block.java" />
-        <option value="$PROJECT_DIR$/src/barista/ast/script/ArgDeclList.java" />
         <option value="$PROJECT_DIR$/Changes" />
         <option value="$PROJECT_DIR$/src/barista/ast/script/FunctionDecl.java" />
         <option value="$PROJECT_DIR$/src/barista/ast/script/Script.java" />
         <option value="$PROJECT_DIR$/src/barista/ast/script/Unit.java" />
         <option value="$PROJECT_DIR$/src/barista/Parser.java" />
         <option value="$PROJECT_DIR$/test/barista/FreeFunctionsParsingTest.java" />
+        <option value="$PROJECT_DIR$/test/barista/ParserTest.java" />
+        <option value="$PROJECT_DIR$/src/barista/ast/IndexIntoList.java" />
+        <option value="$PROJECT_DIR$/src/barista/ast/Comprehension.java" />
+        <option value="$PROJECT_DIR$/src/barista/Reducer.java" />
+        <option value="$PROJECT_DIR$/test/barista/ReducerTest.java" />
+        <option value="$PROJECT_DIR$/src/barista/ast/script/ArgDeclList.java" />
       </list>
     </option>
   </component>
@@ -194,8 +156,9 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="Favorites" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -214,9 +177,44 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="barista" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="barista" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="barista" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="barista" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="barista" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="barista" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Favorites" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -234,9 +232,9 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -252,68 +250,6 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.barista in barista">
-    <configuration default="false" name="ParserTest.freeStandingIf" type="JUnit" factoryName="JUnit" temporary="true">
-      <extension name="coverage" enabled="false" merge="false">
-        <pattern>
-          <option name="PATTERN" value="barista.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <extension name="snapshooter" />
-      <module name="barista" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="barista" />
-      <option name="MAIN_CLASS_NAME" value="barista.ParserTest" />
-      <option name="METHOD_NAME" value="freeStandingIf" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="FreeFunctionsParsingTest" type="JUnit" factoryName="JUnit" temporary="true">
-      <extension name="coverage" enabled="false" merge="false">
-        <pattern>
-          <option name="PATTERN" value="barista.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <extension name="snapshooter" />
-      <module name="barista" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="barista" />
-      <option name="MAIN_CLASS_NAME" value="barista.FreeFunctionsParsingTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="54527" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Debug" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
     <configuration default="false" name="FreeFunctionsParsingTest.manyFunctions" type="JUnit" factoryName="JUnit" temporary="true">
       <extension name="coverage" enabled="false" merge="false">
         <pattern>
@@ -413,6 +349,68 @@
       </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="ReducerTest.simpleExpr" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false">
+        <pattern>
+          <option name="PATTERN" value="barista.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <module name="barista" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="barista" />
+      <option name="MAIN_CLASS_NAME" value="barista.ReducerTest" />
+      <option name="METHOD_NAME" value="simpleExpr" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="51276" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="ReducerTest" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false">
+        <pattern>
+          <option name="PATTERN" value="barista.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <module name="barista" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="barista" />
+      <option name="MAIN_CLASS_NAME" value="barista.ReducerTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
@@ -625,14 +623,14 @@
       <method />
     </configuration>
     <list size="8">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.ParserTest.simpleExpr" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.ParserTest" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.barista in barista" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.ParserTest.freeStandingIf" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.FreeFunctionsParsingTest" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.FreeFunctionsParsingTest.manyFunctions" />
-      <item index="6" class="java.lang.String" itemvalue="JUnit.FreeFunctionsParsingTest.manyFunctionsWithGaps" />
-      <item index="7" class="java.lang.String" itemvalue="JUnit.FreeFunctionsParsingTest.simpleFunctionDeclaration" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.FreeFunctionsParsingTest.manyFunctions" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.FreeFunctionsParsingTest.manyFunctionsWithGaps" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.FreeFunctionsParsingTest.simpleFunctionDeclaration" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.ParserTest.simpleExpr" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.ParserTest" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.barista in barista" />
+      <item index="6" class="java.lang.String" itemvalue="JUnit.ReducerTest.simpleExpr" />
+      <item index="7" class="java.lang.String" itemvalue="JUnit.ReducerTest" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -679,7 +677,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1280" height="687" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329806" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -689,9 +687,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21364744" sideWeight="0.6578483" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19496344" sideWeight="0.659612" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39506173" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.329806" sideWeight="0.99873257" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32804233" sideWeight="0.99873257" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -738,66 +736,14 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.7.jar!/org/junit/runners/BlockJUnit4ClassRunner.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.7.jar!/org/junit/runners/ParentRunner.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="14" selection-start="2145" selection-end="2145" vertical-scroll-proportion="0.3071161" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/ast/Assignment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="13" selection-start="108" selection-end="108" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/ast/Arglist.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="48" selection-start="702" selection-end="702" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/ast/TernaryExpression.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="79" selection-end="79" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/ast/Comprehension.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="19" selection-start="285" selection-end="285" vertical-scroll-proportion="0.28996283" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/barista/ScriptParsingTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="3" selection-start="747" selection-end="747" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/barista/ParserTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="236" column="0" selection-start="9842" selection-end="10323" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="jar:///System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/src.jar!/src/java/util/List.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="213" column="12" selection-start="9485" selection-end="9485" vertical-scroll-proportion="0.33139536" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/ast/script/ArgDeclList.java">
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.7.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="31" selection-start="547" selection-end="547" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Changes">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="531" selection-end="531" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/ast/script/Unit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="561" selection-end="561" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="11" column="38" selection-start="392" selection-end="392" vertical-scroll-proportion="0.375" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/barista/ast/script/FunctionDecl.java">
@@ -805,26 +751,94 @@
         <state line="17" column="17" selection-start="386" selection-end="386" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.7.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
+    <entry file="file://$PROJECT_DIR$/src/barista/ast/script/Unit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="38" selection-start="392" selection-end="392" vertical-scroll-proportion="0.375">
+        <state line="18" column="0" selection-start="561" selection-end="561" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Changes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="0" selection-start="531" selection-end="531" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/barista/ParserTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="34" selection-start="194" selection-end="194" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/ast/Assignment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="13" selection-start="108" selection-end="108" vertical-scroll-proportion="0.24347825">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/ast/ListRange.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="13" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/ast/CallChain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="109" selection-end="109" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/ast/IndexIntoList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="16" selection-start="670" selection-end="670" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/ast/Comprehension.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="20" selection-start="516" selection-end="516" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/Reducer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="21" selection-start="699" selection-end="699" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/barista/ReducerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="25" selection-start="2688" selection-end="2688" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/barista/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="166" column="0" selection-start="3687" selection-end="3687" vertical-scroll-proportion="0.0">
+        <state line="212" column="41" selection-start="4948" selection-end="4948" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/ast/script/ArgDeclList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="4" selection-start="218" selection-end="218" vertical-scroll-proportion="0.38260868">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/barista/FreeFunctionsParsingTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="57" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.5813953">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="10" column="13" selection-start="230" selection-end="230" vertical-scroll-proportion="0.15613383">
+          <folding />
         </state>
       </provider>
     </entry>

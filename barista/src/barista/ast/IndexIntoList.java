@@ -25,13 +25,29 @@ import barista.Parser;
  *
  */
 public class IndexIntoList extends Node {
-  private final Node from;
+  private Node from;
   private final boolean slice;
-  private final Node to;
+  private Node to;
 
   public IndexIntoList(Node from, boolean slice, Node to) {
     this.from = from;
     this.slice = slice;
+    this.to = to;
+  }
+
+  public Node from() {
+    return from;
+  }
+
+  public void from(Node from) {
+    this.from = from;
+  }
+
+  public Node to() {
+    return to;
+  }
+
+  public void to(Node to) {
     this.to = to;
   }
 

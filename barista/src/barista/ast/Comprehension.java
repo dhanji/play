@@ -7,13 +7,29 @@ import barista.Parser;
  */
 public class Comprehension extends Node {
   private final Node var;
-  private final Node inList;
-  private final Node filter;
+  private Node inList;
+  private Node filter;
 
   public Comprehension(Node var, Node inList, Node filter) {
     this.var = var;
     this.inList = inList;
     this.filter = filter;
+  }
+
+  public Node filter() {
+    return filter;
+  }
+
+  public void filter(Node filter) {
+    this.filter = filter;
+  }
+
+  public Node inList() {
+    return inList;
+  }
+
+  public void inList(Node inList) {
+    this.inList = inList;
   }
 
   @Override
