@@ -1,5 +1,7 @@
 package barista.ast;
 
+import barista.Emitter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +25,8 @@ public abstract class Node {
 
   public abstract String toSymbol();
 
-  public void insert(Node current) {
-    children.add(0, current);
+  public void emit(Emitter emitter) {
+    throw new UnsupportedOperationException("Not implemented in " + getClass().getSimpleName());
   }
 
   @Override

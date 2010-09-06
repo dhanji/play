@@ -1,9 +1,7 @@
 package barista.ast;
 
+import barista.Emitter;
 import barista.Parser;
-import barista.Token;
-
-import java.util.List;
 
 /**
  * Represents a method call or member dereference.
@@ -17,6 +15,14 @@ public class Call extends Node {
     this.name = name;
     this.isMethod = method;
     this.args = args;
+  }
+
+  @Override
+  public void emit(Emitter emitter) {
+    emitter.writePlain(name);
+    if (isMethod) {
+      args.emit(emitter);
+    }
   }
 
   @Override

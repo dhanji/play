@@ -1,5 +1,6 @@
 package barista.ast;
 
+import barista.Emitter;
 import barista.Token;
 
 /**
@@ -10,6 +11,15 @@ public class BinaryOp extends Node {
 
   public BinaryOp(Token operator) {
     this.operator = operator;
+  }
+
+  @Override
+  public void emit(Emitter emitter) {
+    emitter.writePlain(" ");
+    emitter.writePlain(operator.value);
+    emitter.writePlain(" ");
+    
+    children().get(0).emit(emitter);
   }
 
   @Override

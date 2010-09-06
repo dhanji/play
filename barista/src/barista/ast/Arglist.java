@@ -1,5 +1,6 @@
 package barista.ast;
 
+import barista.Emitter;
 import barista.Parser;
 
 /**
@@ -36,6 +37,16 @@ public class Arglist extends Node {
     public String toSymbol() {
       return name + ": " + Parser.stringify(arg);
     }
+  }
+
+  @Override
+  public void emit(Emitter emitter) {
+    emitter.writePlain("(");
+
+    for (Node child : children) {
+      child.emit(emitter);
+    }
+    emitter.writePlain(")");
   }
 
   @Override

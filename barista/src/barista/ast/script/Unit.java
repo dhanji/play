@@ -1,11 +1,8 @@
 package barista.ast.script;
 
-import barista.ast.Node;
+import barista.Reducer;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * A compilation unit containing imports classes, functions, etc. Represents a single file.
@@ -14,11 +11,17 @@ public class Unit {
   private final ModuleDecl module;
 
   private final Set<RequireDecl> imports = new HashSet<RequireDecl>();
-  private final Map<String, FunctionDecl> functions = new HashMap<String, FunctionDecl>();
+  private final Map<String, FunctionDecl> functions = new LinkedHashMap<String, FunctionDecl>();
 //  private final Map<String, FunctionDecl> classes = new HashMap<String, FunctionDecl>();
 
   public Unit(ModuleDecl module) {
     this.module = module;
+  }
+
+  public void reduceAll() {
+    for (FunctionDecl functionDecl : functions.values()) {
+      new Reducer(functionDecl).reduce();
+    }
   }
 
   public FunctionDecl get(String name) {
@@ -31,5 +34,9 @@ public class Unit {
 
   public void add(RequireDecl node) {
     imports.add(node);
+  }
+
+  public Collection<FunctionDecl> functions() {
+    return functions.values();
   }
 }
