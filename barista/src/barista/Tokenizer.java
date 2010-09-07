@@ -75,8 +75,15 @@ public class Tokenizer {
           }
           // it's a string terminator but it's ok, it's part of the string, ignore...
 
-        } else
+        } else {
+          // Also bake if there is any leading tokenage.
+          if (i > start) {
+            bakeToken(tokens, input, i, start);
+            start = i;
+          }
+
           inStringSequence = c; // start string
+        }
       }
 
       // skip everything if we're in a string...
@@ -127,17 +134,21 @@ public class Tokenizer {
       if (c != '\n')
         leading = false;
 
+      // For delimiters that are 1-char long in all contexts,
+      // break early.
+      if (isSingleTokenDelimiter(c)) {
+
+        bakeToken(tokens, input, i, start);
+        start = i;
+
+        // Also add the delimiter.
+        bakeToken(tokens, input, i + 1, start);
+        start = i + 1;
+        continue;
+      }
+
       // is delimiter
       if (isDelimiter(c)) {
-
-        // For delimiters that are 1-char long in all contexts,
-        // break early.
-        if (isSingleTokenDelimiter(c)) {
-
-          bakeToken(tokens, input, i, start);
-          start = i;
-        }
-
 
         if (!inDelimiter) {
           bakeToken(tokens, input, i, start);
@@ -169,7 +180,7 @@ public class Tokenizer {
     return '\n' != c && Character.isWhitespace(c);
   }
 
-  private static boolean isSingleTokenDelimiter(char c) {
+  static boolean isSingleTokenDelimiter(char c) {
     return DELIMITERS[c] == SINGLE_TOKEN;
   }
 

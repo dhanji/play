@@ -523,6 +523,11 @@ public class Parser {
   private Arglist arglist() {
     // Test if there is a leading paren.
     List<Token> parenthetical = match(Token.Kind.LPAREN);
+
+    if (null == parenthetical) {
+      return null;
+    }
+
     boolean isParenthetical = (null != parenthetical);
     boolean isPositional = true;
 
@@ -633,7 +638,7 @@ public class Parser {
 
     Node list = new InlineListDef();
     if (null != index) {
-      boolean isMap = match(Token.Kind.HASHROCKET) != null;
+      boolean isMap = match(Token.Kind.ASSIGN, Token.Kind.GREATER) != null;
       if (isMap) {
         list = new InlineMapDef();
 
@@ -659,7 +664,7 @@ public class Parser {
 
         // If the first index contained a hashrocket, then this is a map.
         if (isMap) {
-          if (null == match(Token.Kind.HASHROCKET)) {
+          if (null == match(Token.Kind.ASSIGN, Token.Kind.GREATER)) {
             throw new RuntimeException("Expected '=>' after key");
           }
           
@@ -688,7 +693,7 @@ public class Parser {
     }
 
     // Is there a hashrocket?
-    if (match(Token.Kind.HASHROCKET) != null) {
+    if (match(Token.Kind.ASSIGN, Token.Kind.GREATER) != null) {
       // Otherwise this is an empty hashmap.
       list = new InlineMapDef();
     }

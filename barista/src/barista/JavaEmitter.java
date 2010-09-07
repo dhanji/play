@@ -78,7 +78,7 @@ public class JavaEmitter implements Emitter {
 
   private void emitFunctions() {
     for (FunctionDecl func: compilationUnit.functions()) {
-      write("public Object ");
+      write("public void ");
       writePlain(func.name());
       writePlain("() {\n");
 

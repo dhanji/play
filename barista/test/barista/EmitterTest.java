@@ -11,7 +11,7 @@ public class EmitterTest {
 
   @Test
   public final void simpleFunction() {
-    String script = "func: ->\n  x + 1\n  x - 1\n\n\nmain: ->\n  print(1)\n";
+    String script = "func: ->\n  x + 1\n  x - 1\n\n\nmain: ->\n  print('hello')\n";
 
     Unit unit = new Parser(new Tokenizer(script).tokenize()).script();
     unit.reduceAll();

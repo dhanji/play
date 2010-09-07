@@ -71,6 +71,12 @@ public class Reducer {
           comprehension.filter(onlyChildOf(comprehension.filter()));
         }
       }
+    } else if (bloated instanceof Call) {
+      Call call = (Call) bloated;
+
+      if (call.args() != null) {
+        reduce(call.args());
+      }
     }
 
     bloated.children().clear();

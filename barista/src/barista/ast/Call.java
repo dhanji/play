@@ -9,12 +9,16 @@ import barista.Parser;
 public class Call extends Node {
   private final String name;
   private final boolean isMethod;
-  private final Arglist args;
+  private Arglist args;
 
   public Call(String name, boolean method, Arglist args) {
     this.name = name;
     this.isMethod = method;
     this.args = args;
+  }
+
+  public Arglist args() {
+    return args;
   }
 
   @Override

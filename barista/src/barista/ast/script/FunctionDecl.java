@@ -12,7 +12,7 @@ public class FunctionDecl extends Node {
 
   public FunctionDecl(String name, Node arguments) {
     this.name = name;
-    this.arguments = arguments;
+    this.arguments = arguments == null ? new ArgDeclList() : arguments;
   }
 
   public String name() {

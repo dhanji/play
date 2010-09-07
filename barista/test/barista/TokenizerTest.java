@@ -24,6 +24,12 @@ public class TokenizerTest {
   }
 
   @Test
+  public final void simpleFunctionCall() {
+    compare("print ( 'hello' )", "print('hello')");
+    compare("print ( 12 )", "print(12)");
+  }
+
+  @Test
   public final void singleLineStatementsWithComments() {
     compare("\" hi there! \" . to_s - 1", "\" hi there! \".to_s - 1 # yoyoy");
     compare("1 + 2", "1 +    2 # + 2");
@@ -83,6 +89,8 @@ public class TokenizerTest {
    *  of the {@code expected} form.
    */
   private static void compare(String expected, String input) {
-    Assert.assertEquals(expected, Tokenizer.detokenize(new Tokenizer(input).tokenize()));
+    List<Token> tokens = new Tokenizer(input).tokenize();
+    System.out.println(tokens);
+    Assert.assertEquals(expected, Tokenizer.detokenize(tokens));
   }
 }
