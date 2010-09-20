@@ -1,6 +1,9 @@
 package barista.ast;
 
+import barista.Emitter;
 import barista.Parser;
+import barista.type.Scope;
+import barista.type.Type;
 
 /**
  * A right to left assignment statement.
@@ -13,6 +16,36 @@ public class Assignment extends Node {
 
   public Assignment() {
     this(null);
+  }
+
+  @Override
+  public Type egressType(Scope scope) {
+    // The right hand side determines the egress type of the left hand side
+    // TODO may want to cache so we don't recompute the egress type each time?
+    Node lhs = lhs();
+    Type rhsEgressType = rhs().egressType(scope);
+    if (lhs instanceof Variable) {
+      // TODO if the scope contains this variable and it is of a different
+      // type, explode.
+      ((Variable)lhs).setEgressType(scope, rhsEgressType);
+    }
+
+    return rhsEgressType;
+  }
+
+  @Override
+  public void emit(Emitter emitter) {
+    lhs().emit(emitter);
+    emitter.writePlain("=");
+    rhs().emit(emitter);
+  }
+
+  private Node lhs() {
+    return children.get(0);
+  }
+
+  private Node rhs() {
+    return children.get(1);
   }
 
   @Override

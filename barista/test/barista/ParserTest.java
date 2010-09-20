@@ -157,6 +157,29 @@ public class ParserTest {
   }
 
   @Test
+  public final void sets() {
+    compare("(comput set)", "{}");
+    compare("(comput (set (comput (. 1)) (comput (. 2))))", "{1, 2}");
+    compare("(comput (set (comput (. x y)) (comput (. a) (+ (. 1))) (comput (. b anon()) (/ (. list [(comput (. 1))])))))",
+        "{x.y, a + 1, b.anon() / list[1]}");
+    compare("(comput (set (comput list) (comput set) (comput (set (comput list) (comput list)))))",
+        "{[], {}, {[], []}}");
+  }
+
+  @Test
+  public final void trees() {
+    // An empty hashmap just contains a hashrocket between two brackets.
+    compare("(comput tree)", "{=>}");
+    compare("(comput tree)", "{   =>}");
+    compare("(comput tree)", "{   =>  }");
+
+    compare("(comput (tree (comput (. 1)) (comput (. 2))))", "{1 => 2}");
+    compare("(comput (tree (comput (. 1)) (comput (. 2))))", "{1=>2}");
+    compare("(comput (tree (comput (. x y)) (comput (. '22'))))", "{x.y => '22'}");
+    compare("(comput (tree (comput (. x y)) (comput (. '22'))))", "{x.y=> '22'}");
+  }
+
+  @Test
   public final void maps() {
     // An empty hashmap just contains a hashrocket between two brackets.
     compare("(comput map)", "[=>]");

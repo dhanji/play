@@ -1,6 +1,9 @@
 package barista.ast;
 
 import barista.Emitter;
+import barista.type.Scope;
+import barista.type.Type;
+import barista.type.Types;
 
 /**
  * @author dhanji@google.com (Dhanji R. Prasanna)
@@ -11,6 +14,11 @@ public class StringLiteral extends Node {
   public StringLiteral(String name) {
     // Strip quotes...
     this.name = name;
+  }
+
+  @Override
+  public Type egressType(Scope scope) {
+    return Types.STRING;
   }
 
   @Override

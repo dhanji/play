@@ -1,6 +1,8 @@
 package barista.ast;
 
 import barista.Emitter;
+import barista.type.Scope;
+import barista.type.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,10 @@ public abstract class Node {
   }
 
   public abstract String toSymbol();
+
+  public Type egressType(Scope scope) {
+    throw new UnsupportedOperationException("Not implemented in " + getClass().getSimpleName());
+  }
 
   public void emit(Emitter emitter) {
     throw new UnsupportedOperationException("Not implemented in " + getClass().getSimpleName());

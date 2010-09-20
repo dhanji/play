@@ -630,17 +630,22 @@ public class Parser {
    *      RBRACKET
    */
   private Node listOrMapDef() {
+    boolean isBraced = false;
     if (match(Token.Kind.LBRACKET) == null) {
-      return null;
+      if (match(Token.Kind.LBRACE) == null) {
+        return null;
+      } else {
+        isBraced = true;
+      }
     }
 
     Node index = computation();
 
-    Node list = new InlineListDef();
+    Node list = new InlineListDef(isBraced);
     if (null != index) {
       boolean isMap = match(Token.Kind.ASSIGN, Token.Kind.GREATER) != null;
       if (isMap) {
-        list = new InlineMapDef();
+        list = new InlineMapDef(isBraced);
 
         // This map will be stored as a list of alternating keys/values (in pairs).
         list.add(index);
@@ -695,10 +700,10 @@ public class Parser {
     // Is there a hashrocket?
     if (match(Token.Kind.ASSIGN, Token.Kind.GREATER) != null) {
       // Otherwise this is an empty hashmap.
-      list = new InlineMapDef();
+      list = new InlineMapDef(isBraced);
     }
-    if (match(Token.Kind.RBRACKET) == null) {
-      throw new RuntimeException("Expected ]");
+    if (anyOf(Token.Kind.RBRACKET, Token.Kind.RBRACE) == null) {
+      throw new RuntimeException("Expected " + (isBraced ? "}" : "]"));
     }
 
     return list;

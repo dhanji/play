@@ -2,16 +2,15 @@ package barista;
 
 import barista.ast.script.FunctionDecl;
 import barista.ast.script.Unit;
-import org.junit.Test;
 
 /**
  * Tests emitting a reduced AST to Java source code.
  */
 public class EmitterTest {
 
-  @Test
+//  @Test
   public final void simpleFunction() {
-    String script = "func: ->\n  x + 1\n  x - 1\n\n\nmain: ->\n  print('hello')\n";
+    String script = "func: ->\n  x + 1\n  x - 1\n  print('func running!' + x)\n\nmain: ->\n  func()\n  print('hi')\n";
 
     Unit unit = new Parser(new Tokenizer(script).tokenize()).script();
     unit.reduceAll();
@@ -19,7 +18,6 @@ public class EmitterTest {
     FunctionDecl fn = unit.get("main");
     System.out.println(Parser.stringify(fn));
 
-    System.out.println(new JavaEmitter("Default", unit).emit());
+    new CompilingInterpreter(new JavaEmitter("Default", unit).emit()).run();
   }
-
 }

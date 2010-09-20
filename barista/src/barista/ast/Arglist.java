@@ -43,8 +43,12 @@ public class Arglist extends Node {
   public void emit(Emitter emitter) {
     emitter.writePlain("(");
 
-    for (Node child : children) {
+    for (int i = 0; i < children.size(); i++) {
+      Node child = children.get(i);
       child.emit(emitter);
+
+      if (i < children.size() - 1)
+        emitter.writePlain(", ");
     }
     emitter.writePlain(")");
   }

@@ -1,5 +1,7 @@
 package barista.ast;
 
+import barista.CompileError;
+import barista.Emitter;
 import barista.Parser;
 
 /**
@@ -49,6 +51,33 @@ public class IndexIntoList extends Node {
 
   public void to(Node to) {
     this.to = to;
+  }
+
+  @Override
+  public void emit(Emitter emitter) {
+    if (null == from && null == to) {
+      emitter.addError(new CompileError("Invalid list index range specified"));
+      return;
+    }
+
+    if (slice) {
+      emitter.writePlain("subList(");
+      if (null == from) {
+        emitter.writePlain("0");
+      } else {
+        from.emit(emitter);
+      }
+      emitter.writePlain(", ");
+      if (null == to) {
+      } else {
+        to.emit(emitter);
+      }
+      emitter.writePlain(")");
+    } else {
+      emitter.writePlain("get(");
+      from.emit(emitter);
+      emitter.writePlain(")");
+    }
   }
 
   @Override

@@ -2,6 +2,8 @@ package barista.ast;
 
 import barista.Emitter;
 import barista.Token;
+import barista.type.Scope;
+import barista.type.Type;
 
 /**
  * @author dhanji@google.com (Dhanji R. Prasanna)
@@ -11,6 +13,12 @@ public class BinaryOp extends Node {
 
   public BinaryOp(Token operator) {
     this.operator = operator;
+  }
+
+  @Override
+  public Type egressType(Scope scope) {
+    // Binary ops only have one child.
+    return children.get(0).egressType(scope);
   }
 
   @Override
