@@ -1,20 +1,40 @@
 
+# A simple class
 class Person
+
+  # Class constructor can take args directly into fields:
+  # (@name) is the same to going this.name = name; in Java
   constructor(@name) ->
     @age: 0
-    @children: []
+    @children: [] # empty list
 
-  pmatch(ls) ->
-    []  => "empty"
-    [x] => "single"
-    _   => "error"
-
+  # Function with no args
   drive ->
     person: Person("dude")
     person.send(gift())
+
+    print("gift given: " + gift())
 
     where
       gift ->
         "starcraft"
 
-      have -> "more"
+    # The where clause above is a local scope for the function.
+    # function gift() is only visible inside drive().
+
+
+# A global function
+do_stuff ->
+  a + b
+
+# A map (hashtable) of names to ages:
+names_ages: ["Megatron" => 400, "Starscream" => 380]
+
+# A pattern matching function
+# each invocation matches the arg
+# structure and recursively invokes
+# until the empty list is reached.
+
+reverse(list) ->
+  []     => []
+  [x:xs] => reverse(xs) + x
