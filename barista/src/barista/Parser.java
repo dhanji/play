@@ -144,7 +144,7 @@ public class Parser {
       return null;
     }
 
-    Node arguments = argDeclList();
+    ArgDeclList arguments = argDeclList();
 
     // If it doesn't have an arrow, then it's not a function either.
     if (match(Token.Kind.ARROW, Token.Kind.EOL) == null) {
@@ -193,7 +193,7 @@ public class Parser {
    *                     (COMMA IDENT (ASSIGN TYPE_IDENT)? )*
    *                RPAREN
    */
-  private Node argDeclList() {
+  private ArgDeclList argDeclList() {
     if (match(Token.Kind.LPAREN) == null) {
       return null;
     }

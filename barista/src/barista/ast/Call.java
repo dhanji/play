@@ -2,6 +2,7 @@ package barista.ast;
 
 import barista.Emitter;
 import barista.Parser;
+import barista.ast.script.FunctionDecl;
 import barista.type.Scope;
 import barista.type.Type;
 import barista.type.Types;
@@ -28,7 +29,12 @@ public class Call extends Node {
   @Override
   public Type egressType(Scope scope) {
     // temp!
-    return Types.VOID;
+    FunctionDecl function = scope.getFunction(name);
+    if (null == function) {
+      scope.unknownSymbol(name);
+      return Types.VOID;
+    }
+    return function.inferType(scope, args);
   }
 
   @Override

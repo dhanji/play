@@ -1,6 +1,9 @@
 package barista.ast.script;
 
 import barista.ast.Node;
+import barista.type.Scope;
+import barista.type.Type;
+import barista.type.Types;
 
 /**
  *
@@ -13,6 +16,19 @@ public class ArgDeclList extends Node {
     public Argument(String name, String type) {
       this.name = name;
       this.type = type;
+    }
+
+    public String name() {
+      return name;
+    }
+
+    public String type() {
+      return type;
+    }
+
+    @Override
+    public Type egressType(Scope scope) {
+      return Types.VOID;
     }
 
     @Override

@@ -1,14 +1,9 @@
 
-# A simple class
 class Person
-
-  # Class constructor can take args directly into fields:
-  # (@name) is the same to going this.name = name; in Java
   constructor(@name) ->
     @age: 0
     @children: [] # empty list
 
-  # Function with no args
   drive ->
     person: Person("dude")
     person.send(gift())
@@ -19,22 +14,30 @@ class Person
       gift ->
         "starcraft"
 
-    # The where clause above is a local scope for the function.
-    # function gift() is only visible inside drive().
+
+class Stack<Integer>
+  constructor ->
+    @list: []
+
+  push(item) ->
+    @list.add(item)
+
+  pop ->
+    @list.remove(@list.last)
+
+  top ->
+    @list.last
 
 
-# A global function
+
+
+
+
 do_stuff ->
   a + b
+  names_ages: ["Megatron" => 400, "Starscream" => 380]
 
-# A map (hashtable) of names to ages:
-names_ages: ["Megatron" => 400, "Starscream" => 380]
-
-# A pattern matching function
-# each invocation matches the arg
-# structure and recursively invokes
-# until the empty list is reached.
-
+# Pattern matching function
 reverse(list) ->
   []     => []
   [x:xs] => reverse(xs) + x

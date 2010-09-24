@@ -2,8 +2,10 @@ package barista;
 
 import barista.ast.Node;
 import barista.ast.Variable;
+import barista.ast.script.ArgDeclList;
 import barista.ast.script.FunctionDecl;
 import barista.ast.script.Unit;
+import barista.type.UniversallyVisibleTypes;
 import barista.type.Scope;
 import barista.type.Type;
 import javassist.CannotCompileException;
@@ -11,10 +13,7 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtNewMethod;
 
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Java code emitter, takes a reduced AST and emits Java code.
@@ -47,6 +46,11 @@ public class JavaEmitter implements Emitter {
     // Maybe replace this with a templating system like StringTemplate or MVEL.
 
     clazz = pool.makeClass(enclosingTypeName);
+    currentScope = new Scope(errors); // module-level scope
+
+    // populate module-level scope with universally visible types.
+    UniversallyVisibleTypes.populate(currentScope);
+    
     try {
       emitFunctions();
 
@@ -116,10 +120,11 @@ public class JavaEmitter implements Emitter {
       out = new StringBuilder();
       write("public void ");
       writePlain(func.name());
-      writePlain("() {\n");
+      writePlain("(");
 
       // Create a new lexical scope for every function.
-      currentScope = new Scope(errors);
+      currentScope = new Scope(errors, currentScope);
+      emitFunctionSignature(func);
 
       indent();
       int declarationIndex = out.length();
@@ -151,6 +156,12 @@ public class JavaEmitter implements Emitter {
       outdent();
       write("}\n");
 
+      // pop function scope.
+      currentScope = currentScope.parent();
+
+      // Load this newly minted function into the containing scope.
+      currentScope.load(func);
+
       System.out.println(out.toString());
 
       try {
@@ -160,5 +171,25 @@ public class JavaEmitter implements Emitter {
       }
       out = null;
     }
+  }
+
+  private void emitFunctionSignature(FunctionDecl func) {
+    List<Node> args = func.arguments().children();
+    for (int i = 0; i < args.size(); i++) {
+      ArgDeclList.Argument declaredArg = (ArgDeclList.Argument) args.get(i);
+      writePlain(declaredArg.egressType(currentScope).javaType());
+      writePlain(" ");
+      writePlain(declaredArg.name());
+
+      // Load the argument as a variable into the current scope, binding
+      // it to the argument type. This may be a Type variable rather than
+      // a concrete type.
+      new Variable(declaredArg.name()).setEgressType(currentScope,
+          declaredArg.egressType(currentScope));
+
+      if (i < args.size() - 1)
+        writePlain(", ");
+    }
+    writePlain(") {\n");
   }
 }

@@ -26,7 +26,7 @@ public class Variable extends Node {
 
   @Override
   public Type egressType(Scope scope) {
-    Variable variable = scope.get(name);
+    Variable variable = scope.getVariable(name);
 
     // If this variable is already declared in this scope,
     // then use its type.
