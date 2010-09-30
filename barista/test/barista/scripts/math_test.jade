@@ -1,7 +1,8 @@
 # super simple math tests
 
-inc: (a) ->
+inc: (a: Integer) ->
   a + 1
 
 main: ->
-  print(inc(1))
+  a: inc(1)
+  print(a)

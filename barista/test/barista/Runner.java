@@ -1,7 +1,7 @@
 package barista;
 
 /**
- * Use to run script files
+ * Use to run script files.
  */
 public class Runner {
   public static void main(String...args) {

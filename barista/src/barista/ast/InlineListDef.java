@@ -43,7 +43,7 @@ public class InlineListDef extends Node {
       Node child = children.get(i);
 
       // Type check children.
-      emitter.check(bagType, child.egressType(emitter.currentScope()),
+      emitter.errors().check(bagType, child.egressType(emitter.currentScope()),
           isSet ? "set element" : "list element");
 
       child.emit(emitter);

@@ -14,10 +14,11 @@ public class Call extends Node {
   private final String name;
   private final boolean isMethod;
   private Arglist args;
+  private static final String PRINT = "System.out.println";
 
   public Call(String name, boolean method, Arglist args) {
     // HACK! rewrites print calls to Java sout
-    this.name = "print".equals(name) ? "System.out.println" : name;
+    this.name = "print".equals(name) ? PRINT : name;
     this.isMethod = method;
     this.args = args;
   }
@@ -28,10 +29,14 @@ public class Call extends Node {
 
   @Override
   public Type egressType(Scope scope) {
-    // temp!
+    // HACK(dhanji): Special case print for now.
+    if (PRINT.equals(name)) {
+      return Types.VOID;
+    }
+
     FunctionDecl function = scope.getFunction(name);
     if (null == function) {
-      scope.unknownSymbol(name);
+      scope.errors().unknownSymbol(name);
       return Types.VOID;
     }
     return function.inferType(scope, args);

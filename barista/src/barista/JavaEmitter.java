@@ -5,9 +5,7 @@ import barista.ast.Variable;
 import barista.ast.script.ArgDeclList;
 import barista.ast.script.FunctionDecl;
 import barista.ast.script.Unit;
-import barista.type.UniversallyVisibleTypes;
-import barista.type.Scope;
-import barista.type.Type;
+import barista.type.*;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -21,9 +19,10 @@ import java.util.*;
 public class JavaEmitter implements Emitter {
   private final Unit compilationUnit;
   private final String enclosingTypeName;
-  private final Set<CompileError> errors = new LinkedHashSet<CompileError>();
 
+  private final Errors errors = new Errors();
   private final ClassPool pool = ClassPool.getDefault();
+  private final List<String> functionsEmitted = new ArrayList<String>();
 
   private CtClass clazz;
   private String indent = "";
@@ -43,19 +42,14 @@ public class JavaEmitter implements Emitter {
   }
 
   public Class<?> emit() {
-    // Maybe replace this with a templating system like StringTemplate or MVEL.
-
     clazz = pool.makeClass(enclosingTypeName);
-    currentScope = new Scope(errors); // module-level scope
-
-    // populate module-level scope with universally visible types.
-    UniversallyVisibleTypes.populate(currentScope);
+    currentScope = new ModuleScope(errors); // module-level scope comes with some predefined types.
     
     try {
       emitFunctions();
 
-      if (!errors.isEmpty()) {
-        throw new RuntimeException(CompileError.toString(errors));
+      if (errors.hasErrors()) {
+        throw new RuntimeException(errors.toString());
       }
       return clazz.toClass();
     } catch (CannotCompileException e) {
@@ -86,19 +80,12 @@ public class JavaEmitter implements Emitter {
     }
   }
 
-  public void addError(CompileError err) {
-    errors.add(err);
-  }
-
   public Scope currentScope() {
     return currentScope;
   }
 
-  public void check(Type expected, Type actual, String message) {
-    if (!expected.equals(actual)) {
-      errors.add(new CompileError("Type mismatch, expected " + expected.name() + " but was "
-          + actual.name() + " in " + message + "."));
-    }
+  public Errors errors() {
+    return errors;
   }
 
   public void writePlain(int value) {
@@ -116,61 +103,99 @@ public class JavaEmitter implements Emitter {
   }
 
   private void emitFunctions() throws CannotCompileException {
-    for (FunctionDecl func: compilationUnit.functions()) {
-      out = new StringBuilder();
-      write("public void ");
-      writePlain(func.name());
-      writePlain("(");
+    // Maybe replace this with a templating system like StringTemplate or MVEL.
 
-      // Create a new lexical scope for every function.
-      currentScope = new Scope(errors, currentScope);
-      emitFunctionSignature(func);
-
-      indent();
-      int declarationIndex = out.length();
-
-      for (int i = 0; i < func.children().size(); i++) {
-        Node node = func.children().get(i);
-        // Analyze and determine the type of each computation chain.
-        // TODO do some assertions after computing the egress type?
-        node.egressType(currentScope);
-
-        write("");
-        int lineIndex = out.length();
-        node.emit(this);
-        write(";\n");
-
-        // If this is the last line, return whatever was on the stack.
-        if (i == func.children().size() - 1) {
-          // TODO work out void return types.
-          out.insert(lineIndex, "return ");
-        }
-      }
-
-      // Emit any declarations before the body.
-      out.insert(declarationIndex, declarationsEmitted);
-      // Reset decls.
-      declarationsEmitted = new StringBuilder();
-      declarations = new HashMap<String, Node>();
-
-      outdent();
-      write("}\n");
-
-      // pop function scope.
-      currentScope = currentScope.parent();
-
-      // Load this newly minted function into the containing scope.
-      currentScope.load(func);
-
-      System.out.println(out.toString());
-
-      try {
-        clazz.addMethod(CtNewMethod.make(out.toString(), clazz));
-      } catch (CannotCompileException e) {
-        addError(new CompileError(e.getMessage()));
-      }
-      out = null;
+    FunctionDecl main = null;
+    for (FunctionDecl func : compilationUnit.functions()) {
+      // Main should always be emitted as we know its type and there should
+      // only ever be one concrete instance of it.
+      if ("main".equals(func.name()))
+        emitSingleFunction(func, Types.VOID, Arrays.<Type>asList());
+      else
+        emitSingleFunction(func, null, null);
     }
+
+    // Emit witnessed overloads of encountered polymorphic functions.
+    for (Scope.Witness witness : currentScope.getWitnesses()) {
+      emitSingleFunction(witness.functionDecl, witness.returnType, witness.argumentTypes);
+    }
+
+    // Now compile all the functions in one go for this module.
+    Collections.reverse(functionsEmitted);
+    System.out.println(functionsEmitted);
+    for (String emittedFunc : functionsEmitted) {
+//      try {
+        clazz.addMethod(CtNewMethod.make(emittedFunc, clazz));
+//      } catch (CannotCompileException e) {
+//        errors.exception(e);
+//      }
+    }
+  }
+
+  private void emitSingleFunction(FunctionDecl func, Type returnType, List<Type> argTypes) {
+    // Suppress the emission of this function if it is not a witnessed concrete overload.
+    boolean suppress = returnType == null;
+    if (suppress) {
+      returnType = Types.VOID;
+    }
+
+    out = new StringBuilder();
+    write("public ");
+    write(returnType.javaType());
+    writePlain(" ");
+    writePlain(func.name());
+    writePlain("(");
+
+    // Create a new lexical scope for every function.
+    currentScope = new BasicScope(errors, currentScope);
+    emitFunctionSignature(func);
+
+    indent();
+    int declarationIndex = out.length();
+
+    for (int i = 0; i < func.children().size(); i++) {
+      Node node = func.children().get(i);
+      // Analyze and determine the type of each computation chain.
+      // TODO do some assertions after computing the egress type?
+      Type egressType = node.egressType(currentScope);
+
+      write("");
+      int lineIndex = out.length();
+      node.emit(this);
+      write(";\n");
+
+      // If this is the last line, return whatever was on the stack.
+      if (i == func.children().size() - 1) {
+
+        // HACK(dhanji): Workaround for void return types in Java. Simply
+        // return null. In the future we will want to use a sentinel that
+        // is coercible into a type. I.e. no nulls.
+        if (Types.VOID.equals(egressType))
+          write("\n  return;\n");
+        else
+          out.insert(lineIndex, "return ");
+      }
+    }
+
+    // Emit any declarations before the body.
+    out.insert(declarationIndex, declarationsEmitted);
+    // Reset decls.
+    declarationsEmitted = new StringBuilder();
+    declarations = new HashMap<String, Node>();
+
+    outdent();
+    write("}\n");
+
+    // pop function scope.
+    currentScope = currentScope.parent();
+
+    // Load this newly minted function into the containing scope.
+    currentScope.load(func);
+    
+    if (!suppress) {
+      functionsEmitted.add(out.toString());
+    }
+    out = null;
   }
 
   private void emitFunctionSignature(FunctionDecl func) {

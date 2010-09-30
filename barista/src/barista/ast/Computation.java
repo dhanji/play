@@ -18,7 +18,7 @@ public class Computation extends Node {
       if (commonType == null) {
         commonType = child.egressType(scope);
       } else {
-        scope.check(commonType, child.egressType(scope), "expression");
+        scope.errors().check(commonType, child.egressType(scope), "expression");
       }
     }
 

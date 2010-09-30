@@ -9,7 +9,7 @@ import java.util.Map;
 public class Types {
   public static final Type STRING = new Type("String");
   public static final Type INTEGER = new Type("Integer", "int", "0");
-  public static final Type VOID = new Type("Void");
+  public static final Type VOID = new Type("Void", "void", "null");
 
   
   public static final Type LIST = new Type("List", "List", "Lists.of()");

@@ -45,7 +45,7 @@ public class InlineMapDef extends Node {
 
       // Type check key.
       Type typeOfKey = key.egressType(emitter.currentScope());
-      emitter.check(keyType, typeOfKey, "map key");
+      emitter.errors().check(keyType, typeOfKey, "map key");
 
       // Account for primitives that need to be boxed.
       boolean shouldBox = Types.isPrimitive(keyType);
@@ -66,7 +66,7 @@ public class InlineMapDef extends Node {
       Node value = children.get(i + 1);
       // Type check value.
       Type typeOfValue = value.egressType(emitter.currentScope());
-      emitter.check(valueType, typeOfValue, "map value");
+      emitter.errors().check(valueType, typeOfValue, "map value");
 
       // Account for primitives that need to be boxed.      
       shouldBox = Types.isPrimitive(valueType);

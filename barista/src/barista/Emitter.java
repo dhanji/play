@@ -1,6 +1,7 @@
 package barista;
 
 import barista.ast.Variable;
+import barista.type.Errors;
 import barista.type.Scope;
 import barista.type.Type;
 
@@ -13,10 +14,7 @@ public interface Emitter {
   void writePlain(int value);
 
   void declareIfNecessary(Variable var);
-
-  void addError(CompileError err);
-
   Scope currentScope();
 
-  void check(Type expected, Type actual, String message);
+  Errors errors();
 }

@@ -6,7 +6,7 @@ import barista.type.Type;
 import barista.type.Types;
 
 /**
- *
+ * Represents a declaration of arguments of a function.
  */
 public class ArgDeclList extends Node {
   public static class Argument extends Node {
@@ -28,7 +28,7 @@ public class ArgDeclList extends Node {
 
     @Override
     public Type egressType(Scope scope) {
-      return Types.VOID;
+      return scope.getType(type);
     }
 
     @Override

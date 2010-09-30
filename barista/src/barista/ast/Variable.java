@@ -33,7 +33,7 @@ public class Variable extends Node {
     if (variable != null) {
       this.type = variable.type;
     } else {
-      scope.unknownSymbol(name);
+      scope.errors().unknownSymbol(name);
     }
     return type;
   }
