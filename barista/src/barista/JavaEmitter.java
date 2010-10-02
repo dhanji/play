@@ -6,10 +6,7 @@ import barista.ast.script.ArgDeclList;
 import barista.ast.script.FunctionDecl;
 import barista.ast.script.Unit;
 import barista.type.*;
-import javassist.CannotCompileException;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.CtNewMethod;
+import javassist.*;
 
 import java.util.*;
 
@@ -22,7 +19,7 @@ public class JavaEmitter implements Emitter {
 
   private final Errors errors = new Errors();
   private final ClassPool pool = ClassPool.getDefault();
-  private final List<String> functionsEmitted = new ArrayList<String>();
+  private final List<EmittedFunction> functionsEmitted = new ArrayList<EmittedFunction>();
 
   private CtClass clazz;
   private String indent = "";
@@ -105,7 +102,6 @@ public class JavaEmitter implements Emitter {
   private void emitFunctions() throws CannotCompileException {
     // Maybe replace this with a templating system like StringTemplate or MVEL.
 
-    FunctionDecl main = null;
     for (FunctionDecl func : compilationUnit.functions()) {
       // Main should always be emitted as we know its type and there should
       // only ever be one concrete instance of it.
@@ -121,15 +117,26 @@ public class JavaEmitter implements Emitter {
     }
 
     // Now compile all the functions in one go for this module.
-    Collections.reverse(functionsEmitted);
     System.out.println(functionsEmitted);
-    for (String emittedFunc : functionsEmitted) {
-//      try {
-        clazz.addMethod(CtNewMethod.make(emittedFunc, clazz));
-//      } catch (CannotCompileException e) {
-//        errors.exception(e);
-//      }
+
+    // We need to first declare all the functions as abstract.
+    for (EmittedFunction emittedFunction : functionsEmitted) {
+      try {
+        emittedFunction.method = CtNewMethod.make(emittedFunction.signature, clazz);
+        clazz.addMethod(emittedFunction.method);
+      } catch (CannotCompileException e) {
+        errors.exception(e);
+      }
     }
+
+    // Then fill in function bodies for each abstract method.
+    for (EmittedFunction emittedFunction : functionsEmitted) {
+      emittedFunction.method.setBody(emittedFunction.body);
+    }
+
+    // Finally the class must be made concrete again (adding abstract methods
+    // automatically turns the class abstract).
+    clazz.setModifiers(clazz.getModifiers() & ~Modifier.ABSTRACT);
   }
 
   private void emitSingleFunction(FunctionDecl func, Type returnType, List<Type> argTypes) {
@@ -139,6 +146,7 @@ public class JavaEmitter implements Emitter {
       returnType = Types.VOID;
     }
 
+    // Emit function signature first.
     out = new StringBuilder();
     write("public ");
     write(returnType.javaType());
@@ -148,14 +156,21 @@ public class JavaEmitter implements Emitter {
 
     // Create a new lexical scope for every function.
     currentScope = new BasicScope(errors, currentScope);
-    emitFunctionSignature(func);
+
+    // emit function signature.
+    if (!suppress)
+      emitFunctionSignature(func, argTypes);
+
+    // Bake signature of function, then move on to the body.
+    String signature = out.toString();
+    out = new StringBuilder("{\n");
 
     indent();
     int declarationIndex = out.length();
 
     for (int i = 0; i < func.children().size(); i++) {
       Node node = func.children().get(i);
-      // Analyze and determine the type of each computation chain.
+      // Analyze and determine the type of each statement.
       // TODO do some assertions after computing the egress type?
       Type egressType = node.egressType(currentScope);
 
@@ -168,8 +183,8 @@ public class JavaEmitter implements Emitter {
       if (i == func.children().size() - 1) {
 
         // HACK(dhanji): Workaround for void return types in Java. Simply
-        // return null. In the future we will want to use a sentinel that
-        // is coercible into a type. I.e. no nulls.
+        // return. In the future we will want to use a sentinel that is
+        // coercible into a Java type.
         if (Types.VOID.equals(egressType))
           write("\n  return;\n");
         else
@@ -193,28 +208,44 @@ public class JavaEmitter implements Emitter {
     currentScope.load(func);
     
     if (!suppress) {
-      functionsEmitted.add(out.toString());
+      functionsEmitted.add(new EmittedFunction(signature, out.toString()));
     }
     out = null;
   }
 
-  private void emitFunctionSignature(FunctionDecl func) {
+  private void emitFunctionSignature(FunctionDecl func, List<Type> argTypes) {
     List<Node> args = func.arguments().children();
     for (int i = 0; i < args.size(); i++) {
       ArgDeclList.Argument declaredArg = (ArgDeclList.Argument) args.get(i);
-      writePlain(declaredArg.egressType(currentScope).javaType());
+      writePlain(argTypes.get(i).javaType());
       writePlain(" ");
       writePlain(declaredArg.name());
 
       // Load the argument as a variable into the current scope, binding
       // it to the argument type. This may be a Type variable rather than
       // a concrete type.
-      new Variable(declaredArg.name()).setEgressType(currentScope,
-          declaredArg.egressType(currentScope));
+      new Variable(declaredArg.name()).setEgressType(currentScope, argTypes.get(i));
 
       if (i < args.size() - 1)
         writePlain(", ");
     }
-    writePlain(") {\n");
+    writePlain(");\n");
+  }
+
+  private static class EmittedFunction {
+    private final String signature;
+    private final String body;
+
+    private CtMethod method;
+
+    private EmittedFunction(String signature, String body) {
+      this.signature = signature;
+      this.body = body;
+    }
+
+    @Override
+    public String toString() {
+      return signature + "\n" + body;
+    }
   }
 }
