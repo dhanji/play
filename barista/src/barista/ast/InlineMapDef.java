@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.Emitter;
+import barista.JadeCompiler;
 import barista.type.Scope;
 import barista.type.Type;
 import barista.type.Types;
@@ -22,9 +22,9 @@ public class InlineMapDef extends Node {
   }
 
   @Override
-  public void emit(Emitter emitter) {
-    emitter.writePlain(isTree ? "Trees" : "Maps");
-    emitter.writePlain(".of(");
+  public void emit(JadeCompiler jadeCompiler) {
+    jadeCompiler.writePlain(isTree ? "Trees" : "Maps");
+    jadeCompiler.writePlain(".of(");
 
     // The map parameter type is determined from the most general key type
     // and the most general value type. For now though we'll just use the
@@ -34,59 +34,59 @@ public class InlineMapDef extends Node {
       keyType = valueType = Types.VOID;
     } else {
       // Keys/values alternate
-      keyType = children.get(0).egressType(emitter.currentScope());
-      valueType = children.get(1).egressType(emitter.currentScope());
+      keyType = children.get(0).egressType(jadeCompiler.currentScope());
+      valueType = children.get(1).egressType(jadeCompiler.currentScope());
     }
 
-    emitter.writePlain("new Object[]{");
+    jadeCompiler.writePlain("new Object[]{");
 
     for (int i = 0; i < children.size(); i += 2) {
       Node key = children.get(i);
 
       // Type check key.
-      Type typeOfKey = key.egressType(emitter.currentScope());
-      emitter.errors().check(keyType, typeOfKey, "map key");
+      Type typeOfKey = key.egressType(jadeCompiler.currentScope());
+      jadeCompiler.errors().check(keyType, typeOfKey, "map key");
 
       // Account for primitives that need to be boxed.
       boolean shouldBox = Types.isPrimitive(keyType);
       if (shouldBox) {
-        emitter.writePlain("new ");
-        emitter.writePlain(Types.boxedTypeOf(keyType));
-        emitter.writePlain("(");
+        jadeCompiler.writePlain("new ");
+        jadeCompiler.writePlain(Types.boxedTypeOf(keyType));
+        jadeCompiler.writePlain("(");
       }
 
-      key.emit(emitter);
+      key.emit(jadeCompiler);
 
       if (shouldBox) {
-        emitter.writePlain(")");
+        jadeCompiler.writePlain(")");
       }
 
-      emitter.writePlain(", ");
+      jadeCompiler.writePlain(", ");
       
       Node value = children.get(i + 1);
       // Type check value.
-      Type typeOfValue = value.egressType(emitter.currentScope());
-      emitter.errors().check(valueType, typeOfValue, "map value");
+      Type typeOfValue = value.egressType(jadeCompiler.currentScope());
+      jadeCompiler.errors().check(valueType, typeOfValue, "map value");
 
       // Account for primitives that need to be boxed.      
       shouldBox = Types.isPrimitive(valueType);
       if (shouldBox) {
-        emitter.writePlain("new ");
-        emitter.writePlain(Types.boxedTypeOf(valueType));
-        emitter.writePlain("(");
+        jadeCompiler.writePlain("new ");
+        jadeCompiler.writePlain(Types.boxedTypeOf(valueType));
+        jadeCompiler.writePlain("(");
       }
 
-      value.emit(emitter);
+      value.emit(jadeCompiler);
 
       if (shouldBox) {
-        emitter.writePlain(")");
+        jadeCompiler.writePlain(")");
       }
 
       if (i < children.size() - 2)
-        emitter.writePlain(", ");
+        jadeCompiler.writePlain(", ");
     }
 
-    emitter.writePlain("})");
+    jadeCompiler.writePlain("})");
   }
 
   @Override

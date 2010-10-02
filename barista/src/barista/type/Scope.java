@@ -11,7 +11,7 @@ import java.util.List;
  * @author dhanji@gmail.com (Dhanji R. Prasanna)
  */
 public interface Scope {
-  void load(Variable v);
+  void load(Variable v, boolean argument);
 
   void load(FunctionDecl func);
 
@@ -31,6 +31,8 @@ public interface Scope {
 
 
   List<BasicScope.Witness> getWitnesses();
+
+  String resolveVariableName(String name);
 
   class Witness {
     public final FunctionDecl functionDecl;

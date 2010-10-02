@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.Emitter;
+import barista.JadeCompiler;
 import barista.type.Scope;
 import barista.type.Type;
 import barista.type.Types;
@@ -17,8 +17,8 @@ public class Variable extends Node {
     this.name = name;
   }
 
-  public void setEgressType(Scope scope, Type type) {
-    scope.load(this);
+  public void setEgressType(Scope scope, Type type, boolean isArgument) {
+    scope.load(this, isArgument);
 
     this.type = type;
     this.value = type.defaultValue();
@@ -39,11 +39,11 @@ public class Variable extends Node {
   }
 
   @Override
-  public void emit(Emitter emitter) {
+  public void emit(JadeCompiler jadeCompiler) {
     // Declare if necessary.
-    emitter.declareIfNecessary(this);
+    jadeCompiler.declareIfNecessary(this);
 
-    emitter.writePlain(name);
+    jadeCompiler.writePlain(jadeCompiler.currentScope().resolveVariableName(name));
   }
 
   @Override

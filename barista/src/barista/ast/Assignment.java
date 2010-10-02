@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.Emitter;
+import barista.JadeCompiler;
 import barista.Parser;
 import barista.type.Scope;
 import barista.type.Type;
@@ -27,17 +27,17 @@ public class Assignment extends Node {
     if (lhs instanceof Variable) {
       // TODO if the scope contains this variable and it is of a different
       // type, explode.
-      ((Variable)lhs).setEgressType(scope, rhsEgressType);
+      ((Variable)lhs).setEgressType(scope, rhsEgressType, false);
     }
 
     return rhsEgressType;
   }
 
   @Override
-  public void emit(Emitter emitter) {
-    lhs().emit(emitter);
-    emitter.writePlain("=");
-    rhs().emit(emitter);
+  public void emit(JadeCompiler jadeCompiler) {
+    lhs().emit(jadeCompiler);
+    jadeCompiler.writePlain("=");
+    rhs().emit(jadeCompiler);
   }
 
   private Node lhs() {

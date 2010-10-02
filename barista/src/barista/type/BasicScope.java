@@ -13,6 +13,8 @@ public class BasicScope implements Scope {
   private final Map<String, FunctionDecl> functions = new HashMap<String, FunctionDecl>();
   private final Map<String, Type> types = new HashMap<String, Type>();
 
+  private final Map<String, String> variablesToArgumentNames = new HashMap<String, String>();
+
   private final List<Witness> witnesses = new ArrayList<Witness>();
 
   private final Errors errors;
@@ -24,8 +26,11 @@ public class BasicScope implements Scope {
     this.parent = parent;
   }
 
-  public void load(Variable v) {
+  public void load(Variable v, boolean isArgument) {
     variables.put(v.name, v);
+    if (isArgument) {
+      variablesToArgumentNames.put(v.name, "$" + (variablesToArgumentNames.size() + 1));
+    }
   }
 
   public void load(FunctionDecl func) {
@@ -65,6 +70,12 @@ public class BasicScope implements Scope {
       type = parent.getType(name);
     }
     return type;
+  }
+
+  public String resolveVariableName(String name) {
+    String altName = variablesToArgumentNames.get(name);
+
+    return null == altName ? name : altName;
   }
 
   public Scope parent() {

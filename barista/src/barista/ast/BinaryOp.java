@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.Emitter;
+import barista.JadeCompiler;
 import barista.Token;
 import barista.type.Scope;
 import barista.type.Type;
@@ -22,12 +22,12 @@ public class BinaryOp extends Node {
   }
 
   @Override
-  public void emit(Emitter emitter) {
-    emitter.writePlain(" ");
-    emitter.writePlain(operator.value);
-    emitter.writePlain(" ");
+  public void emit(JadeCompiler jadeCompiler) {
+    jadeCompiler.writePlain(" ");
+    jadeCompiler.writePlain(operator.value);
+    jadeCompiler.writePlain(" ");
     
-    children().get(0).emit(emitter);
+    children().get(0).emit(jadeCompiler);
   }
 
   @Override

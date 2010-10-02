@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.Emitter;
+import barista.JadeCompiler;
 import barista.Parser;
 import barista.ast.script.FunctionDecl;
 import barista.type.Scope;
@@ -44,17 +44,17 @@ public class Call extends Node {
 
     FunctionDecl function = scope.getFunction(name);
     if (null == function) {
-      scope.errors().unknownSymbol(name);
+      scope.errors().unknownFunction(name);
       return Types.VOID;
     }
     return function.inferType(scope, args);
   }
 
   @Override
-  public void emit(Emitter emitter) {
-    emitter.writePlain(name);
+  public void emit(JadeCompiler jadeCompiler) {
+    jadeCompiler.writePlain(name);
     if (isMethod) {
-      args.emit(emitter);
+      args.emit(jadeCompiler);
     }
   }
 

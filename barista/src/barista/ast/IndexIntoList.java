@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.Emitter;
+import barista.JadeCompiler;
 import barista.Parser;
 
 /**
@@ -53,29 +53,29 @@ public class IndexIntoList extends Node {
   }
 
   @Override
-  public void emit(Emitter emitter) {
+  public void emit(JadeCompiler jadeCompiler) {
     if (null == from && null == to) {
-      emitter.errors().generic("Invalid list index range specified");
+      jadeCompiler.errors().generic("Invalid list index range specified");
       return;
     }
 
     if (slice) {
-      emitter.writePlain("subList(");
+      jadeCompiler.writePlain("subList(");
       if (null == from) {
-        emitter.writePlain("0");
+        jadeCompiler.writePlain("0");
       } else {
-        from.emit(emitter);
+        from.emit(jadeCompiler);
       }
-      emitter.writePlain(", ");
+      jadeCompiler.writePlain(", ");
       if (null == to) {
       } else {
-        to.emit(emitter);
+        to.emit(jadeCompiler);
       }
-      emitter.writePlain(")");
+      jadeCompiler.writePlain(")");
     } else {
-      emitter.writePlain("get(");
-      from.emit(emitter);
-      emitter.writePlain(")");
+      jadeCompiler.writePlain("get(");
+      from.emit(jadeCompiler);
+      jadeCompiler.writePlain(")");
     }
   }
 

@@ -8,7 +8,7 @@ import barista.type.Type;
 /**
  * Low level source emitting api.
  */
-public interface Emitter {
+public interface JadeCompiler {
   void write(String st);
   void writePlain(String st);
   void writePlain(int value);

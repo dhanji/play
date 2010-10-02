@@ -55,6 +55,6 @@ public class CompilingInterpreter {
     FunctionDecl fn = unit.get("main");
     System.out.println(Parser.stringify(fn));
 
-    new CompilingInterpreter(new JavaEmitter("Default", unit).emit()).run();    
+    new CompilingInterpreter(new JadeJavassistCompiler("Default", unit).emit()).run();
   }
 }

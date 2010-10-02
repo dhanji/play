@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.Emitter;
+import barista.JadeCompiler;
 import barista.Parser;
 
 /**
@@ -40,17 +40,17 @@ public class Arglist extends Node {
   }
 
   @Override
-  public void emit(Emitter emitter) {
-    emitter.writePlain("(");
+  public void emit(JadeCompiler jadeCompiler) {
+    jadeCompiler.writePlain("(");
 
     for (int i = 0; i < children.size(); i++) {
       Node child = children.get(i);
-      child.emit(emitter);
+      child.emit(jadeCompiler);
 
       if (i < children.size() - 1)
-        emitter.writePlain(", ");
+        jadeCompiler.writePlain(", ");
     }
-    emitter.writePlain(")");
+    jadeCompiler.writePlain(")");
   }
 
   @Override

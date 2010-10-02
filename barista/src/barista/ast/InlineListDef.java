@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.Emitter;
+import barista.JadeCompiler;
 import barista.type.Scope;
 import barista.type.Type;
 import barista.type.Types;
@@ -21,7 +21,7 @@ public class InlineListDef extends Node {
   }
 
   @Override
-  public void emit(Emitter emitter) {
+  public void emit(JadeCompiler jadeCompiler) {
     // TODO when performing type inference.
     // The list type is the most general type derivable from all
     // elements in the list.
@@ -31,27 +31,27 @@ public class InlineListDef extends Node {
     if(children.isEmpty()) {
       bagType = Types.VOID;
     } else {
-      bagType = children.get(0).egressType(emitter.currentScope());
+      bagType = children.get(0).egressType(jadeCompiler.currentScope());
     }
 
-    emitter.writePlain(isSet ? "Sets" : "Lists");
-    emitter.writePlain(".of(new ");
-    emitter.writePlain(bagType.javaType());
-    emitter.writePlain("[] {");
+    jadeCompiler.writePlain(isSet ? "Sets" : "Lists");
+    jadeCompiler.writePlain(".of(new ");
+    jadeCompiler.writePlain(bagType.javaType());
+    jadeCompiler.writePlain("[] {");
 
     for (int i = 0; i < children.size(); i++) {
       Node child = children.get(i);
 
       // Type check children.
-      emitter.errors().check(bagType, child.egressType(emitter.currentScope()),
+      jadeCompiler.errors().check(bagType, child.egressType(jadeCompiler.currentScope()),
           isSet ? "set element" : "list element");
 
-      child.emit(emitter);
+      child.emit(jadeCompiler);
 
       if (i < children.size() - 1)
-        emitter.writePlain(", ");
+        jadeCompiler.writePlain(", ");
     }
-    emitter.writePlain("})");
+    jadeCompiler.writePlain("})");
   }
 
   @Override

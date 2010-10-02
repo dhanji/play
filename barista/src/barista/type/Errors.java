@@ -13,7 +13,11 @@ public class Errors {
 
   public void unknownSymbol(String var) {
     // TODO maybe a fuzzy match and suggest?
-    errors.add(new CompileError("Use of unknown symbol " + var));
+    errors.add(new CompileError("Unknown symbol " + var));
+  }
+
+  public void unknownFunction(String function) {
+    errors.add(new CompileError("Unknown function " + function));
   }
 
   public void check(Type expected, Type actual, String message) {

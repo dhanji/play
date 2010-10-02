@@ -11,9 +11,10 @@ import javassist.*;
 import java.util.*;
 
 /**
- * Java code emitter, takes a reduced AST and emits Java code.
+ * Jade compiler. Takes a reduced Jade AST, runs type analysis over it and then
+ * emits it as Java source code, which is then compiled to Java classes.
  */
-public class JavaEmitter implements Emitter {
+public class JadeJavassistCompiler implements JadeCompiler {
   private final Unit compilationUnit;
   private final String enclosingTypeName;
 
@@ -30,7 +31,7 @@ public class JavaEmitter implements Emitter {
 
   private Scope currentScope;
 
-  public JavaEmitter(String enclosingTypeName, Unit compilationUnit) {
+  public JadeJavassistCompiler(String enclosingTypeName, Unit compilationUnit) {
     this.compilationUnit = compilationUnit;
     this.enclosingTypeName = enclosingTypeName;
 
@@ -43,7 +44,7 @@ public class JavaEmitter implements Emitter {
     currentScope = new ModuleScope(errors); // module-level scope comes with some predefined types.
     
     try {
-      emitFunctions();
+      compileFunctions();
 
       if (errors.hasErrors()) {
         throw new RuntimeException(errors.toString());
@@ -66,6 +67,12 @@ public class JavaEmitter implements Emitter {
 
   public void declareIfNecessary(Variable var) {
     assert currentScope != null; // Scope should never be null in an expr.
+
+    // This variable has already been declared in this scope.
+    if (null != currentScope.getVariable(var.name)) {
+      return;
+    }
+
     if (!(declarations.get(var.name) instanceof Variable)) {
       declarations.put(var.name, var);
       declarationsEmitted.append(var.egressType(currentScope));
@@ -99,24 +106,33 @@ public class JavaEmitter implements Emitter {
     }
   }
 
-  private void emitFunctions() throws CannotCompileException {
+  private void compileFunctions() throws CannotCompileException {
     // Maybe replace this with a templating system like StringTemplate or MVEL.
 
     for (FunctionDecl func : compilationUnit.functions()) {
       // Main should always be emitted as we know its type and there should
       // only ever be one concrete instance of it.
-      if ("main".equals(func.name()))
-        emitSingleFunction(func, Types.VOID, Arrays.<Type>asList());
+      if ("main".equals(func.name())) {
+        // Infer main anyway, this helps trigger overload resolution for any called
+        // polymorphic functions.
+        compileConcreteFunction(func, Types.VOID, Arrays.<Type>asList());
+        continue;
+      }
+
+      // Don't bother emitting functions that are polymorphic. They will get witnessed
+      // and emitted from top-level concrete call paths.
+      if (!func.isPolymorphic()) 
+        compileConcreteFunction(func, func.inferType(currentScope), func.arguments().getTypes(currentScope));
       else
-        emitSingleFunction(func, null, null);
+        compilePolymorphicFunction(func);
     }
 
     // Emit witnessed overloads of encountered polymorphic functions.
     for (Scope.Witness witness : currentScope.getWitnesses()) {
-      emitSingleFunction(witness.functionDecl, witness.returnType, witness.argumentTypes);
+      compileConcreteFunction(witness.functionDecl, witness.returnType, witness.argumentTypes);
     }
 
-    // Now compile all the functions in one go for this module.
+    // Now Java-compile all the functions in one go for this module.
     System.out.println(functionsEmitted);
 
     // We need to first declare all the functions as abstract.
@@ -139,12 +155,8 @@ public class JavaEmitter implements Emitter {
     clazz.setModifiers(clazz.getModifiers() & ~Modifier.ABSTRACT);
   }
 
-  private void emitSingleFunction(FunctionDecl func, Type returnType, List<Type> argTypes) {
-    // Suppress the emission of this function if it is not a witnessed concrete overload.
-    boolean suppress = returnType == null;
-    if (suppress) {
-      returnType = Types.VOID;
-    }
+  private void compileConcreteFunction(FunctionDecl func, Type returnType, List<Type> argTypes) {
+    assert returnType != null;
 
     // Emit function signature first.
     out = new StringBuilder();
@@ -158,8 +170,7 @@ public class JavaEmitter implements Emitter {
     currentScope = new BasicScope(errors, currentScope);
 
     // emit function signature.
-    if (!suppress)
-      emitFunctionSignature(func, argTypes);
+    compileFunctionSignature(func, argTypes);
 
     // Bake signature of function, then move on to the body.
     String signature = out.toString();
@@ -206,14 +217,19 @@ public class JavaEmitter implements Emitter {
 
     // Load this newly minted function into the containing scope.
     currentScope.load(func);
+    functionsEmitted.add(new EmittedFunction(signature, out.toString()));
     
-    if (!suppress) {
-      functionsEmitted.add(new EmittedFunction(signature, out.toString()));
-    }
     out = null;
   }
 
-  private void emitFunctionSignature(FunctionDecl func, List<Type> argTypes) {
+  private void compilePolymorphicFunction(FunctionDecl func) {
+    // Load this newly found function into the containing scope for (import it).
+    currentScope.load(func);
+
+    out = null;
+  }
+
+  private void compileFunctionSignature(FunctionDecl func, List<Type> argTypes) {
     List<Node> args = func.arguments().children();
     for (int i = 0; i < args.size(); i++) {
       ArgDeclList.Argument declaredArg = (ArgDeclList.Argument) args.get(i);
@@ -224,7 +240,7 @@ public class JavaEmitter implements Emitter {
       // Load the argument as a variable into the current scope, binding
       // it to the argument type. This may be a Type variable rather than
       // a concrete type.
-      new Variable(declaredArg.name()).setEgressType(currentScope, argTypes.get(i));
+      new Variable(declaredArg.name()).setEgressType(currentScope, argTypes.get(i), true);
 
       if (i < args.size() - 1)
         writePlain(", ");
