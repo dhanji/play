@@ -6,12 +6,11 @@ import barista.type.Scope;
 import barista.type.Type;
 
 /**
- * Low level source emitting api.
+ * Low level binary emitting api.
  */
 public interface JadeCompiler {
   void write(String st);
-  void writePlain(String st);
-  void writePlain(int value);
+  void write(int value);
 
   void declareIfNecessary(Variable var);
   Scope currentScope();

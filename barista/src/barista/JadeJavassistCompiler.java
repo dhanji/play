@@ -56,12 +56,12 @@ public class JadeJavassistCompiler implements JadeCompiler {
   }
 
   // emits text at the current indentation level.
-  public void write(String st) {
+  private void writeIndented(String st) {
     out.append(indent);
     out.append(st);
   }
 
-  public void writePlain(String st) {
+  public void write(String st) {
     out.append(st);
   }
 
@@ -92,7 +92,7 @@ public class JadeJavassistCompiler implements JadeCompiler {
     return errors;
   }
 
-  public void writePlain(int value) {
+  public void write(int value) {
     out.append(value);
   }
 
@@ -109,30 +109,44 @@ public class JadeJavassistCompiler implements JadeCompiler {
   private void compileFunctions() throws CannotCompileException {
     // Maybe replace this with a templating system like StringTemplate or MVEL.
 
-    for (FunctionDecl func : compilationUnit.functions()) {
+    // Step 0: Attempt to infer types of polymorphic functions if possible. This may
+    // fail for some functions. But the idea is if we can cleverly quantify a function
+    // over a concrete type bound from its body alone, then we should do that to
+    // improve the type analysis.
+    for (FunctionDecl function : compilationUnit.functions()) {
+      // TODO(dhanji).
+      function.inferType(currentScope);
+    }
+
+    // Step 1: Go through and compile all concrete functions. This triggers code paths through
+    // polymorphic functions, binding them to types and thus making them concrete.
+    // Then in a second pass we compile these newly discovered concrete functions.
+    for (FunctionDecl function : compilationUnit.functions()) {
       // Main should always be emitted as we know its type and there should
       // only ever be one concrete instance of it.
-      if ("main".equals(func.name())) {
+      if ("main".equals(function.name())) {
         // Infer main anyway, this helps trigger overload resolution for any called
         // polymorphic functions.
-        compileConcreteFunction(func, Types.VOID, Arrays.<Type>asList());
+        compileConcreteFunction(function, Types.VOID, Arrays.<Type>asList());
         continue;
       }
 
       // Don't bother emitting functions that are polymorphic. They will get witnessed
       // and emitted from top-level concrete call paths.
-      if (!func.isPolymorphic()) 
-        compileConcreteFunction(func, func.inferType(currentScope), func.arguments().getTypes(currentScope));
+      if (!function.isPolymorphic())
+        compileConcreteFunction(function, function.inferType(currentScope),
+            function.arguments().getTypes(currentScope));
       else
-        compilePolymorphicFunction(func);
+        compilePolymorphicFunction(function);
     }
 
-    // Emit witnessed overloads of encountered polymorphic functions.
+    // Step 2: Compile witnessed overloads of encountered polymorphic functions. In other words,
+    // compile all the concrete, type-bound instances of polymorphic calls discovered.
     for (Scope.Witness witness : currentScope.getWitnesses()) {
       compileConcreteFunction(witness.functionDecl, witness.returnType, witness.argumentTypes);
     }
 
-    // Now Java-compile all the functions in one go for this module.
+    // Step 3: Now Java-compile all the functions in one go for this module.
     System.out.println(functionsEmitted);
 
     // We need to first declare all the functions as abstract.
@@ -160,11 +174,11 @@ public class JadeJavassistCompiler implements JadeCompiler {
 
     // Emit function signature first.
     out = new StringBuilder();
-    write("public ");
-    write(returnType.javaType());
-    writePlain(" ");
-    writePlain(func.name());
-    writePlain("(");
+    writeIndented("public ");
+    writeIndented(returnType.javaType());
+    write(" ");
+    write(func.name());
+    write("(");
 
     // Create a new lexical scope for every function.
     currentScope = new BasicScope(errors, currentScope);
@@ -185,10 +199,10 @@ public class JadeJavassistCompiler implements JadeCompiler {
       // TODO do some assertions after computing the egress type?
       Type egressType = node.egressType(currentScope);
 
-      write("");
+      writeIndented("");
       int lineIndex = out.length();
       node.emit(this);
-      write(";\n");
+      writeIndented(";\n");
 
       // If this is the last line, return whatever was on the stack.
       if (i == func.children().size() - 1) {
@@ -197,7 +211,7 @@ public class JadeJavassistCompiler implements JadeCompiler {
         // return. In the future we will want to use a sentinel that is
         // coercible into a Java type.
         if (Types.VOID.equals(egressType))
-          write("\n  return;\n");
+          writeIndented("\n  return;\n");
         else
           out.insert(lineIndex, "return ");
       }
@@ -210,7 +224,7 @@ public class JadeJavassistCompiler implements JadeCompiler {
     declarations = new HashMap<String, Node>();
 
     outdent();
-    write("}\n");
+    writeIndented("}\n");
 
     // pop function scope.
     currentScope = currentScope.parent();
@@ -225,17 +239,15 @@ public class JadeJavassistCompiler implements JadeCompiler {
   private void compilePolymorphicFunction(FunctionDecl func) {
     // Load this newly found function into the containing scope for (import it).
     currentScope.load(func);
-
-    out = null;
   }
 
   private void compileFunctionSignature(FunctionDecl func, List<Type> argTypes) {
     List<Node> args = func.arguments().children();
     for (int i = 0; i < args.size(); i++) {
       ArgDeclList.Argument declaredArg = (ArgDeclList.Argument) args.get(i);
-      writePlain(argTypes.get(i).javaType());
-      writePlain(" ");
-      writePlain(declaredArg.name());
+      write(argTypes.get(i).javaType());
+      write(" ");
+      write(declaredArg.name());
 
       // Load the argument as a variable into the current scope, binding
       // it to the argument type. This may be a Type variable rather than
@@ -243,9 +255,9 @@ public class JadeJavassistCompiler implements JadeCompiler {
       new Variable(declaredArg.name()).setEgressType(currentScope, argTypes.get(i), true);
 
       if (i < args.size() - 1)
-        writePlain(", ");
+        write(", ");
     }
-    writePlain(");\n");
+    write(");\n");
   }
 
   private static class EmittedFunction {

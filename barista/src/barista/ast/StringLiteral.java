@@ -23,9 +23,9 @@ public class StringLiteral extends Node {
 
   @Override
   public void emit(JadeCompiler jadeCompiler) {
-    jadeCompiler.writePlain("\"");
-    jadeCompiler.writePlain(name.substring(1, name.length() - 1));
-    jadeCompiler.writePlain("\"");
+    jadeCompiler.write("\"");
+    jadeCompiler.write(name.substring(1, name.length() - 1));
+    jadeCompiler.write("\"");
   }
 
   @Override

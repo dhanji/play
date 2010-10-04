@@ -36,7 +36,7 @@ public class Assignment extends Node {
   @Override
   public void emit(JadeCompiler jadeCompiler) {
     lhs().emit(jadeCompiler);
-    jadeCompiler.writePlain("=");
+    jadeCompiler.write("=");
     rhs().emit(jadeCompiler);
   }
 

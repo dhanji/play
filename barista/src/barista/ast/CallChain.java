@@ -16,7 +16,7 @@ public class CallChain extends Node {
 
       // Only write a dot if there are more links to chain.
       if (i < children.size() - 1) {
-        jadeCompiler.writePlain(".");
+        jadeCompiler.write(".");
       }
     }
   }

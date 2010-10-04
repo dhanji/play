@@ -34,10 +34,10 @@ public class InlineListDef extends Node {
       bagType = children.get(0).egressType(jadeCompiler.currentScope());
     }
 
-    jadeCompiler.writePlain(isSet ? "Sets" : "Lists");
-    jadeCompiler.writePlain(".of(new ");
-    jadeCompiler.writePlain(bagType.javaType());
-    jadeCompiler.writePlain("[] {");
+    jadeCompiler.write(isSet ? "Sets" : "Lists");
+    jadeCompiler.write(".of(new ");
+    jadeCompiler.write(bagType.javaType());
+    jadeCompiler.write("[] {");
 
     for (int i = 0; i < children.size(); i++) {
       Node child = children.get(i);
@@ -49,9 +49,9 @@ public class InlineListDef extends Node {
       child.emit(jadeCompiler);
 
       if (i < children.size() - 1)
-        jadeCompiler.writePlain(", ");
+        jadeCompiler.write(", ");
     }
-    jadeCompiler.writePlain("})");
+    jadeCompiler.write("})");
   }
 
   @Override

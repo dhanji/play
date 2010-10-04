@@ -52,7 +52,7 @@ public class Call extends Node {
 
   @Override
   public void emit(JadeCompiler jadeCompiler) {
-    jadeCompiler.writePlain(name);
+    jadeCompiler.write(name);
     if (isMethod) {
       args.emit(jadeCompiler);
     }

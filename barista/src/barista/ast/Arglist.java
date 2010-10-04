@@ -41,16 +41,16 @@ public class Arglist extends Node {
 
   @Override
   public void emit(JadeCompiler jadeCompiler) {
-    jadeCompiler.writePlain("(");
+    jadeCompiler.write("(");
 
     for (int i = 0; i < children.size(); i++) {
       Node child = children.get(i);
       child.emit(jadeCompiler);
 
       if (i < children.size() - 1)
-        jadeCompiler.writePlain(", ");
+        jadeCompiler.write(", ");
     }
-    jadeCompiler.writePlain(")");
+    jadeCompiler.write(")");
   }
 
   @Override

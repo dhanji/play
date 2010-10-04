@@ -23,9 +23,9 @@ public class BinaryOp extends Node {
 
   @Override
   public void emit(JadeCompiler jadeCompiler) {
-    jadeCompiler.writePlain(" ");
-    jadeCompiler.writePlain(operator.value);
-    jadeCompiler.writePlain(" ");
+    jadeCompiler.write(" ");
+    jadeCompiler.write(operator.value);
+    jadeCompiler.write(" ");
     
     children().get(0).emit(jadeCompiler);
   }

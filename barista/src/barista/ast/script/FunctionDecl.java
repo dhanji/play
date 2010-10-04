@@ -65,7 +65,7 @@ public class FunctionDecl extends Node {
 
   private Type inferType(Scope scope, List<Type> bound) {
     // Must go through all the child nodes and assign types to everything from
-    // the argument list. Something like the Hindley-Milner algorithm.
+    // the argument list.
 
 
     // Step 2: Traverse each statement and determine its egress type.

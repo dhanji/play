@@ -21,7 +21,7 @@ public class IntLiteral extends Node {
 
   @Override
   public void emit(JadeCompiler jadeCompiler) {
-    jadeCompiler.writePlain(value);
+    jadeCompiler.write(value);
   }
 
   @Override

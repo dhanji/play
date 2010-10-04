@@ -43,7 +43,7 @@ public class Variable extends Node {
     // Declare if necessary.
     jadeCompiler.declareIfNecessary(this);
 
-    jadeCompiler.writePlain(jadeCompiler.currentScope().resolveVariableName(name));
+    jadeCompiler.write(jadeCompiler.currentScope().resolveVariableName(name));
   }
 
   @Override

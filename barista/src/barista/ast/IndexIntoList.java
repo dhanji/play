@@ -60,22 +60,22 @@ public class IndexIntoList extends Node {
     }
 
     if (slice) {
-      jadeCompiler.writePlain("subList(");
+      jadeCompiler.write("subList(");
       if (null == from) {
-        jadeCompiler.writePlain("0");
+        jadeCompiler.write("0");
       } else {
         from.emit(jadeCompiler);
       }
-      jadeCompiler.writePlain(", ");
+      jadeCompiler.write(", ");
       if (null == to) {
       } else {
         to.emit(jadeCompiler);
       }
-      jadeCompiler.writePlain(")");
+      jadeCompiler.write(")");
     } else {
-      jadeCompiler.writePlain("get(");
+      jadeCompiler.write("get(");
       from.emit(jadeCompiler);
-      jadeCompiler.writePlain(")");
+      jadeCompiler.write(")");
     }
   }
 

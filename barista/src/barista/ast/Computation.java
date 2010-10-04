@@ -27,11 +27,11 @@ public class Computation extends Node {
 
   @Override
   public void emit(JadeCompiler jadeCompiler) {
-    jadeCompiler.writePlain("(");
+    jadeCompiler.write("(");
     for (Node child : children) {
       child.emit(jadeCompiler);
     }
-    jadeCompiler.writePlain(")");
+    jadeCompiler.write(")");
   }
 
   @Override

@@ -23,8 +23,8 @@ public class InlineMapDef extends Node {
 
   @Override
   public void emit(JadeCompiler jadeCompiler) {
-    jadeCompiler.writePlain(isTree ? "Trees" : "Maps");
-    jadeCompiler.writePlain(".of(");
+    jadeCompiler.write(isTree ? "Trees" : "Maps");
+    jadeCompiler.write(".of(");
 
     // The map parameter type is determined from the most general key type
     // and the most general value type. For now though we'll just use the
@@ -38,7 +38,7 @@ public class InlineMapDef extends Node {
       valueType = children.get(1).egressType(jadeCompiler.currentScope());
     }
 
-    jadeCompiler.writePlain("new Object[]{");
+    jadeCompiler.write("new Object[]{");
 
     for (int i = 0; i < children.size(); i += 2) {
       Node key = children.get(i);
@@ -50,18 +50,18 @@ public class InlineMapDef extends Node {
       // Account for primitives that need to be boxed.
       boolean shouldBox = Types.isPrimitive(keyType);
       if (shouldBox) {
-        jadeCompiler.writePlain("new ");
-        jadeCompiler.writePlain(Types.boxedTypeOf(keyType));
-        jadeCompiler.writePlain("(");
+        jadeCompiler.write("new ");
+        jadeCompiler.write(Types.boxedTypeOf(keyType));
+        jadeCompiler.write("(");
       }
 
       key.emit(jadeCompiler);
 
       if (shouldBox) {
-        jadeCompiler.writePlain(")");
+        jadeCompiler.write(")");
       }
 
-      jadeCompiler.writePlain(", ");
+      jadeCompiler.write(", ");
       
       Node value = children.get(i + 1);
       // Type check value.
@@ -71,22 +71,22 @@ public class InlineMapDef extends Node {
       // Account for primitives that need to be boxed.      
       shouldBox = Types.isPrimitive(valueType);
       if (shouldBox) {
-        jadeCompiler.writePlain("new ");
-        jadeCompiler.writePlain(Types.boxedTypeOf(valueType));
-        jadeCompiler.writePlain("(");
+        jadeCompiler.write("new ");
+        jadeCompiler.write(Types.boxedTypeOf(valueType));
+        jadeCompiler.write("(");
       }
 
       value.emit(jadeCompiler);
 
       if (shouldBox) {
-        jadeCompiler.writePlain(")");
+        jadeCompiler.write(")");
       }
 
       if (i < children.size() - 2)
-        jadeCompiler.writePlain(", ");
+        jadeCompiler.write(", ");
     }
 
-    jadeCompiler.writePlain("})");
+    jadeCompiler.write("})");
   }
 
   @Override
