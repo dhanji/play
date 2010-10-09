@@ -28,6 +28,7 @@ public class LoopJavassistCompiler implements LoopCompiler {
   private StringBuilder declarationsEmitted = new StringBuilder();
 
   private StringBuilder out;
+  private int marker;
 
   private Scope currentScope;
 
@@ -63,6 +64,14 @@ public class LoopJavassistCompiler implements LoopCompiler {
 
   public void write(String st) {
     out.append(st);
+  }
+
+  public void mark() {
+    this.marker = out.length();
+  }
+
+  public void writeAtMarker(String st) {
+    out.insert(marker, st);
   }
 
   public void declareIfNecessary(Variable var) {

@@ -51,9 +51,10 @@ public class CompilingInterpreter {
     Unit unit = new Parser(new Tokenizer(builder.toString()).tokenize()).script();
     unit.reduceAll();
 
-
-    FunctionDecl fn = unit.get("main");
-    System.out.println(Parser.stringify(fn));
+    for (FunctionDecl fn : unit.functions()) {
+      System.out.println(Parser.stringify(fn));
+    }
+    System.out.println();
 
     new CompilingInterpreter(new LoopJavassistCompiler("Default", unit).emit()).run();
   }

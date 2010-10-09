@@ -1,7 +1,7 @@
-# super simple gear tests
+# super simple loop tests
 
-inc: (x) ->
-  x[1]
+inc(x) ->
+  x + "hi"
 
-main: ->
-  print(inc([1, 2]))
+main ->
+  print(inc("a"))

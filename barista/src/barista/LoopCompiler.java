@@ -3,7 +3,6 @@ package barista;
 import barista.ast.Variable;
 import barista.type.Errors;
 import barista.type.Scope;
-import barista.type.Type;
 
 /**
  * Low level binary emitting api.
@@ -11,6 +10,9 @@ import barista.type.Type;
 public interface LoopCompiler {
   void write(String st);
   void write(int value);
+  void writeAtMarker(String st);
+
+  void mark();
 
   void declareIfNecessary(Variable var);
   Scope currentScope();

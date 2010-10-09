@@ -137,7 +137,7 @@ public class Parser {
    *                 (INDENT+ line EOL)*
    */
   private FunctionDecl functionDecl() {
-    List<Token> funcName = match(Token.Kind.IDENT, Token.Kind.ASSIGN);
+    List<Token> funcName = match(Token.Kind.IDENT);
 
     // Not a function
     if (null == funcName) {

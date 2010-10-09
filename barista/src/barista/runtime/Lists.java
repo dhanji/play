@@ -32,4 +32,8 @@ public class Lists {
 
     return list;
   }
+
+  public static int get(List<Integer> list, int index) {
+    return list.get(index);
+  }
 }

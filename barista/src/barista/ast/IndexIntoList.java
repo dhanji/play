@@ -87,9 +87,18 @@ public class IndexIntoList extends Node {
       }
       loopCompiler.write(")");
     } else {
-      loopCompiler.write("get(");
-      from.emit(loopCompiler);
-      loopCompiler.write(")");
+
+      // For wrapper types, we need to use special methods.
+      if (Types.isPrimitive(from.egressType(loopCompiler.currentScope()))) {
+        loopCompiler.writeAtMarker("Lists.get(");
+        loopCompiler.write(", ");
+        from.emit(loopCompiler);
+        loopCompiler.write(")");
+      } else {
+        loopCompiler.write("get(");
+        from.emit(loopCompiler);
+        loopCompiler.write(")");
+      }
     }
   }
 
