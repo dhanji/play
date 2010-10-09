@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.JadeCompiler;
+import barista.LoopCompiler;
 import barista.Parser;
 import barista.type.Scope;
 import barista.type.Type;
@@ -34,10 +34,10 @@ public class Assignment extends Node {
   }
 
   @Override
-  public void emit(JadeCompiler jadeCompiler) {
-    lhs().emit(jadeCompiler);
-    jadeCompiler.write("=");
-    rhs().emit(jadeCompiler);
+  public void emit(LoopCompiler loopCompiler) {
+    lhs().emit(loopCompiler);
+    loopCompiler.write("=");
+    rhs().emit(loopCompiler);
   }
 
   private Node lhs() {

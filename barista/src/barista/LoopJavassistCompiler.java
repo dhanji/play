@@ -14,7 +14,7 @@ import java.util.*;
  * Jade compiler. Takes a reduced Jade AST, runs type analysis over it and then
  * emits it as Java source code, which is then compiled to Java classes.
  */
-public class JadeJavassistCompiler implements JadeCompiler {
+public class LoopJavassistCompiler implements LoopCompiler {
   private final Unit compilationUnit;
   private final String enclosingTypeName;
 
@@ -31,7 +31,7 @@ public class JadeJavassistCompiler implements JadeCompiler {
 
   private Scope currentScope;
 
-  public JadeJavassistCompiler(String enclosingTypeName, Unit compilationUnit) {
+  public LoopJavassistCompiler(String enclosingTypeName, Unit compilationUnit) {
     this.compilationUnit = compilationUnit;
     this.enclosingTypeName = enclosingTypeName;
 
@@ -115,7 +115,7 @@ public class JadeJavassistCompiler implements JadeCompiler {
     // improve the type analysis.
     for (FunctionDecl function : compilationUnit.functions()) {
       // TODO(dhanji).
-      function.inferType(currentScope);
+//      function.inferType(currentScope);
     }
 
     // Step 1: Go through and compile all concrete functions. This triggers code paths through
@@ -131,17 +131,16 @@ public class JadeJavassistCompiler implements JadeCompiler {
         continue;
       }
 
-      // Don't bother emitting functions that are polymorphic. They will get witnessed
-      // and emitted from top-level concrete call paths.
-      if (!function.isPolymorphic())
+      // Don't bother inferring types for functions that are polymorphic. They will
+      // get witnessed and resolved from concrete call paths.
+      if (function.isPolymorphic())
+        compilePolymorphicFunction(function);
+      else
         compileConcreteFunction(function, function.inferType(currentScope),
             function.arguments().getTypes(currentScope));
-      else
-        compilePolymorphicFunction(function);
     }
 
-    // Step 2: Compile witnessed overloads of encountered polymorphic functions. In other words,
-    // compile all the concrete, type-bound instances of polymorphic calls discovered.
+    // Step 2: Compile witnessed overloads of encountered polymorphic functions.
     for (Scope.Witness witness : currentScope.getWitnesses()) {
       compileConcreteFunction(witness.functionDecl, witness.returnType, witness.argumentTypes);
     }
@@ -149,7 +148,7 @@ public class JadeJavassistCompiler implements JadeCompiler {
     // Step 3: Now Java-compile all the functions in one go for this module.
     System.out.println(functionsEmitted);
 
-    // We need to first declare all the functions as abstract.
+    // We need to first declare all the functions with abstract signatures.
     for (EmittedFunction emittedFunction : functionsEmitted) {
       try {
         emittedFunction.method = CtNewMethod.make(emittedFunction.signature, clazz);
@@ -213,6 +212,8 @@ public class JadeJavassistCompiler implements JadeCompiler {
         if (Types.VOID.equals(egressType))
           writeIndented("\n  return;\n");
         else
+          // HACK(dhanji): Workaround for lack of generic type support.
+          // Simply cast everything into the appropriate return type.
           out.insert(lineIndex, "return ");
       }
     }

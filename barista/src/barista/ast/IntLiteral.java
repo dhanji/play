@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.JadeCompiler;
+import barista.LoopCompiler;
 import barista.type.Scope;
 import barista.type.Type;
 import barista.type.Types;
@@ -20,8 +20,8 @@ public class IntLiteral extends Node {
   }
 
   @Override
-  public void emit(JadeCompiler jadeCompiler) {
-    jadeCompiler.write(value);
+  public void emit(LoopCompiler loopCompiler) {
+    loopCompiler.write(value);
   }
 
   @Override

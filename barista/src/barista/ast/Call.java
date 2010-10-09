@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.JadeCompiler;
+import barista.LoopCompiler;
 import barista.Parser;
 import barista.ast.script.FunctionDecl;
 import barista.type.Scope;
@@ -51,10 +51,10 @@ public class Call extends Node {
   }
 
   @Override
-  public void emit(JadeCompiler jadeCompiler) {
-    jadeCompiler.write(name);
+  public void emit(LoopCompiler loopCompiler) {
+    loopCompiler.write(name);
     if (isMethod) {
-      args.emit(jadeCompiler);
+      args.emit(loopCompiler);
     }
   }
 

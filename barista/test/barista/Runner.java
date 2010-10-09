@@ -5,6 +5,6 @@ package barista;
  */
 public class Runner {
   public static void main(String...args) {
-    CompilingInterpreter.execute("test/barista/scripts/math_test.jade");
+    CompilingInterpreter.execute("test/barista/scripts/math_test.loop");
   }
 }

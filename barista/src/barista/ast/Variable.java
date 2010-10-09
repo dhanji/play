@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.JadeCompiler;
+import barista.LoopCompiler;
 import barista.type.Scope;
 import barista.type.Type;
 import barista.type.Types;
@@ -39,11 +39,11 @@ public class Variable extends Node {
   }
 
   @Override
-  public void emit(JadeCompiler jadeCompiler) {
+  public void emit(LoopCompiler loopCompiler) {
     // Declare if necessary.
-    jadeCompiler.declareIfNecessary(this);
+    loopCompiler.declareIfNecessary(this);
 
-    jadeCompiler.write(jadeCompiler.currentScope().resolveVariableName(name));
+    loopCompiler.write(loopCompiler.currentScope().resolveVariableName(name));
   }
 
   @Override

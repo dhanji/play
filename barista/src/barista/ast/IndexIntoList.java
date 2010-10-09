@@ -1,7 +1,10 @@
 package barista.ast;
 
-import barista.JadeCompiler;
+import barista.LoopCompiler;
 import barista.Parser;
+import barista.type.Scope;
+import barista.type.Type;
+import barista.type.Types;
 
 /**
  * An array dereference. Can also be an array slice. For example:
@@ -53,29 +56,40 @@ public class IndexIntoList extends Node {
   }
 
   @Override
-  public void emit(JadeCompiler jadeCompiler) {
+  public Type egressType(Scope scope) {
+    // Bit hacky but it's the type of any of the items in the list.
+    // or type list if this is a range selection
+    if (slice) {
+      return Types.LIST;
+    }
+
+    return from.egressType(scope);
+  }
+
+  @Override
+  public void emit(LoopCompiler loopCompiler) {
     if (null == from && null == to) {
-      jadeCompiler.errors().generic("Invalid list index range specified");
+      loopCompiler.errors().generic("Invalid list index range specified");
       return;
     }
 
     if (slice) {
-      jadeCompiler.write("subList(");
+      loopCompiler.write("subList(");
       if (null == from) {
-        jadeCompiler.write("0");
+        loopCompiler.write("0");
       } else {
-        from.emit(jadeCompiler);
+        from.emit(loopCompiler);
       }
-      jadeCompiler.write(", ");
+      loopCompiler.write(", ");
       if (null == to) {
       } else {
-        to.emit(jadeCompiler);
+        to.emit(loopCompiler);
       }
-      jadeCompiler.write(")");
+      loopCompiler.write(")");
     } else {
-      jadeCompiler.write("get(");
-      from.emit(jadeCompiler);
-      jadeCompiler.write(")");
+      loopCompiler.write("get(");
+      from.emit(loopCompiler);
+      loopCompiler.write(")");
     }
   }
 

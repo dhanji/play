@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.JadeCompiler;
+import barista.LoopCompiler;
 import barista.type.Scope;
 import barista.type.Type;
 
@@ -31,7 +31,7 @@ public abstract class Node {
     throw new UnsupportedOperationException("Not implemented in " + getClass().getSimpleName());
   }
 
-  public void emit(JadeCompiler jadeCompiler) {
+  public void emit(LoopCompiler loopCompiler) {
     throw new UnsupportedOperationException("Not implemented in " + getClass().getSimpleName());
   }
 

@@ -18,6 +18,6 @@ public class EmitterTest {
     FunctionDecl fn = unit.get("main");
     System.out.println(Parser.stringify(fn));
 
-    new CompilingInterpreter(new JadeJavassistCompiler("Default", unit).emit()).run();
+    new CompilingInterpreter(new LoopJavassistCompiler("Default", unit).emit()).run();
   }
 }

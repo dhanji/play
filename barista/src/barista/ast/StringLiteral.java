@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.JadeCompiler;
+import barista.LoopCompiler;
 import barista.type.Scope;
 import barista.type.Type;
 import barista.type.Types;
@@ -22,10 +22,10 @@ public class StringLiteral extends Node {
   }
 
   @Override
-  public void emit(JadeCompiler jadeCompiler) {
-    jadeCompiler.write("\"");
-    jadeCompiler.write(name.substring(1, name.length() - 1));
-    jadeCompiler.write("\"");
+  public void emit(LoopCompiler loopCompiler) {
+    loopCompiler.write("\"");
+    loopCompiler.write(name.substring(1, name.length() - 1));
+    loopCompiler.write("\"");
   }
 
   @Override

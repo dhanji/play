@@ -3,17 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="34e2b102-fc06-4154-96f0-71593f8eb244" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/ast/Arglist.java" afterPath="$PROJECT_DIR$/src/barista/ast/Arglist.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/JadeJavassistCompiler.java" afterPath="$PROJECT_DIR$/src/barista/JadeJavassistCompiler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/LoopJavassistCompiler.java" afterPath="$PROJECT_DIR$/src/barista/LoopJavassistCompiler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/ast/IntLiteral.java" afterPath="$PROJECT_DIR$/src/barista/ast/IntLiteral.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/ast/Computation.java" afterPath="$PROJECT_DIR$/src/barista/ast/Computation.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/ast/BinaryOp.java" afterPath="$PROJECT_DIR$/src/barista/ast/BinaryOp.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/ast/CallChain.java" afterPath="$PROJECT_DIR$/src/barista/ast/CallChain.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/ast/InlineListDef.java" afterPath="$PROJECT_DIR$/src/barista/ast/InlineListDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/LoopCompiler.java" afterPath="$PROJECT_DIR$/src/barista/LoopCompiler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/ast/script/FunctionDecl.java" afterPath="$PROJECT_DIR$/src/barista/ast/script/FunctionDecl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/JadeCompiler.java" afterPath="$PROJECT_DIR$/src/barista/JadeCompiler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/barista/scripts/math_test.jade" afterPath="$PROJECT_DIR$/test/barista/scripts/math_test.jade" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/ast/IndexIntoList.java" afterPath="$PROJECT_DIR$/src/barista/ast/IndexIntoList.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/barista/scripts/math_test.loop" afterPath="$PROJECT_DIR$/test/barista/scripts/math_test.loop" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/ast/InlineMapDef.java" afterPath="$PROJECT_DIR$/src/barista/ast/InlineMapDef.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/ast/Variable.java" afterPath="$PROJECT_DIR$/src/barista/ast/Variable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/barista/ast/Call.java" afterPath="$PROJECT_DIR$/src/barista/ast/Call.java" />
@@ -38,7 +38,7 @@
   </component>
   <component name="DebuggerManager">
     <line_breakpoints>
-      <breakpoint url="file://$PROJECT_DIR$/src/barista/ast/Variable.java" line="35" class="barista.ast.Variable" package="barista.ast">
+      <breakpoint url="file://$PROJECT_DIR$/src/barista/LoopJavassistCompiler.java" line="248" class="barista.GearJavassistCompiler" package="barista">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -99,8 +99,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="exception_breakpoints_groupByClasses" value="true" />
+      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -109,35 +109,7 @@
   </component>
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="JadeJavassistCompiler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/barista/JadeJavassistCompiler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="117" column="23" selection-start="3433" selection-end="3433" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FunctionDecl.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/barista/ast/script/FunctionDecl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="50" selection-start="1120" selection-end="1120" vertical-scroll-proportion="0.42444822">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="math_test.jade" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/barista/scripts/math_test.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="0" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -151,22 +123,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/barista/ast/InlineMapDef.java" />
-        <option value="$PROJECT_DIR$/src/barista/ast/Computation.java" />
-        <option value="$PROJECT_DIR$/src/barista/type/Scope.java" />
-        <option value="$PROJECT_DIR$/src/barista/type/Types.java" />
-        <option value="$PROJECT_DIR$/src/barista/ast/script/ArgDeclList.java" />
-        <option value="$PROJECT_DIR$/src/barista/ast/Assignment.java" />
-        <option value="$PROJECT_DIR$/src/barista/type/BasicScope.java" />
-        <option value="$PROJECT_DIR$/src/barista/ast/Variable.java" />
-        <option value="$PROJECT_DIR$/src/barista/type/Errors.java" />
         <option value="$PROJECT_DIR$/src/barista/ast/Call.java" />
         <option value="$PROJECT_DIR$/src/barista/JavaEmitter.java" />
         <option value="$PROJECT_DIR$/src/barista/JavaCompiler.java" />
         <option value="$PROJECT_DIR$/src/barista/JadeCompiler.java" />
-        <option value="$PROJECT_DIR$/test/barista/scripts/math_test.jade" />
-        <option value="$PROJECT_DIR$/src/barista/JadeJavassistCompiler.java" />
         <option value="$PROJECT_DIR$/src/barista/ast/script/FunctionDecl.java" />
+        <option value="$PROJECT_DIR$/src/barista/JadeJavassistCompiler.java" />
+        <option value="$PROJECT_DIR$/example_class.jade" />
+        <option value="$PROJECT_DIR$/test/barista/scripts/math_test.jade" />
+        <option value="$PROJECT_DIR$/src/barista/HaloJavassistCompiler.java" />
+        <option value="$PROJECT_DIR$/src/barista/GearJavassistCompiler.java" />
+        <option value="$PROJECT_DIR$/test/barista/scripts/math_test.gear" />
+        <option value="$PROJECT_DIR$/src/barista/ast/CallChain.java" />
+        <option value="$PROJECT_DIR$/src/barista/ast/IndexIntoList.java" />
+        <option value="$PROJECT_DIR$/src/barista/type/Types.java" />
+        <option value="$PROJECT_DIR$/test/barista/scripts/math_test.loop" />
+        <option value="$PROJECT_DIR$/src/barista/LoopJavassistCompiler.java" />
       </list>
     </option>
   </component>
@@ -208,8 +180,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Favorites" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -346,7 +318,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Favorites" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -364,9 +336,9 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -822,24 +794,24 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="10" y="22" width="2540" height="1327" extended-state="0" />
+    <frame x="0" y="22" width="1280" height="687" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32896304" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32627866" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3738977" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32974318" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32896304" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23964256" sideWeight="0.77954143" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13448414" sideWeight="0.7845899" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29826015" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20961061" sideWeight="0.99873257" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20811288" sideWeight="0.99355876" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32725766" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32974318" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -882,41 +854,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/barista/type/Types.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="64" selection-start="326" selection-end="326" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/ast/Arglist.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="18" selection-start="665" selection-end="665" vertical-scroll-proportion="0.4117647" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/type/ModuleScope.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="21" selection-start="530" selection-end="530" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/ast/script/ArgDeclList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="19" selection-start="639" selection-end="639" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/ast/Assignment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="63" selection-start="839" selection-end="839" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/type/BasicScope.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="31" selection-start="1906" selection-end="1906" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/type/Scope.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="7" selection-start="249" selection-end="249" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/barista/ast/Computation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="0" selection-start="480" selection-end="480" vertical-scroll-proportion="0.0" />
@@ -932,35 +869,94 @@
         <state line="45" column="0" selection-start="1370" selection-end="1370" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/type/Errors.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="14" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/ast/Variable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="0" selection-start="861" selection-end="861" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/JadeCompiler.java">
+    <entry file="file://$PROJECT_DIR$/src/barista/LoopCompiler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="19" selection-start="152" selection-end="152" vertical-scroll-proportion="0.09803922" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/barista/JadeJavassistCompiler.java">
+    <entry file="file://$PROJECT_DIR$/example_class.jade">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="117" column="23" selection-start="3433" selection-end="3433" vertical-scroll-proportion="0.0" />
+        <state line="8" column="23" selection-start="143" selection-end="143" vertical-scroll-proportion="0.11320755" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/barista/scripts/math_test.jade">
+    <entry file="file://$PROJECT_DIR$/src/barista/ast/script/ArgDeclList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0" />
+        <state line="24" column="19" selection-start="639" selection-end="639" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/ast/Variable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="0" selection-start="787" selection-end="787" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/barista/ast/script/FunctionDecl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="50" selection-start="1120" selection-end="1120" vertical-scroll-proportion="0.42444822">
+        <state line="74" column="33" selection-start="2365" selection-end="2365" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/type/BasicScope.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="97" column="14" selection-start="2509" selection-end="2509" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/type/Scope.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="7" selection-start="500" selection-end="500" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="480" column="27" selection-start="11539" selection-end="11539" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/ast/IndexIntoList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="2" selection-start="1069" selection-end="1069" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/ast/CallChain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="64" selection-start="401" selection-end="401" vertical-scroll-proportion="0.34866828">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/barista/scripts/math_test.loop">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="5" selection-start="44" selection-end="44" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/type/Types.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="61" selection-start="253" selection-end="253" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/barista/LoopJavassistCompiler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="212" column="7" selection-start="7141" selection-end="7141" vertical-scroll-proportion="0.52230483">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

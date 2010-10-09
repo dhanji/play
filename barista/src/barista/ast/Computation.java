@@ -1,6 +1,6 @@
 package barista.ast;
 
-import barista.JadeCompiler;
+import barista.LoopCompiler;
 import barista.type.Scope;
 import barista.type.Type;
 
@@ -26,12 +26,12 @@ public class Computation extends Node {
   }
 
   @Override
-  public void emit(JadeCompiler jadeCompiler) {
-    jadeCompiler.write("(");
+  public void emit(LoopCompiler loopCompiler) {
+    loopCompiler.write("(");
     for (Node child : children) {
-      child.emit(jadeCompiler);
+      child.emit(loopCompiler);
     }
-    jadeCompiler.write(")");
+    loopCompiler.write(")");
   }
 
   @Override
