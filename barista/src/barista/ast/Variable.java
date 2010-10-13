@@ -1,7 +1,7 @@
 package barista.ast;
 
 import barista.LoopCompiler;
-import barista.type.Scope;
+import barista.compile.Scope;
 import barista.type.Type;
 import barista.type.Types;
 
@@ -38,12 +38,8 @@ public class Variable extends Node {
     return type;
   }
 
-  @Override
-  public void emit(LoopCompiler loopCompiler) {
-    // Declare if necessary.
-    loopCompiler.declareIfNecessary(this);
-
-    loopCompiler.write(loopCompiler.currentScope().resolveVariableName(name));
+  public Type getType() {
+    return type;
   }
 
   @Override

@@ -1,7 +1,7 @@
 # super simple loop tests
 
-inc(x) ->
-  x + "hi"
+add(x: Integer) ->
+  x + 1
 
 main ->
-  print(inc("a"))
+  print(add(1))

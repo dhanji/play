@@ -1,10 +1,10 @@
 package barista.ast.script;
 
 import barista.Parser;
-import barista.ast.Arglist;
+import barista.ast.CallArguments;
 import barista.ast.Node;
 import barista.ast.Variable;
-import barista.type.Scope;
+import barista.compile.Scope;
 import barista.type.Type;
 import barista.type.Types;
 
@@ -18,6 +18,19 @@ public class FunctionDecl extends Node {
   private final String name;
   private final ArgDeclList arguments;
 
+  private Type returnType;
+  private List<Type> argumentTypes;
+
+  // Memo field.
+  private Type inferredType;
+
+  /**
+   * Flag that forces this function to be treated as non-polymorphic. Used
+   * when the compiler is smart enough to tell the type of a function without
+   * call-site quantification.
+   */
+  private boolean forceConcrete = false;
+
   public FunctionDecl(String name, ArgDeclList arguments) {
     this.name = name;
     this.arguments = arguments == null ? new ArgDeclList() : arguments;
@@ -27,11 +40,32 @@ public class FunctionDecl extends Node {
     return name;
   }
 
+  public Type getReturnType() {
+    return returnType;
+  }
+
+  public List<Type> getArgumentTypes() {
+    return argumentTypes;
+  }
+
   /**
    * Simple type inference algorithm, uses egress type of expression block to
    * determine the function type, given type-bound arguments.
    */
-  public Type inferType(Scope scope, Arglist args) {
+  public Type inferType(Scope scope, CallArguments args) {
+    if (inferredType != null)
+      return inferredType;
+
+    // Step 0: Make sure we are type compliant with the given arg list.
+    List<Type> argumentTypes = arguments().getTypes(scope);
+    if (argumentTypes != null) {
+      for (int i = 0; i < argumentTypes.size(); i++) {
+        scope.errors().check(argumentTypes.get(i), args.children().get(i).egressType(scope),
+            "argument");
+      }
+
+      return null;
+    }
 
     // Step 1: Bind all given arguments are in current scope as local vars.
 
@@ -54,11 +88,13 @@ public class FunctionDecl extends Node {
   }
 
   /**
-   * Same as {@link #inferType(barista.type.Scope, barista.ast.Arglist)} except that
+   * Same as {@link #inferType(barista.compile.Scope , barista.ast.CallArguments)} except that
    * it attempts to work out the argument types universally for this function. In other
    * words, it assumes that this is not a polymorphic function.
    */
   public Type inferType(Scope scope) {
+    if (inferredType != null)
+      return inferredType;
     // arguments().getTypes() should never be null if the function is concrete.
     return inferType(scope, arguments().getTypes(scope));
   }
@@ -66,7 +102,6 @@ public class FunctionDecl extends Node {
   private Type inferType(Scope scope, List<Type> bound) {
     // Must go through all the child nodes and assign types to everything from
     // the argument list.
-
 
     // Step 2: Traverse each statement and determine its egress type.
     // This binds any further unbound symbols with inferred types.
@@ -82,7 +117,46 @@ public class FunctionDecl extends Node {
 
     // Step 4: Witness this solution so that the specific signature can be emitted
     // as a Java overload.
-    scope.witness(this, bound, inferred);
+    if (!forceConcrete)
+      scope.witness(this, bound, inferred);
+
+    return inferredType = inferred;
+  }
+
+  public Type attemptInferType(Scope scope) {
+    // Must go through all the child nodes and assign types to everything from
+    // the argument list.
+
+    // This is a blind inference attempt with no bound arg types.
+    List<Type> bound = new ArrayList<Type>(arguments().children().size());
+
+    // Step 2: Traverse each statement and determine its egress type.
+    // This binds any further unbound symbols with inferred types.
+    Type inferred = null;
+    for (Node statement : children) {
+      inferred = statement.egressType(scope);
+    }
+
+    // Step 3: Solve the return type of this function by taking the last statement's
+    // egress type. Otherwise the function had an empty body.
+    if (null == inferred)
+      inferred = Types.VOID;
+
+    // Step 3.5: If this is an attempt to infer a type on a function with no bound
+    // argument types, try to see if all arguments are satisfied.
+    for (Node node : arguments().children()) {
+      ArgDeclList.Argument argument = (ArgDeclList.Argument)node;
+      Type type = scope.getInferredArgumentType(argument.name());
+
+      if (type == null) {
+        // Type inference failed.
+        return inferred;
+      }
+
+      bound.add(type);
+    }
+    forceConcrete = true;
+    arguments().setTypes(bound);
 
     return inferred;
   }
@@ -92,6 +166,9 @@ public class FunctionDecl extends Node {
   }
 
   public boolean isPolymorphic() {
+    if (forceConcrete) {
+      return false;
+    }
     for (Node node : arguments.children()) {
       ArgDeclList.Argument argument = (ArgDeclList.Argument) node;
 

@@ -1,9 +1,8 @@
 package barista.ast.script;
 
 import barista.ast.Node;
-import barista.type.Scope;
+import barista.compile.Scope;
 import barista.type.Type;
-import barista.type.Types;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ public class ArgDeclList extends Node {
       return types;
     }
 
-    types = new ArrayList<Type>(children.size());
+    List<Type> types = new ArrayList<Type>(children.size());
     for (Node child : children) {
       Argument argument = (Argument) child;
 
@@ -38,7 +37,14 @@ public class ArgDeclList extends Node {
       types.add(scope.getType(argument.type()));
     }
 
-    return types;
+    return this.types = types;
+  }
+
+  public void setTypes(List<Type> types) {
+    if (this.types != null) {
+      throw new IllegalStateException("Cannot set types on a concrete arg list");
+    }
+    this.types = types;
   }
 
   public static class Argument extends Node {

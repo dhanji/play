@@ -1,0 +1,314 @@
+/*@import url(vignette.css);*/
+
+body {
+  font: 0.75em "Verdana", Helvetica, sans-serif;
+
+  background: #111;
+  /*background:*/
+   /*-webkit-gradient(*/
+      /*linear,*/
+      /*left top,*/
+      /*left bottom,*/
+      /*color-stop(0.0, #323232),*/
+      /*color-stop(0.7, #232323),*/
+      /*color-stop(1.0, #232323)*/
+  /*);*/
+  background-image: url('../static/carbon1.png');
+  color: white;
+  overflow: hidden;
+}
+
+#topbar {
+
+}
+
+#user {
+  float: right;
+  color: #ccc;
+  padding-right: 8px;
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: none;
+}
+
+ul li {
+  padding-bottom: 2px;
+}
+
+#left {
+  float: left;
+  width: 15%;
+  height: 100%;
+}
+
+#middle {
+  float: left;
+  width: 50%;
+  height: 100%;
+  /*background: #ddddd5; //999690*/
+  background:
+   -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(0.0, #ddddd5),
+      color-stop(0.7, #999690)
+  );
+
+  -webkit-box-shadow: 0 1px 18px #000;
+}
+
+#right {
+  width: 2%;
+  float: left;
+  padding-left: 20px;
+}
+
+.topbar {
+  float: right;
+  font-weight: bold;
+}
+
+#feed-spacer {
+  text-align: center;
+}
+
+#feed-spacer img {
+}
+
+.heading {
+  font-family: "Century Gothic", sans-serif;
+  font-size: 1.4em;
+  text-align: center;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 6px 0;
+}
+
+.heading span {
+  color: #ffa500;
+}
+
+/** Tweet **/
+
+.authorline {
+  padding: 0 0 6px 0;
+  color: #777;
+}
+
+.authorline a {
+  text-decoration: none;
+  color: #777;
+}
+
+.authorline a:hover {
+  text-decoration: underline;
+  color: #898989;
+}
+
+.metaline {
+  font-size: 0.8em;
+  color: #555;
+  padding: 4px 0 2px 0;
+}
+
+.message-container {
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.message-container img.avatar {
+  float: left;
+
+  margin: 12px 28px 0 14px;
+  width: 48px;
+  height: 48px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border: 3px solid #555;
+}
+
+.message-border {
+  float: left;
+  width: 82%;
+  margin-bottom: 6px;
+  border: 1px solid #444;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  background: #111;
+  opacity: 0.6;
+
+  -webkit-box-shadow: 2px 2px 4px #000;
+}
+
+.message-border-hover {
+  background: #111 !important;  
+}
+
+.message {
+  margin-bottom: 10px;
+  font: 1.1em Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  cursor: hand;
+  
+  padding: 12px;
+
+  color: #999;
+  /*-webkit-border-radius: 12px;*/
+  /*-moz-border-radius: 12px;*/
+  opacity: 1.0 !important;
+
+  /*background:*/
+     /*-webkit-gradient(*/
+        /*linear,*/
+        /*left top,*/
+        /*left bottom,*/
+        /*color-stop(0.0, rgba(255, 255, 255, 0.05)),*/
+        /*color-stop(0.5, rgba(255, 255, 255, 0))*/
+    /*);*/
+  /*-webkit-box-shadow: 1px 1px 4px #111;*/
+
+  background:
+   -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(0.0, #FFF),
+      color-stop(0.58, #FEFEFE),
+      color-stop(0.8, #EDEDED),
+      color-stop(1.0, #DFDFDF)
+  );
+  /** TODO:gradient for safari4/chrome**/
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: 1px 1px 3px #666;
+}
+
+
+div.tweet {
+  overflow: hidden;
+  padding: 6px;
+  width: 570px;
+  margin: 16px 0px;
+  background:
+   -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(0.0, #FFF),
+      color-stop(0.58, #FEFEFE),
+      color-stop(0.8, #EDEDED),
+      color-stop(1.0, #DFDFDF)
+  );
+  /** TODO:gradient for safari4/chrome**/
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: 1px 1px 3px #666;
+}
+
+.message .time {
+  float: right;
+  font-size: 0.8em;
+  color: #777;
+}
+
+/** links to stuff in text */
+.message a.sitelink {
+  color: #777; 
+}
+
+.message a.sitelink:hover {
+  color: #ff972c;
+}
+
+.message .picture {
+  width: 250px;
+  margin: 10px auto;
+  padding: 6px;
+  -webkit-border-radius: 6px;
+  -webkit-box-shadow: 1px 1px 3px #000;
+
+  background:
+   -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(0.0, #FFF),
+      color-stop(0.58, #FEFEFE),
+      color-stop(0.8, #EDEDED),
+      color-stop(1.0, #DFDFDF)
+  );
+}
+
+.message .picture img {
+  width: 248px;
+  height: 160px;
+  border: 1px solid #777;
+}
+
+.message .picture img:hover {
+  opacity: 0.85;
+}
+
+/** Popover for replies/detail view **/
+#popover {
+  display: none;
+  position: relative;
+  background: white;
+  width: 424px;
+  top: 18px;
+
+  -webkit-border-radius: 14px;
+  -webkit-box-shadow: 3px 3px 6px #000;
+  background:
+     -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.0, #cecece),
+        color-stop(0.65, #fefefe),
+        color-stop(1.0, #fefefe)
+    );
+}
+
+#popover .title {
+  margin: 24px 28px;
+  padding-top: 22px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #444;
+  text-shadow: 1px 1px 1px #ccc;
+}
+
+#popover .content {
+  padding-bottom: 8px;
+}
+
+#popover .reply:first-child {
+  border-top: none;
+  padding: 0;
+}
+
+#popover .reply {
+  font-size: 0.95em;
+  color: #707070;
+
+  margin: 24px 28px;
+  padding-top: 18px;
+  border-top: 1px dashed #d3d3d3;
+}
+
+#popover .reply .authorline {
+  padding-bottom: 12px;
+  color: #707070;
+  text-shadow: 1px 1px 1px #bbb;
+}
+
+#popover .reply a {
+  color: #88a3f1;
+}
+
+#popover .reply .time {
+  font-size: 0.8em;
+  float: right;
+  color: #aaa;
+}

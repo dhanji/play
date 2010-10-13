@@ -2,6 +2,7 @@ package barista;
 
 import barista.ast.script.FunctionDecl;
 import barista.ast.script.Unit;
+import barista.compile.LoopJavassistCompiler;
 
 /**
  * Tests emitting a reduced AST to Java source code.
@@ -18,6 +19,6 @@ public class EmitterTest {
     FunctionDecl fn = unit.get("main");
     System.out.println(Parser.stringify(fn));
 
-    new CompilingInterpreter(new LoopJavassistCompiler("Default", unit).emit()).run();
+    new CompilingInterpreter(new LoopJavassistCompiler("Default", unit).compile()).run();
   }
 }

@@ -501,7 +501,7 @@ public class Parser {
     }
 
     // If args exist, then we should turn this simple term into a free method call.
-    Arglist args = arglist();
+    CallArguments args = arglist();
     if (null != args && node instanceof Variable) {
       node = new Call(((Variable)node).name, true, args);
     }
@@ -520,7 +520,7 @@ public class Parser {
   /**
    * arglist := LPAREN (computation (COMMA computation)*)? RPAREN
    */
-  private Arglist arglist() {
+  private CallArguments arglist() {
     // Test if there is a leading paren.
     List<Token> parenthetical = match(Token.Kind.LPAREN);
 
@@ -532,22 +532,22 @@ public class Parser {
     boolean isPositional = true;
 
     // Slurp arguments while commas exist.
-    Arglist arglist = null;
+    CallArguments callArguments = null;
     if (isParenthetical) {
 
       // See if this may be a named-arg invocation.
       List<Token> named = match(Token.Kind.IDENT, Token.Kind.ASSIGN);
       isPositional = (null == named);
 
-      arglist = new Arglist(isPositional);
+      callArguments = new CallArguments(isPositional);
       Node arg = computation();
       if (null != arg) {
 
         // If this is a named arg, wrap it in a name.
         if (isPositional) {
-          arglist.add(arg);
+          callArguments.add(arg);
         } else {
-          arglist.add(new Arglist.NamedArg(named.get(0).value, arg));
+          callArguments.add(new CallArguments.NamedArg(named.get(0).value, arg));
         }
       }
     }
@@ -568,9 +568,9 @@ public class Parser {
       }
 
       if (isPositional) {
-        arglist.add(arg);
+        callArguments.add(arg);
       } else {
-        arglist.add(new Arglist.NamedArg(named.get(0).value, arg));
+        callArguments.add(new CallArguments.NamedArg(named.get(0).value, arg));
       }
     }
 
@@ -579,7 +579,7 @@ public class Parser {
       throw new RuntimeException("Expected ')' at end of argument list");
     }
 
-    return arglist;
+    return callArguments;
   }
 
   /**
@@ -722,10 +722,10 @@ public class Parser {
       return null;
     }
 
-    Arglist arglist = arglist();
+    CallArguments callArguments = arglist();
 
     // Use the ident as name, and it is a method if there are () at end.
-    return new Call(call.get(1).value, null != arglist, arglist);
+    return new Call(call.get(1).value, null != callArguments, callArguments);
   }
 
   /**

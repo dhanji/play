@@ -1,7 +1,9 @@
-package barista.type;
+package barista.compile;
 
 import barista.ast.Variable;
 import barista.ast.script.FunctionDecl;
+import barista.type.Errors;
+import barista.type.Type;
 
 import java.util.*;
 
@@ -9,14 +11,14 @@ import java.util.*;
  * A symbol scope, of a lexical scoping model.
  */
 public class BasicScope implements Scope {
-  private final Map<String, Variable> variables = new HashMap<String, Variable>();
+  private final Map<String, LocalVar> variables = new LinkedHashMap<String, LocalVar>();
+
   private final Map<String, FunctionDecl> functions = new HashMap<String, FunctionDecl>();
   private final Map<String, Type> types = new HashMap<String, Type>();
 
   private final Map<String, String> variablesToArgumentNames = new HashMap<String, String>();
-
+  private final Map<String, Type> argumentsToTypes = new HashMap<String, Type>();
   private final List<Witness> witnesses = new ArrayList<Witness>();
-
   private final Errors errors;
 
   private Scope parent;
@@ -26,19 +28,27 @@ public class BasicScope implements Scope {
     this.parent = parent;
   }
 
-  public void load(Variable v, boolean isArgument) {
-    variables.put(v.name, v);
-    if (isArgument) {
-      variablesToArgumentNames.put(v.name, "$" + (variablesToArgumentNames.size() + 1));
-    }
-  }
-
   public void load(FunctionDecl func) {
     functions.put(func.name(), func);
   }
 
   public void load(Type type) {
     types.put(type.name(), type);
+  }
+
+  public void declareArgument(String name, Type type) {
+    // Arguments are named $1, $2, $3, etc. (Javassist argument bindings)
+    variables.put(name, new LocalVar(name, type, "$" + variables.size()));
+  }
+
+  // Maybe declare.
+  public void maybeDeclare(Variable var) {
+    // TODO assert that the type is not being re-bound.
+    variables.put(var.name, new LocalVar(var.name, var.getType()));
+  }
+
+  public Collection<LocalVar> getVariables() {
+    return variables.values();
   }
 
   public Variable getVariable(String name) {
@@ -72,7 +82,20 @@ public class BasicScope implements Scope {
     return type;
   }
 
-  public String resolveVariableName(String name) {
+  public void witnessArgument(String name, Type type) {
+    if (!variablesToArgumentNames.containsKey(name)) {
+      // Ignore this for now...
+//      errors.generic("Attempted witness of variable that doesn't exist in this scope, " + name);
+    } else {
+      argumentsToTypes.put(name, type);
+    }
+  }
+
+  public Type getInferredArgumentType(String name) {
+    return argumentsToTypes.get(name);
+  }
+
+  public LocalVar getLocalVariable(String name) {
     String altName = variablesToArgumentNames.get(name);
 
     return null == altName ? name : altName;

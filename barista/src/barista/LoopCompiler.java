@@ -1,8 +1,8 @@
 package barista;
 
 import barista.ast.Variable;
+import barista.compile.Scope;
 import barista.type.Errors;
-import barista.type.Scope;
 
 /**
  * Low level binary emitting api.

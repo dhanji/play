@@ -2,6 +2,7 @@ package barista;
 
 import barista.ast.script.FunctionDecl;
 import barista.ast.script.Unit;
+import barista.compile.LoopJavassistCompiler;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -56,6 +57,6 @@ public class CompilingInterpreter {
     }
     System.out.println();
 
-    new CompilingInterpreter(new LoopJavassistCompiler("Default", unit).emit()).run();
+    new CompilingInterpreter(new LoopJavassistCompiler("Default", unit).compile()).run();
   }
 }

@@ -1,0 +1,48 @@
+/* First we set the four elements of our vignette
+ to be on top no matter what and set their initial
+ width and height which we'll overwrite in the next declarations.
+ */
+ #vig-top, #vig-bottom, #vig-left, #vig-right{
+ height: 100%;
+ position: absolute;
+ z-index: 999;
+ width: 100%;
+ }
+ 
+ /* Overwriting the default 100% */
+ #vig-top, #vig-bottom{
+ height: 0.5%; }
+ 
+ #vig-left, #vig-right{
+ opacity: 0.5;
+ width: 0.3%; }
+ 
+ /* We set the gradient with CSS3 from a solid gray to
+ a 100% transparent color which should be the same as
+ the body background color, to have a nice, clean falloff.
+ And we're also setting the position of the vignette elements.
+ */
+ #vig-top{
+ background-image: -moz-linear-gradient(100% 100% 90deg, rgba(255, 255, 255, 0), #e1e1e1 );
+ background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#000), to(#222));
+ -webkit-box-shadow: 0 12px 60px #000;
+ top: 0; }
+
+ #vig-bottom{
+ background-image: -moz-linear-gradient(100% 100% 90deg, #e1e1e1, rgba(255, 255, 255, 0) );
+ background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222), to(#000));
+ -webkit-box-shadow: 0 -12px 60px #000;
+
+ bottom: 0; }
+
+ #vig-left{
+ background-image: -moz-linear-gradient(100% 100% 180deg, rgba(255, 255, 255, 0), #e1e1e1 );
+ /*background-image: -webkit-gradient(linear, left center, right center, from(#e1e1e1), to(rgba(255, 255, 255, 0)));*/
+ -webkit-box-shadow: 12px 0 60px #000;
+ left: 0; }
+
+ #vig-right{
+ background-image: -moz-linear-gradient(100% 100% 180deg, #e1e1e1, rgba(255, 255, 255, 0) );
+ /*background-image: -webkit-gradient(linear, right center, left center, from(#e1e1e1), to(rgba(255, 255, 255, 0)));*/
+ -webkit-box-shadow: -12px 0 60px #000;
+ right: 0; }

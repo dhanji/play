@@ -1,7 +1,7 @@
 package barista.ast;
 
 import barista.LoopCompiler;
-import barista.type.Scope;
+import barista.compile.Scope;
 import barista.type.Type;
 import barista.type.Types;
 

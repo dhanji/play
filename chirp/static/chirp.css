@@ -1,0 +1,294 @@
+/*@import url(vignette.css);*/
+
+body {
+  font: 0.75em "Verdana", Helvetica, sans-serif;
+  margin: 0;
+  background: #444;
+  /*background:*/
+   /*-webkit-gradient(*/
+      /*linear,*/
+      /*left top,*/
+      /*left bottom,*/
+      /*color-stop(0.0, #323232),*/
+      /*color-stop(0.7, #232323),*/
+      /*color-stop(1.0, #232323)*/
+  /*);*/
+  /*background-image: url('../static/carbon1.png');*/
+  color: white;
+  overflow: hidden;
+}
+
+#topbar {
+  margin: 0;
+  float: right;
+  font-weight: bold;
+}
+
+#user {
+  float: right;
+  color: #ccc;
+  padding-right: 8px;
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: none;
+}
+
+ul li {
+  padding-bottom: 2px;
+}
+
+#left {
+  float: left;
+  width: 15%;
+  height: 100%;
+  /*background: #508fe5;3272c8*/
+
+  background: #444;
+}
+
+#menu {}
+
+#menu ul {
+  margin-left: 18px;
+  margin-top: 20px;
+  font-size: 1.2em;
+  text-shadow: 1px 1px 1px #000;
+}
+
+#logo {
+  margin: 6px 0 0 54px;
+  font-family: "Cochin", "Georgia", serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: #ddd;
+  text-shadow: 1px 1px 1px #000;
+}
+
+/* highlighted bit */
+#logo span {
+  color: #999999;
+}
+
+#middle {
+  margin: 0;
+  float: left;
+  width: 44%;
+  height: 100%;
+    
+  background: #aaa;
+
+  -webkit-box-shadow: 0 1px 18px #000;
+
+}
+
+#right {
+  width: 2%;
+  float: left;
+  padding-left: 20px;
+}
+
+#feed-spacer {
+  text-align: center;
+}
+
+#feed-spacer img {
+}
+
+.heading {
+  font-family: "Century Gothic", sans-serif;
+  font-size: 1.4em;
+  text-align: center;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 6px 0;
+}
+
+.heading span {
+  color: #ffa500;
+}
+
+/** Tweet **/
+
+.authorline {
+  padding: 0 0 6px 0;
+  color: #777;
+}
+
+.authorline a {
+  text-decoration: none;
+  color: #777;
+}
+
+.authorline a:hover {
+  text-decoration: underline;
+  color: #88a3f1;
+}
+
+.metaline {
+  font-size: 0.8em;
+  color: #555;
+  padding: 4px 0 2px 0;
+}
+
+.message-container {
+  overflow: hidden;
+  border-top: 1px solid #666;
+  background: #222;
+
+  cursor: pointer;
+  cursor: hand;
+}
+
+.message-container .hilite {
+  /*border-top: 1px solid #eee;*/
+}
+
+.message-container img.avatar {
+  float: left;
+
+  margin: 12px 44px 0 36px;
+  width: 48px;
+  height: 48px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border: 3px solid #555;
+}
+
+.message-border-hover {
+  /*background: #8e9bef !important;  */
+}
+
+.message {
+  width: 92%;
+  margin: 0 auto 10px auto;
+  font: 1.1em Arial, Helvetica, sans-serif;
+
+  padding: 12px;
+
+  color: #999;
+  opacity: 1.0 !important;
+
+  /*background:*/
+   /*-webkit-gradient(*/
+      /*linear,*/
+      /*left top,*/
+      /*left bottom,*/
+      /*color-stop(0.0, #FFF),*/
+      /*color-stop(0.58, #FEFEFE),*/
+      /*color-stop(0.8, #EDEDED),*/
+      /*color-stop(1.0, #DFDFDF)*/
+  /*);*/
+  /** TODO:gradient for safari4/chrome**/
+  /*-webkit-border-radius: 4px;*/
+  /*-webkit-box-shadow: 1px 1px 4px #000;*/
+}
+
+.message .time {
+  float: right;
+  font-size: 0.8em;
+  color: #777;
+}
+
+/** links to stuff in text */
+.message a.sitelink {
+  color: #777; 
+}
+
+.message a.sitelink:hover {
+  color: #88a3f1;
+}
+
+.message .picture {
+  width: 250px;
+  margin: 10px auto;
+  padding: 6px;
+  -webkit-border-radius: 6px;
+  -webkit-box-shadow: 1px 1px 3px #000;
+
+  background:
+   -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(0.0, #FFF),
+      color-stop(0.58, #FEFEFE),
+      color-stop(0.8, #EDEDED),
+      color-stop(1.0, #DFDFDF)
+  );
+}
+
+.message .picture img {
+  width: 248px;
+  height: 160px;
+  border: 1px solid #777;
+}
+
+.message .picture img:hover {
+  opacity: 0.85;
+}
+
+/** Popover for replies/detail view **/
+#popover {
+  display: none;
+  position: relative;
+  background: white;
+  width: 524px;
+  top: 18px;
+  left: 12px;
+  color: #ddd;
+
+  -webkit-border-radius: 14px;
+  -webkit-box-shadow: 3px 3px 6px #000;
+  background:
+     -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.0, #292929),
+        color-stop(0.65, #222),
+        color-stop(1.0, #111)
+    );
+}
+
+#popover .title {
+  margin: 24px 28px;
+  padding-top: 22px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #bbb;
+  text-shadow: 1px 1px 1px #333;
+}
+
+#popover .content {
+  padding-bottom: 8px;
+}
+
+#popover .reply:first-child {
+  border-top: none;
+  padding: 0;
+}
+
+#popover .reply {
+  font-size: 0.95em;
+  color: #777;
+
+  margin: 24px 28px;
+  padding-top: 18px;
+  border-top: 1px dashed #838383;
+}
+
+#popover .reply .authorline {
+  padding-bottom: 12px;
+  color: #909090;
+}
+
+#popover .reply a {
+  color: #88a3f1;
+}
+
+#popover .reply .time {
+  font-size: 0.8em;
+  float: right;
+  color: #aaa;
+}

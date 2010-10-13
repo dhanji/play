@@ -1,6 +1,5 @@
 package barista.ast;
 
-import barista.LoopCompiler;
 import barista.Parser;
 
 /**
@@ -13,10 +12,10 @@ import barista.Parser;
  *
  * (arg0: x, arg1: x + 1, arg2: [1..3])
  */
-public class Arglist extends Node {
+public class CallArguments extends Node {
   private final boolean positional;
 
-  public Arglist(boolean positional) {
+  public CallArguments(boolean positional) {
     this.positional = positional;
   }
 
@@ -37,20 +36,6 @@ public class Arglist extends Node {
     public String toSymbol() {
       return name + ": " + Parser.stringify(arg);
     }
-  }
-
-  @Override
-  public void emit(LoopCompiler loopCompiler) {
-    loopCompiler.write("(");
-
-    for (int i = 0; i < children.size(); i++) {
-      Node child = children.get(i);
-      child.emit(loopCompiler);
-
-      if (i < children.size() - 1)
-        loopCompiler.write(", ");
-    }
-    loopCompiler.write(")");
   }
 
   @Override

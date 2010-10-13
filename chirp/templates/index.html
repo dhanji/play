@@ -1,0 +1,74 @@
+$def with (chirp)
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>$chirp.title | nano</title>
+    <link href="../static/chirp.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="../static/jquery-1.4.1.min.js"></script>
+    <script type="text/javascript" src="../static/chirp.js"></script>
+</head>
+<body>
+
+<div id="topbar"><div id="user">@dhanji</div></div>
+
+<div id="left">
+    <div id="logo">nan<span>o</span></div>
+    <div id="menu">
+        <ul>
+            <li>home</li>
+            <li>mentions</li>
+            <li>direct</li>
+            <li>faves</li>
+        </ul>
+    </div>
+</div>
+
+<div id="middle">
+    <div id="feed-spacer"><img src="../static/repeat.png" alt="Refresh current timeline"></div>
+
+$for tweet in chirp.tweets:
+    <div class="message-container"><div class="hilite">
+        <img class="avatar" src="$tweet.user.profile_image_url" alt="Avatar">
+        <div class="message">
+            <div class="authorline">@<a href="#">$tweet.user.screen_name</a>
+                <div class="time">$tweet.created_at</div>
+            </div>
+            $:tweet.text <a class="sitelink" href="#">A Link</a>
+            <!--div class="picture">
+                <img src="../static/breaky.jpg">
+            </div-->
+            <div class="metaline">via Tweetie</div>
+        </div>
+    </div></div>
+
+</div>
+
+<div id="right">
+
+    <!-- a conversation popup -->
+    <div id="popover">
+        <div class="title">Replies</div>
+        <div class="content">
+            <div class="reply">
+                <div class="time">7 days ago</div>
+                <div class="authorline">Mic Neale</div>
+                Holy cow that was a big meal. Of cow. so I guess I have a holy tummy now!
+                <a href="#">http://bit.ly/holytimmy</a>
+            </div>
+            <div class="reply">
+                <div class="time">7 days ago</div>
+                <div class="authorline">Slic Neale</div>
+                Holy cow that was lorem ipsum dieum. Of cow. so I guess I have a holy tummy now!
+                <a href="#">http://bit.ly/howcow</a>
+            </div>
+            <div class="reply">
+                <div class="time">7 days ago</div>
+                <div class="authorline">Slic Neale</div>
+                Holy cow that was lorem ipsum dieum. Of cow. so I guess I have a holy tummy now!
+                <a href="#">http://bit.ly/howcow</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

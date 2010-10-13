@@ -1,8 +1,11 @@
-package barista.type;
+package barista.compile;
 
 import barista.ast.Variable;
 import barista.ast.script.FunctionDecl;
+import barista.type.Errors;
+import barista.type.Type;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -11,7 +14,7 @@ import java.util.List;
  * @author dhanji@gmail.com (Dhanji R. Prasanna)
  */
 public interface Scope {
-  void load(Variable v, boolean argument);
+  void declareArgument(String name, Type type);
 
   void load(FunctionDecl func);
 
@@ -27,12 +30,25 @@ public interface Scope {
 
   Errors errors();
 
-  void witness(FunctionDecl functionDecl, List<Type> bound, Type inferred);
 
+  void witness(FunctionDecl functionDecl, List<Type> bound, Type inferred);
 
   List<BasicScope.Witness> getWitnesses();
 
-  String resolveVariableName(String name);
+  LocalVar getLocalVariable(String name);
+
+  /**
+   * Binds the given argument variable to a concrete type.
+   * @param name The name of an argument to the current function
+   * @param type The concrete type to bind the given argument to
+   */
+  void witnessArgument(String name, Type type);
+
+  Type getInferredArgumentType(String name);
+
+  Collection<LocalVar> getVariables();
+
+  void maybeDeclare(Variable var);
 
   class Witness {
     public final FunctionDecl functionDecl;

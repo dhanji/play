@@ -1,9 +1,10 @@
-package barista.type;
+package barista.compile;
 
 import barista.ast.script.ArgDeclList;
 import barista.ast.script.FunctionDecl;
-
-import java.util.Collection;
+import barista.compile.BasicScope;
+import barista.type.Errors;
+import barista.type.Types;
 
 /**
  * A lexical scope meant specifically for use at the module level (akin to

@@ -1,8 +1,7 @@
 package barista.ast;
 
-import barista.LoopCompiler;
 import barista.Token;
-import barista.type.Scope;
+import barista.compile.Scope;
 import barista.type.Type;
 
 /**
@@ -19,15 +18,6 @@ public class BinaryOp extends Node {
   public Type egressType(Scope scope) {
     // Binary ops only have one child.
     return children.get(0).egressType(scope);
-  }
-
-  @Override
-  public void emit(LoopCompiler loopCompiler) {
-    loopCompiler.write(" ");
-    loopCompiler.write(operator.value);
-    loopCompiler.write(" ");
-    
-    children().get(0).emit(loopCompiler);
   }
 
   @Override

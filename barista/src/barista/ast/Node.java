@@ -1,7 +1,7 @@
 package barista.ast;
 
 import barista.LoopCompiler;
-import barista.type.Scope;
+import barista.compile.Scope;
 import barista.type.Type;
 
 import java.util.ArrayList;
@@ -23,6 +23,11 @@ public abstract class Node {
 
   public List<Node> children() {
     return children;
+  }
+
+  public Node onlyChild() {
+    assert children.size() == 1;
+    return children.get(0);
   }
 
   public abstract String toSymbol();
