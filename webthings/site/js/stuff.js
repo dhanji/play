@@ -16,7 +16,7 @@ jQuery.fn.flip = function(data, fn, flipFn) {
       fn();
     }
   });
-}
+};
 
 // The main entry point
 $(document).ready(function() {
