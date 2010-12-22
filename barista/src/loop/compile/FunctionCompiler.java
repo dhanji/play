@@ -28,6 +28,7 @@ class FunctionCompiler {
   CompiledFunction compileConcreteFunction(FunctionDecl func) {
     // Infer the return type of this function.
     // ...
+    func.attemptInferType(containingScope);
 
     // Create a new lexical scope for every function.
     Scope scope = new BasicScope(errors, containingScope);

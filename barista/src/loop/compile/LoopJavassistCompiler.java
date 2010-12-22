@@ -1,15 +1,20 @@
 package loop.compile;
 
+import javassist.CannotCompileException;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.Modifier;
 import loop.LoopCompiler;
 import loop.ast.Node;
-import loop.ast.Variable;
 import loop.ast.script.ArgDeclList;
 import loop.ast.script.FunctionDecl;
 import loop.ast.script.Unit;
-import loop.type.*;
-import javassist.*;
+import loop.type.Errors;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Jade compiler. Takes a reduced Jade AST, runs type analysis over it and then
@@ -111,7 +116,7 @@ public class LoopJavassistCompiler implements LoopCompiler {
       for (Node node : function.arguments().children()) {
         ArgDeclList.Argument arg = (ArgDeclList.Argument)node;
 
-        scope.load(new Variable(arg.name()), true);
+//        scope.declareArgument(arg.name(), Types.arg.type());
       }
 
       function.attemptInferType(scope);
@@ -128,7 +133,7 @@ public class LoopJavassistCompiler implements LoopCompiler {
       if (isMain(function)) {
         // Infer main anyway, this helps trigger overload resolution for any called
         // polymorphic functions.
-        compileConcreteFunction(function, Types.VOID, Arrays.<Type>asList());
+        new FunctionCompiler(errors, currentScope).compileConcreteFunction(function);
         continue;
       }
 
@@ -143,7 +148,7 @@ public class LoopJavassistCompiler implements LoopCompiler {
 
     // Step 2: Compile witnessed overloads of encountered polymorphic functions.
     for (Scope.Witness witness : currentScope.getWitnesses()) {
-      compileConcreteFunction(witness.functionDecl, witness.returnType, witness.argumentTypes);
+      new FunctionCompiler(errors, currentScope).compileConcreteFunction(witness.functionDecl);
     }
 
     // Step 3: Now Java-compile all the functions in one go for this module.

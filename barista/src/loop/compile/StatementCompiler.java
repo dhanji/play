@@ -1,7 +1,6 @@
 package loop.compile;
 
 import loop.ast.*;
-import loop.type.Types;
 
 import java.util.List;
 
@@ -83,12 +82,12 @@ class StatementCompiler {
       if (null == from) {
         out.append("0");
       } else {
-        from.emit(loopCompiler);
+        compile(from);
       }
       out.append(", ");
       if (null == to) {
       } else {
-        to.emit(loopCompiler);
+        compile(to);
       }
       out.append(")");
 

@@ -1,5 +1,6 @@
 package loop.ast;
 
+import loop.compile.LocalVar;
 import loop.compile.Scope;
 import loop.type.Type;
 import loop.type.Types;
@@ -17,7 +18,7 @@ public class Variable extends Node {
   }
 
   public void setEgressType(Scope scope, Type type, boolean isArgument) {
-    scope.load(this, isArgument);
+//    scope.load(this, isArgument);
 
     this.type = type;
     this.value = type.defaultValue();
@@ -25,12 +26,12 @@ public class Variable extends Node {
 
   @Override
   public Type egressType(Scope scope) {
-    Variable variable = scope.getVariable(name);
+    LocalVar variable = scope.getLocalVariable(name);
 
     // If this variable is already declared in this scope,
     // then use its type.
     if (variable != null) {
-      this.type = variable.type;
+      this.type = variable.getType();
     } else {
       scope.errors().unknownSymbol(name);
     }

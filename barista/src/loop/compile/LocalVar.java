@@ -6,7 +6,7 @@ import loop.type.Type;
  * Value object representing the declaration of a local variable
  * and some metadata about it.
  */
-class LocalVar {
+public class LocalVar {
   private final String name;
   private final Type type;
   private final boolean isArgument;

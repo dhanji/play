@@ -14,7 +14,6 @@ public interface LoopCompiler {
 
   void mark();
 
-  void declareIfNecessary(Variable var);
   Scope currentScope();
 
   Errors errors();

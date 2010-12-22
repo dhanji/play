@@ -41,7 +41,7 @@ public class FunctionDecl extends Node {
   }
 
   public Type getReturnType() {
-    return returnType;
+    return inferredType;
   }
 
   public List<Type> getArgumentTypes() {
@@ -150,15 +150,16 @@ public class FunctionDecl extends Node {
 
       if (type == null) {
         // Type inference failed.
-        return inferred;
+        return inferredType = inferred;
       }
 
       bound.add(type);
     }
     forceConcrete = true;
     arguments().setTypes(bound);
+    argumentTypes = bound;
 
-    return inferred;
+    return inferredType = inferred;
   }
 
   public ArgDeclList arguments() {

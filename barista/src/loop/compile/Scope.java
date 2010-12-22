@@ -20,8 +20,6 @@ public interface Scope {
 
   void load(Type type);
 
-  Variable getVariable(String name);
-
   FunctionDecl getFunction(String name);
 
   Type getType(String name);
@@ -29,7 +27,6 @@ public interface Scope {
   Scope parent();
 
   Errors errors();
-
 
   void witness(FunctionDecl functionDecl, List<Type> bound, Type inferred);
 
