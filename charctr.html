@@ -1,0 +1,15 @@
+<html>
+
+<script type="text/javascript">
+function change() {
+  var count = document.getElementById("txt").value.length();
+  alert(count);
+  document.getElementById("count").innerHTML = count;
+}
+</script>
+<body>
+
+<textarea onkeypress="change()" id="txt"></textarea>
+<p>
+<span id="count">0</span>
+</body>
